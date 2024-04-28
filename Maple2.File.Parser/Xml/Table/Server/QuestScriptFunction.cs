@@ -4,14 +4,14 @@ using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.Table.Server;
 
-// ./data/server/table/Server/npcScriptFunction_Final.xml
+// ./data/server/table/Server/QuestScriptFunction_Final.xml
 [XmlRoot("ms2")]
-public partial class NpcScriptFunctionRoot {
-    [M2dFeatureLocale(Selector = "npcID|scriptID")] private IList<NpcScriptFunction> _function;
+public partial class QuestScriptFunctionRoot {
+    [M2dFeatureLocale(Selector = "questID|scriptID")] private IList<QuestScriptFunction> _function;
 }
 
-public partial class NpcScriptFunction : IFeatureLocale {
-    [XmlAttribute] public int npcID;
+public partial class QuestScriptFunction : IFeatureLocale {
+    [XmlAttribute] public int questID;
     [XmlAttribute] public int scriptID;
     [XmlAttribute] public int functionID;
     [XmlAttribute] public bool endFunction;

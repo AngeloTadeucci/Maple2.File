@@ -15,6 +15,15 @@ public class ServerTableParserTest {
     }
 
     [TestMethod]
+    public void TestQuestScriptCondition() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseQuestScriptCondition()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
     public void TestNpcScriptFunction() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
@@ -22,6 +31,34 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestQuestScriptFunction() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseQuestScriptFunction()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestJobConditionTable() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseJobConditionTable()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestScriptEventCondition() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseScriptEventCondition()) {
+            continue;
+        }
+    }
+
 
     [TestMethod]
     public void TestUserStats() {
@@ -85,6 +122,60 @@ public class ServerTableParserTest {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
         foreach ((_, _) in parser.ParseInstanceField()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestShopGameInfo() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopGameInfo()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestShopGame() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopGame()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestShopBeauty() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopBeauty()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestShopBeautySpecialHair() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopBeautySpecialHair()) {
+            continue;
+        }
+    }
+    
+    [TestMethod]
+    public void TestBonusGame() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _, _) in parser.ParseBonusGame()) {
+            continue;
+        }
+    }
+    
+    [TestMethod]
+    public void TestBonusGameDrop() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _, _) in parser.ParseBonusGameDrop()) {
             continue;
         }
     }

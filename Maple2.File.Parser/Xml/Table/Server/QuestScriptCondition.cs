@@ -4,14 +4,14 @@ using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.Table.Server;
 
-// ./data/server/table/Server/npcScriptCondition_Final.xml
+// ./data/server/table/Server/QuestScriptCondition_Final.xml
 [XmlRoot("ms2")]
-public partial class NpcScriptConditionRoot {
-    [M2dFeatureLocale(Selector = "npcID|scriptID")] private IList<NpcScriptCondition> _condition;
+public partial class QuestScriptConditionRoot {
+    [M2dFeatureLocale(Selector = "questID|scriptID")] private IList<QuestScriptCondition> _condition;
 }
 
-public partial class NpcScriptCondition : IFeatureLocale {
-    [XmlAttribute] public int npcID;
+public partial class QuestScriptCondition : IFeatureLocale {
+    [XmlAttribute] public int questID;
     [XmlAttribute] public int scriptID;
     [XmlAttribute] public int maid_auth;
     [XmlAttribute] public string maid_ready_to_pay;
