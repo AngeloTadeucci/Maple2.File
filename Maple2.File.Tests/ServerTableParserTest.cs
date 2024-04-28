@@ -13,12 +13,69 @@ public class ServerTableParserTest {
             continue;
         }
     }
-    
+
     [TestMethod]
     public void TestNpcScriptFunction() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
         foreach ((_, _) in parser.ParseNpcScriptFunction()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestUserStats() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseUserStat1()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat10()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat20()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat30()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat40()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat50()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat60()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat70()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat80()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat90()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat100()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat110()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseUserStat999()) {
             continue;
         }
     }
