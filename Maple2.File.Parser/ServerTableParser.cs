@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Maple2.File.IO;
@@ -26,23 +27,23 @@ public class ServerTableParser {
         // };
     }
 
-    public IEnumerable<(int NpcId, int ScriptID, NpcScriptCondition ScriptCondition)> ParseNpcScriptCondition() {
+    public IEnumerable<(int NpcId, IDictionary<int, NpcScriptCondition> ScriptConditions)> ParseNpcScriptCondition() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/npcScriptCondition_Final.xml"));
         var data = npcScriptConditionSerializer.Deserialize(reader) as NpcScriptConditionRoot;
         Debug.Assert(data != null);
 
-        foreach (NpcScriptCondition scriptCondition in data.condition) {
-            yield return (scriptCondition.npcID, scriptCondition.scriptID, scriptCondition);
+        foreach (IGrouping<int, NpcScriptCondition> group in data.condition.GroupBy(scriptCondition => scriptCondition.npcID)) {
+            yield return (group.Key, group.ToDictionary(scriptCondition => scriptCondition.scriptID));
         }
     }
-    
-    public IEnumerable<(int NpcId, int ScriptId, NpcScriptFunction ScriptFunction)> ParseNpcScriptFunction() {
+
+    public IEnumerable<(int NpcId, IDictionary<int, NpcScriptFunction> ScriptFunctions)> ParseNpcScriptFunction() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/npcScriptFunction_Final.xml"));
         var data = npcScriptFunctionSerializer.Deserialize(reader) as NpcScriptFunctionRoot;
         Debug.Assert(data != null);
 
-        foreach (NpcScriptFunction scriptFunction in data.function) {
-            yield return (scriptFunction.npcID, scriptFunction.scriptID, scriptFunction);
+        foreach (IGrouping<int, NpcScriptFunction> group in data.function.GroupBy(scriptFunction => scriptFunction.npcID)) {
+            yield return (group.Key, group.ToDictionary(scriptFunction => scriptFunction.scriptID));
         }
     }
 }

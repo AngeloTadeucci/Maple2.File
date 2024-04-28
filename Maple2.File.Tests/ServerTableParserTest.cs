@@ -9,7 +9,7 @@ public class ServerTableParserTest {
     public void TestNpcScriptCondition() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        foreach ((_, _, _) in parser.ParseNpcScriptCondition()) {
+        foreach ((_, _) in parser.ParseNpcScriptCondition()) {
             continue;
         }
     }
@@ -18,7 +18,7 @@ public class ServerTableParserTest {
     public void TestNpcScriptFunction() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        foreach ((int _, _, _) in parser.ParseNpcScriptFunction()) {
+        foreach ((_, _) in parser.ParseNpcScriptFunction()) {
             continue;
         }
     }
