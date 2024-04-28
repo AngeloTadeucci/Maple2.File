@@ -8,6 +8,7 @@ namespace Maple2.File.Tests;
 public static class TestUtils {
     private const string m2dPath = @"C:\Nexon\Library\Library\maplestory2\appdata\Data";
     public static readonly M2dReader XmlReader;
+    public static readonly M2dReader ServerReader;
     public static readonly M2dReader ExportedReader;
     public static readonly M2dReader AssetMetadataReader;
 
@@ -15,6 +16,7 @@ public static class TestUtils {
         XmlReader = new M2dReader(@$"{m2dPath}\Xml.m2d");
         Filter.Load(XmlReader, "NA", "Live");
         ExportedReader = new M2dReader(@$"{m2dPath}\Resource\Exported.m2d");
+        ServerReader = new M2dReader(@$"{m2dPath}\Server.m2d");
         AssetMetadataReader = new M2dReader(@$"{m2dPath}\Resource\asset-web-metadata.m2d");
     }
 
