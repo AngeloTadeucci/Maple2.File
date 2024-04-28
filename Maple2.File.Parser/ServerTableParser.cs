@@ -286,6 +286,16 @@ public class ServerTableParser {
         }
     }
 
+    public IEnumerable<(int ShopId, ShopBeauty ShopBeauty)> ParseShopBeautyCoupon() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/shop_beautyCoupon.xml"));
+        var data = shopBeautySerializer.Deserialize(reader) as ShopBeautyRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopBeauty shopBeauty in data.shop) {
+            yield return (shopBeauty.shopID, shopBeauty);
+        }
+    }
+
     public IEnumerable<(int ShopId, ShopBeauty ShopBeauty)> ParseShopBeautySpecialHair() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/NA/shop_beautySpecialHair.xml"));
         var data = shopBeautySerializer.Deserialize(reader) as ShopBeautyRoot;
@@ -295,7 +305,7 @@ public class ServerTableParser {
             yield return (shopBeauty.shopID, shopBeauty);
         }
     }
-    
+
     public IEnumerable<(int GameType, int GameId, BonusGame BonusGame)> ParseBonusGame() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/BonusGame.xml"));
         var data = bonusGameSerializer.Deserialize(reader) as BonusGameRoot;
