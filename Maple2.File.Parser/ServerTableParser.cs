@@ -13,12 +13,14 @@ public class ServerTableParser {
     private readonly XmlSerializer npcScriptConditionSerializer;
     private readonly XmlSerializer npcScriptFunctionSerializer;
     private readonly XmlSerializer userStatSerializer;
+    private readonly XmlSerializer instanceFieldSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         this.npcScriptConditionSerializer = new XmlSerializer(typeof(NpcScriptConditionRoot));
         this.npcScriptFunctionSerializer = new XmlSerializer(typeof(NpcScriptFunctionRoot));
         this.userStatSerializer = new XmlSerializer(typeof(UserStatRoot));
+        this.instanceFieldSerializer = new XmlSerializer(typeof(InstanceFieldRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -176,6 +178,16 @@ public class ServerTableParser {
 
         foreach (UserStat userStat in data.stat) {
             yield return (userStat.lev, userStat);
+        }
+    }
+    
+    public IEnumerable<(int InstanceId, InstanceField InstanceField)> ParseInstanceField() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/InstanceField.xml"));
+        var data = instanceFieldSerializer.Deserialize(reader) as InstanceFieldRoot;
+        Debug.Assert(data != null);
+
+        foreach (InstanceField instanceField in data.InstanceField) {
+            yield return (instanceField.instanceID, instanceField);
         }
     }
 }

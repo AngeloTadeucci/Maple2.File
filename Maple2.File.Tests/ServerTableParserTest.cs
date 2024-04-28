@@ -79,4 +79,13 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestInstanceField() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseInstanceField()) {
+            continue;
+        }
+    }
 }
