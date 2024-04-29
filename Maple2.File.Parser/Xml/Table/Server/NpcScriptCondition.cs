@@ -37,6 +37,6 @@ public partial class NpcScriptCondition : IFeatureLocale {
     [XmlAttribute] public string coolingOff;
     [XmlAttribute] public string buff;
     [XmlAttribute] public string achieve_complete;
-    [XmlAttribute] public int meso;
+    [XmlAttribute] public string meso;
     [XmlAttribute] public bool guild;
 }
