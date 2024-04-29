@@ -16,9 +16,9 @@ public partial class ScriptEventCondition {
     [M2dEnum] public ScriptEventType type;
     [XmlAttribute] public int enchantError;
     [XmlAttribute] public int rank;
-    [XmlAttribute] public string enchantLevel;
+    [XmlAttribute] public string enchantLevel = string.Empty;
     [XmlAttribute] public int failCount;
     [XmlAttribute] public int isDamaged;
     [XmlAttribute] public int result;
-    [XmlAttribute] public string desc;
+    [XmlAttribute] public string desc = string.Empty;
 }

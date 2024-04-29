@@ -16,13 +16,13 @@ public partial class ShopBeauty {
     [XmlAttribute] public int categoryID;
     [M2dEnum] public PaymentType colorPaymentType;
     [XmlAttribute] public int colorPaymentItemID;
-    [XmlAttribute] public string colorPaymentIconTag;
+    [XmlAttribute] public string colorPaymentIconTag = string.Empty;
     [XmlAttribute] public int colorPrice;
     [M2dEnum] public PaymentType stylePaymentType;
     [XmlAttribute] public int stylePaymentItemID;
-    [XmlAttribute] public string stylePaymentIconTag;
+    [XmlAttribute] public string stylePaymentIconTag = string.Empty;
     [XmlAttribute] public int stylePrice;
-    [XmlAttribute] public string couponTag;
+    [XmlAttribute] public string couponTag = string.Empty;
     [XmlAttribute] public int displayCouponID;
     [XmlAttribute] public int returnCouponID;
     [XmlAttribute] public bool random;
@@ -34,7 +34,7 @@ public partial class ShopBeauty {
         [XmlAttribute] public int id;
         [M2dEnum] public PaymentType paymentType;
         [XmlAttribute] public int paymentItemID;
-        [XmlAttribute] public string paymentIconTag;
+        [XmlAttribute] public string paymentIconTag = string.Empty;
         [XmlAttribute] public int price;
         [XmlAttribute] public int weight;
         [XmlAttribute] public int achieveID;
@@ -45,7 +45,7 @@ public partial class ShopBeauty {
 
     public partial class ItemGroup {
         [XmlAttribute] public int probVer;
-        [XmlAttribute] public string saleStartTime;
+        [XmlAttribute] public string saleStartTime = string.Empty;
         [M2dFeatureLocale(Selector = "id")] private IList<ShopBeauty.Item> _item;
     }
 }

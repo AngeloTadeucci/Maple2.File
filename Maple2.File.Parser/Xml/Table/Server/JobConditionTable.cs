@@ -27,7 +27,7 @@ public partial class JobConditionTable {
     [XmlAttribute] public int maid_ready_to_pay;
     [XmlAttribute] public bool maid_day_before_expired;
     [XmlAttribute] public bool maid_expired;
-    [XmlAttribute] public string date;
+    [XmlAttribute] public string date = string.Empty;
     [XmlAttribute] public int buff;
     [XmlAttribute] public int meso;
     [XmlAttribute] public short level;

@@ -15,7 +15,7 @@ public partial class ShopGameInfo : IFeatureLocale {
     [XmlAttribute] public int shopID;
     [XmlAttribute] public int categoryID;
     [XmlAttribute] public int meratItemGroupID;
-    [XmlAttribute] public string iconName;
+    [XmlAttribute] public string iconName = string.Empty;
     [XmlAttribute] public bool showOnlyUsableItem;
     [XmlAttribute] public bool showProbInfo;
     [XmlAttribute] public bool isOpenTokenPocket;
@@ -29,7 +29,7 @@ public partial class ShopGameInfo : IFeatureLocale {
     [XmlAttribute] public int resetType;
     [XmlAttribute] public bool resetByAccount;
     [XmlAttribute] public bool resetButtonHide;
-    [XmlAttribute] public string resetFixedTime;
+    [XmlAttribute] public string resetFixedTime = string.Empty;
     [XmlAttribute] public int resetIntervalTime;
     [XmlAttribute] public int resetPaymentType;
     [XmlAttribute] public bool useLuaResetPayment;
