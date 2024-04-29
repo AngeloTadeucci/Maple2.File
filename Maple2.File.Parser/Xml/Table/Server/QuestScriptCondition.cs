@@ -14,7 +14,7 @@ public partial class QuestScriptConditionRoot {
 public partial class QuestScriptCondition : IFeatureLocale {
     [XmlAttribute] public int questID;
     [XmlAttribute] public int scriptID;
-    [XmlAttribute] public int maid_auth;
+    [XmlAttribute] public bool maid_auth;
     [XmlAttribute] public bool maid_ready_to_pay;
     [XmlAttribute] public string maid_day_before_expired;
     [XmlAttribute] public string maid_expired;

@@ -14,7 +14,7 @@ public partial class NpcScriptConditionRoot {
 public partial class NpcScriptCondition : IFeatureLocale {
     [XmlAttribute] public int npcID;
     [XmlAttribute] public int scriptID;
-    [XmlAttribute] public int maid_auth;
+    [XmlAttribute] public bool maid_auth;
     [XmlAttribute] public bool maid_ready_to_pay;
     [XmlAttribute] public string maid_day_before_expired;
     [XmlAttribute] public string maid_expired;
