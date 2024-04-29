@@ -14,7 +14,7 @@ public partial class NpcScriptCondition : IFeatureLocale {
     [XmlAttribute] public int npcID;
     [XmlAttribute] public int scriptID;
     [XmlAttribute] public int maid_auth;
-    [XmlAttribute] public string maid_ready_to_pay;
+    [XmlAttribute] public bool maid_ready_to_pay;
     [XmlAttribute] public string maid_day_before_expired;
     [XmlAttribute] public string maid_expired;
     [XmlAttribute] public string maid_mood_time;
@@ -30,10 +30,12 @@ public partial class NpcScriptCondition : IFeatureLocale {
     [M2dArray] public string[] itemCount;
     [XmlAttribute] public int weddingState;
     [XmlAttribute] public int weddingHallBooking;
+    [XmlAttribute] public int marriageDate;
     [XmlAttribute] public string weddingHallEntryType;
     [XmlAttribute] public string weddingHallState;
     [XmlAttribute] public string coolingOff;
     [XmlAttribute] public string buff;
     [XmlAttribute] public string achieve_complete;
     [XmlAttribute] public int meso;
+    [XmlAttribute] public bool guild;
 }
