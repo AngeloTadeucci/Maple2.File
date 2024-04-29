@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
@@ -23,11 +24,11 @@ public partial class NpcScriptFunction : IFeatureLocale {
     [XmlAttribute] public int moveFieldPortalID;
     [XmlAttribute] public string moveFieldMovie;
     [XmlAttribute] public string emoticon;
-    [M2dArray] public int[] presentItemID;
-    [M2dArray] public int[] presentItemAmount;
-    [M2dArray] public short[] presentItemRank;
-    [M2dArray] public int[] collectItemID;
-    [M2dArray] public int[] collectItemAmount;
+    [M2dArray] public int[] presentItemID = Array.Empty<int>();
+    [M2dArray] public int[] presentItemAmount = Array.Empty<int>();
+    [M2dArray] public short[] presentItemRank = Array.Empty<short>();
+    [M2dArray] public int[] collectItemID = Array.Empty<int>();
+    [M2dArray] public int[] collectItemAmount = Array.Empty<int>();
     [XmlAttribute] public int setTriggerValueTriggerID;
     [XmlAttribute] public string setTriggerValueKey;
     [XmlAttribute] public string setTriggerValue;

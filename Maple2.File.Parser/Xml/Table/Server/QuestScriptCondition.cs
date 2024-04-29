@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
@@ -22,12 +23,12 @@ public partial class QuestScriptCondition : IFeatureLocale {
     [XmlAttribute] public int maid_affinity_grade;
     [XmlAttribute] public int privilege;
     [XmlAttribute] public int panelty;
-    [M2dArray] public short[] job;
+    [M2dArray] public short[] job = Array.Empty<short>();
     [XmlAttribute] public string level;
-    [M2dArray] public string[] quest_start;
-    [M2dArray] public string[] quest_complete;
-    [M2dArray] public string[] item;
-    [M2dArray] public string[] itemCount;
+    [M2dArray] public string[] quest_start = Array.Empty<string>();
+    [M2dArray] public string[] quest_complete = Array.Empty<string>();
+    [M2dArray] public string[] item = Array.Empty<string>();
+    [M2dArray] public string[] itemCount = Array.Empty<string>();
     [XmlAttribute] public int weddingState;
     [XmlAttribute] public int weddingHallBooking;
     [XmlAttribute] public string weddingHallEntryType;

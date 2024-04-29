@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.Parser.Enum;
@@ -37,7 +38,7 @@ public partial class ShopGame {
         [XmlAttribute] public string requireAchieve;
         [XmlAttribute] public string requireAlliance;
         [XmlAttribute] public byte requireAllianceGrade;
-        [M2dArray] public int[] requireChampionshipInfo;
-        [M2dArray] public string[] requireGuildNpc;
+        [M2dArray] public int[] requireChampionshipInfo = Array.Empty<int>();
+        [M2dArray] public string[] requireGuildNpc = Array.Empty<string>();
     }
 }
