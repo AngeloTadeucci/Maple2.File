@@ -157,7 +157,6 @@ public class ServerTableParserTest {
     public void TestShopBeautyCoupon() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        var coupons = parser.ParseShopBeautyCoupon();
         foreach ((_, _) in parser.ParseShopBeautyCoupon()) {
             continue;
         }
@@ -186,6 +185,33 @@ public class ServerTableParserTest {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
         foreach ((_, _, _) in parser.ParseBonusGameDrop()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestGlobalDropItemBox() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseGlobalDropItemBox()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestGlobalDropItemSet() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseGlobalDropItemSet()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestIndividualItemDrop() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseIndividualItemDrop()) {
             continue;
         }
     }

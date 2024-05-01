@@ -25,6 +25,9 @@ public class ServerTableParser {
     private readonly XmlSerializer shopBeautySerializer;
     private readonly XmlSerializer bonusGameSerializer;
     private readonly XmlSerializer bonusGameDropSerializer;
+    private readonly XmlSerializer globalDropItemBoxSerializer;
+    private readonly XmlSerializer globalDropItemSetSerializer;
+    private readonly XmlSerializer individualItemDropSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -41,6 +44,9 @@ public class ServerTableParser {
         this.shopBeautySerializer = new XmlSerializer(typeof(ShopBeautyRoot));
         this.bonusGameSerializer = new XmlSerializer(typeof(BonusGameRoot));
         this.bonusGameDropSerializer = new XmlSerializer(typeof(BonusGameDropRoot));
+        this.globalDropItemBoxSerializer = new XmlSerializer(typeof(GlobalDropItemBoxRoot));
+        this.globalDropItemSetSerializer = new XmlSerializer(typeof(GlobalDropItemSetRoot));
+        this.individualItemDropSerializer = new XmlSerializer(typeof(IndividualItemDropRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -328,6 +334,37 @@ public class ServerTableParser {
 
         foreach (BonusGameDrop gameDrop in data.game) {
             yield return (gameDrop.gameType, gameDrop.gameID, gameDrop);
+        }
+    }
+
+    public IEnumerable<(int Id, GlobalDropItemBox GlobalDropItemBox)> ParseGlobalDropItemBox() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/globalDropItemBox_Final.xml"));
+        var data = globalDropItemBoxSerializer.Deserialize(reader) as GlobalDropItemBoxRoot;
+        Debug.Assert(data != null);
+
+
+        foreach (GlobalDropItemBox globalDrop in data.dropBox) {
+            yield return (globalDrop.dropBoxID, globalDrop);
+        }
+    }
+
+    public IEnumerable<(int Id, GlobalDropItemSet GlobalDropItemSet)> ParseGlobalDropItemSet() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/globalDropItemSet_Final.xml"));
+        var data = globalDropItemSetSerializer.Deserialize(reader) as GlobalDropItemSetRoot;
+        Debug.Assert(data != null);
+
+        foreach (GlobalDropItemSet globalDrop in data.dropBox) {
+            yield return (globalDrop.dropGroupID, globalDrop);
+        }
+    }
+
+    public IEnumerable<(int Id, IndividualItemDrop IndividualItemDrop)> ParseIndividualItemDrop() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/individualItemDrop_Final.xml"));
+        var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
+        Debug.Assert(data != null);
+
+        foreach (IndividualItemDrop individualItemDrop in data.dropBox) {
+            yield return (individualItemDrop.dropGroupID, individualItemDrop);
         }
     }
 }
