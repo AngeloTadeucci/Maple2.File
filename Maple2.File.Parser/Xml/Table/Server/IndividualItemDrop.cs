@@ -35,12 +35,15 @@ public partial class IndividualItemDrop {
             [XmlAttribute] public int weight;
             [XmlAttribute] public int minCount;
             [XmlAttribute] public int maxCount;
+            [XmlAttribute] public bool assistBonus;
             [XmlAttribute] public short uiItemRank;
             [M2dArray] public int[] gradeProbability = Array.Empty<int>();
             [M2dArray] public short[] grade = Array.Empty<short>();
             [XmlAttribute] public int enchantLevel;
             [XmlAttribute] public int socketDataID;
             [XmlAttribute] public bool tradableCountDeduction;
+            [XmlAttribute] public bool rePackingLimitCountDeduction;
+            [XmlAttribute] public bool isBindCharacter;
             [XmlAttribute] public byte showTooltip;
             [XmlAttribute] public string reference1 = string.Empty;
             [XmlAttribute] public bool disableBreak;

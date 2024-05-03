@@ -14,9 +14,9 @@ public partial class GlobalDropItemBoxRoot {
 public partial class GlobalDropItemBox {
     [XmlAttribute] public int dropBoxID;
     [XmlAttribute] public string comment = string.Empty;
-    [M2dFeatureLocale(Selector = "dropGroupIDs")] private IList<Item> _v;
+    [M2dFeatureLocale] private IList<Group> _v;
 
-    public partial class Item : IFeatureLocale {
+    public partial class Group : IFeatureLocale {
         [XmlAttribute] public int dropGroupIDs;
         [M2dArray] public int[] dropCount = Array.Empty<int>();
         [XmlAttribute] public int minLevel;

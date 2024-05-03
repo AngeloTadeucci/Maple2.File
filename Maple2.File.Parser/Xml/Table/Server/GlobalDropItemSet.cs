@@ -14,7 +14,7 @@ public partial class GlobalDropItemSetRoot {
 public partial class GlobalDropItemSet {
     [XmlAttribute] public int dropGroupID;
     [XmlAttribute] public string comment = string.Empty;
-    [M2dFeatureLocale(Selector = "itemID")] private IList<Item> _v;
+    [M2dFeatureLocale] private IList<Item> _v;
 
     public partial class Item : IFeatureLocale {
         [XmlAttribute] public int itemID;

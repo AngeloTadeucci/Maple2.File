@@ -28,6 +28,7 @@ public class ServerTableParser {
     private readonly XmlSerializer globalDropItemBoxSerializer;
     private readonly XmlSerializer globalDropItemSetSerializer;
     private readonly XmlSerializer individualItemDropSerializer;
+    private readonly XmlSerializer roomRandomSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -47,6 +48,7 @@ public class ServerTableParser {
         this.globalDropItemBoxSerializer = new XmlSerializer(typeof(GlobalDropItemBoxRoot));
         this.globalDropItemSetSerializer = new XmlSerializer(typeof(GlobalDropItemSetRoot));
         this.individualItemDropSerializer = new XmlSerializer(typeof(IndividualItemDropRoot));
+        this.roomRandomSerializer = new XmlSerializer(typeof(RoomRandomRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -365,6 +367,26 @@ public class ServerTableParser {
 
         foreach (IndividualItemDrop individualItemDrop in data.dropBox) {
             yield return (individualItemDrop.dropGroupID, individualItemDrop);
+        }
+    }
+
+    public IEnumerable<(int Id, RandomRoom RandmRoom)> ParseRoomRandom() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/room_random.xml"));
+        var data = roomRandomSerializer.Deserialize(reader) as RoomRandomRoot;
+        Debug.Assert(data != null);
+
+        foreach (RandomRoom roomRandom in data.randomroom) {
+            yield return (roomRandom.id, roomRandom);
+        }
+    }
+
+    public IEnumerable<(int Id, RoomRandom Room)> ParseRoom() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/room_random.xml"));
+        var data = roomRandomSerializer.Deserialize(reader) as RoomRandomRoot;
+        Debug.Assert(data != null);
+
+        foreach (RoomRandom roomRandom in data.room) {
+            yield return (roomRandom.id, roomRandom);
         }
     }
 }

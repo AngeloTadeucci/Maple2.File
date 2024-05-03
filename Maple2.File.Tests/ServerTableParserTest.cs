@@ -215,4 +215,22 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestRoom() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseRoom()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestRandomRoom() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseRoomRandom()) {
+            continue;
+        }
+    }
 }
