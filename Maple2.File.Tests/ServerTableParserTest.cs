@@ -265,7 +265,6 @@ public class ServerTableParserTest {
     public void TestSpawnGroup() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        var groupSpawns = parser.ParseSpawnGroup();
         foreach ((_, _) in parser.ParseSpawnGroup()) {
             continue;
         }
