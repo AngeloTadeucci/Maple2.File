@@ -29,6 +29,10 @@ public class ServerTableParser {
     private readonly XmlSerializer globalDropItemSetSerializer;
     private readonly XmlSerializer individualItemDropSerializer;
     private readonly XmlSerializer roomRandomSerializer;
+    private readonly XmlSerializer spawnGroupSerializer;
+    private readonly XmlSerializer spawnNpcSerializer;
+    private readonly XmlSerializer spawnInteractObjectSerializer;
+    private readonly XmlSerializer groupSpawnSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -49,6 +53,10 @@ public class ServerTableParser {
         this.globalDropItemSetSerializer = new XmlSerializer(typeof(GlobalDropItemSetRoot));
         this.individualItemDropSerializer = new XmlSerializer(typeof(IndividualItemDropRoot));
         this.roomRandomSerializer = new XmlSerializer(typeof(RoomRandomRoot));
+        this.spawnGroupSerializer = new XmlSerializer(typeof(SpawnGroupRoot));
+        this.spawnNpcSerializer = new XmlSerializer(typeof(SpawnNpcRoot));
+        this.spawnInteractObjectSerializer = new XmlSerializer(typeof(SpawnInteractObjectRoot));
+        this.groupSpawnSerializer = new XmlSerializer(typeof(GroupSpawnRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -387,6 +395,47 @@ public class ServerTableParser {
 
         foreach (RoomRandom roomRandom in data.room) {
             yield return (roomRandom.id, roomRandom);
+        }
+    }
+
+    public IEnumerable<(int Id, SpawnNpc Spawn)> ParseSpawnNpc() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/combineSpawnNpc.xml"));
+        var data = spawnNpcSerializer.Deserialize(reader) as SpawnNpcRoot;
+        Debug.Assert(data != null);
+
+        foreach (SpawnNpc npc in data.spawnNpc) {
+            yield return (npc.combineId, npc);
+        }
+    }
+
+    public IEnumerable<(int Id, SpawnGroup SpawnGroup)> ParseSpawnGroup() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/combineSpawnGroup.xml"));
+        var data = spawnGroupSerializer.Deserialize(reader) as SpawnGroupRoot;
+        Debug.Assert(data != null);
+
+        foreach (SpawnGroup group in data.groupData) {
+            yield return (group.groupId, group);
+        }
+    }
+
+    public IEnumerable<(int Id, SpawnInteractObject interactObject)> ParseSpawnInteractObject() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/combineSpawnInteractObject.xml"));
+        var data = spawnInteractObjectSerializer.Deserialize(reader) as SpawnInteractObjectRoot;
+        Debug.Assert(data != null);
+
+        foreach (SpawnInteractObject interact in data.spawnInteractObject) {
+            yield return (interact.combineId, interact);
+        }
+    }
+
+    public IEnumerable<(int Id, GroupSpawn Spawn)> ParseGroupSpawn() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/groupSpawn.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = groupSpawnSerializer.Deserialize(reader) as GroupSpawnRoot;
+        Debug.Assert(data != null);
+
+        foreach (GroupSpawn spawn in data.group) {
+            yield return (spawn.groupId, spawn);
         }
     }
 }

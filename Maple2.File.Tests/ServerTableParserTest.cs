@@ -233,4 +233,41 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestSpawnNpc() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseSpawnNpc()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestGroupSpawn() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseGroupSpawn()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestSpawnInteractObject() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseSpawnInteractObject()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestSpawnGroup() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        var groupSpawns = parser.ParseSpawnGroup();
+        foreach ((_, _) in parser.ParseSpawnGroup()) {
+            continue;
+        }
+    }
 }
