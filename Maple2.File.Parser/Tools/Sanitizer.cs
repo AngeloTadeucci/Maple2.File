@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace Maple2.File.Parser.Tools;
 
@@ -14,6 +15,20 @@ public static class Sanitizer {
         xml = FixCommaFloats(xml, "lifeTime", "delayTime", "spawnTime", "vel", "distance", "destroyTime",
             "controlRate");
         xml = Regex.Replace(xml, "(-?\\d+\\.\\d+)\\.\\d+", "$1"); // 1.2.3 -> 1.2
+        return xml;
+    }
+
+    public static string SanitizeAi(string xml)
+    {
+        xml = xml.Replace(" ooltime=", " cooltime=");
+        xml = xml.Replace(" prop=", " prob=");
+        xml = xml.Replace(" prop=", " prob=");
+        xml = xml.Replace(" zfaceTarget=", " faceTarget=");
+        xml = xml.Replace(" pfaceTarget=", " faceTarget=");
+        xml = xml.Replace(" facePos=\"0\"", " facePos=\"0, 0, 0\""); // only this typo
+        xml = xml.Replace(" center=\"4725, 4575. 5710\"", " center=\"4725, 4575, 5710\""); // only this typo
+        xml = xml.Replace(" lifeTime=\"15.6\"", " lifeTime=\"15600\""); // only this typo
+
         return xml;
     }
 
