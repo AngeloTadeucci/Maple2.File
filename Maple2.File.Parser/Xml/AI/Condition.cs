@@ -10,7 +10,16 @@ public enum ConditionTargetState {
 
 public enum ConditionOp {
     Equal,
-    Greater
+    Greater,
+    Less,
+    GreaterEqual,
+    LessEqual,
+
+    equal = Equal,
+    greaterEqual = GreaterEqual,
+    lessEqual = LessEqual,
+    greater = Greater,
+    less = Less
 }
 
 public partial class Condition {
@@ -27,7 +36,7 @@ public partial class Condition {
     [XmlAttribute] public short skillLev;
     [XmlAttribute] public bool isKeepBattle;
     [XmlAttribute] public string key = string.Empty;
-    [XmlAttribute] public string op = string.Empty; // greaterEqual, lessEqual, equal, Greater, less, greater
+    [XmlAttribute] public ConditionOp op = ConditionOp.Equal; // greaterEqual, lessEqual, equal, Greater, less, greater
     [XmlAttribute] public int count;
     [XmlAttribute] public bool useSummonGroup;
     [XmlAttribute] public int summonGroup;
