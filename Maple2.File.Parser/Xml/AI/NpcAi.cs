@@ -6,7 +6,7 @@ namespace Maple2.File.Parser.Xml.AI;
 
 // ./data/server/ai/**/%s.xml
 [XmlRoot("npcAi")]
-public partial class NpcAi {
+public class NpcAi {
     [XmlElement] public AiReservedNode reserved;
     [XmlElement] public AiBattleNode battle;
     [XmlElement] public AiBattleEndNode battleEnd;

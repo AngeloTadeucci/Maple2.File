@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using static Maple2.File.Parser.Xml.Table.InteractObject;
 
 namespace Maple2.File.Tests;

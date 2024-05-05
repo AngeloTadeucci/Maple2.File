@@ -25,7 +25,7 @@ public partial class Node {
     [XmlAttribute] public bool isKeepBattle;
     [XmlAttribute] public int idx;
     [XmlAttribute] public short level;
-    [M2dArray] public int[] prob = new int[1] { 100 };
+    [M2dArray] public int[] prob = new int[] { 100 };
     [XmlAttribute] public bool sequence;
     [M2dVector3] public Vector3 facePos; // clean out 0
     [XmlAttribute] public int faceTargetTick;

@@ -6,6 +6,6 @@ namespace Maple2.File.Parser.Xml.AI;
 public class AiPreset {
     [XmlAttribute] public string name = string.Empty;
 
-    [XmlElement] public List<Node> node = new List<Node>();
-    [XmlElement] public List<AiPreset> aiPreset = new List<AiPreset>();
+    [XmlElement] public List<Node> node;
+    [XmlElement] public List<AiPreset> aiPreset;
 }
