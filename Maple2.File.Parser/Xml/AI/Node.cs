@@ -11,7 +11,7 @@ namespace Maple2.File.Parser.Xml.AI;
 public partial class Node {
     [XmlAttribute] public string name = string.Empty;
 
-    [XmlElement] public List<Node> node ;
+    [XmlElement] public List<Node> node;
     [M2dFeatureLocale] private IList<Condition> _condition;
     [XmlElement] public List<AiPreset> aiPreset;
 
