@@ -29,6 +29,7 @@ public class AiParser {
 
             Debug.Assert(root != null);
 
+            // removing the AI/ prefix because the <aiInfo path> attribute is relative to AI
             string aiName = entry.Name.Substring(3);
 
             yield return (aiName, root);

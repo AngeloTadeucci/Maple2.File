@@ -1,32 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Maple2.File.Parser.Enum;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.AI;
 
-public enum ConditionTargetState {
-    grabTarget,
-    holdme
-}
-
-public enum ConditionOp {
-    Equal,
-    Greater,
-    Less,
-    GreaterEqual,
-    LessEqual,
-
-    equal = Equal,
-    greaterEqual = GreaterEqual,
-    lessEqual = LessEqual,
-    greater = Greater,
-    less = Less
-}
-
-public partial class Condition {
+public partial class Condition : IFeatureLocale {
     [XmlAttribute] public string name = string.Empty;
 
-    [XmlElement] public List<Node> node = new List<Node>();
-    [XmlElement] public List<AiPreset> aiPreset = new List<AiPreset>();
+    [XmlElement] public List<Node> node;
+    [XmlElement] public List<AiPreset> aiPreset;
 
     [XmlAttribute] public int value;
     [XmlAttribute] public int battleTimeBegin;
@@ -45,10 +28,6 @@ public partial class Condition {
     [XmlAttribute] public short level;
     [XmlAttribute] public int overlapCount;
     [XmlAttribute] public bool isTarget;
-    //[XmlAttribute] public string feature; // feature name
-    [XmlAttribute("feature")]
-    public string _feature = string.Empty;
-    public string Feature => _feature;
     [XmlAttribute] public int slaveCount;
     [XmlAttribute] public ConditionOp slaveCountOp = ConditionOp.Equal; // Greater
 

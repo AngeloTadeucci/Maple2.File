@@ -64,31 +64,54 @@ public class AiParserTest {
     public void TestAiParser() {
         var parser = new AiParser(TestUtils.ServerReader);
 
+        bool foundAnyNodes = false;
+
         foreach ((string name, NpcAi data) in parser.Parse()) {
             HashSet<string> definedPresets = new();
+
+            bool hasReserved = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
+            bool hasBattle = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
+            bool hasBattleEnd = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
+            bool hasAiPresets = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
+            bool hasAnyNodes = hasReserved || hasBattle || hasBattleEnd || hasAiPresets;
+            bool hasAnySubNodes = false;
 
             foreach (AiPreset preset in data.aiPresets?.aiPreset ?? new List<AiPreset>()) {
                 // mostly true except LargeBlueAge_04 can appear twice
                 //Assert.IsFalse(definedPresets.Contains(preset.name));
 
                 definedPresets.Add(preset.name);
+
+                hasAnySubNodes |= true;
             }
 
             foreach (Node node in data.battle?.node ?? new List<Node>()) {
                 TestNode(node, definedPresets);
+
+                hasAnySubNodes |= true;
             }
 
             foreach (Node node in data.battleEnd?.node ?? new List<Node>()) {
                 TestNode(node, definedPresets);
+
+                hasAnySubNodes |= true;
             }
 
             foreach (AiPreset preset in data.aiPresets?.aiPreset ?? new List<AiPreset>()) {
                 TestAiPreset(preset, definedPresets, true);
+
+                hasAnySubNodes |= true;
             }
 
             foreach (Condition condition in data.reserved?.condition ?? new List<Condition>()) {
                 TestCondition(condition, definedPresets);
+
+                hasAnySubNodes |= true;
             }
+
+            foundAnyNodes |= hasAnyNodes && hasAnySubNodes;
         }
+
+        Assert.IsTrue(foundAnyNodes);
     }
 }

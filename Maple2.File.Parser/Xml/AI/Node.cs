@@ -3,35 +3,17 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Numerics;
 using M2dXmlGenerator;
+using Maple2.File.Parser.Enum;
 
 namespace Maple2.File.Parser.Xml.AI;
 
-public enum SummonOption {
-    none,
-    masterHP,
-    hitDamage,
-    linkHP
-}
-
-public enum SummonMaster {
-    Master,
-    Slave,
-    None
-}
-
-public enum AiTarget
-{
-    defaultTarget,
-    hostile,
-    friendly
-}
 
 public partial class Node {
     [XmlAttribute] public string name = string.Empty;
 
-    [XmlElement] public List<Node> node = new List<Node>() ;
-    [XmlElement] public List<Condition> condition = new List<Condition>();
-    [XmlElement] public List<AiPreset> aiPreset = new List<AiPreset>();
+    [XmlElement] public List<Node> node ;
+    [M2dFeatureLocale] private IList<Condition> _condition;
+    [XmlElement] public List<AiPreset> aiPreset;
 
     [XmlAttribute] public int limit;
     [XmlAttribute] public int skillIdx;
@@ -47,7 +29,6 @@ public partial class Node {
     [XmlAttribute] public bool sequence;
     [M2dVector3] public Vector3 facePos; // clean out 0
     [XmlAttribute] public int faceTargetTick;
-    [XmlAttribute] public int rob;
     [M2dVector3] public Vector3 pos;
     [XmlAttribute] public int faceTarget;
     [XmlAttribute] public string key = string.Empty;

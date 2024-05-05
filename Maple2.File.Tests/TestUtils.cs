@@ -6,7 +6,7 @@ using Maple2.File.Parser.Tools;
 namespace Maple2.File.Tests;
 
 public static class TestUtils {
-    private const string m2dPath = @"B:\Files\Maplstory 2 Client\appdata\Data";
+    private const string m2dPath = @"C:\Nexon\Library\Library\maplestory2\appdata\Data";
     public static readonly M2dReader XmlReader;
     public static readonly M2dReader ServerReader;
     public static readonly M2dReader ExportedReader;

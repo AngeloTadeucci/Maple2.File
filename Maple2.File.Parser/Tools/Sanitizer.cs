@@ -18,11 +18,11 @@ public static class Sanitizer {
         return xml;
     }
 
-    public static string SanitizeAi(string xml)
-    {
+    public static string SanitizeAi(string xml) {
         xml = xml.Replace(" ooltime=", " cooltime=");
         xml = xml.Replace(" prop=", " prob=");
         xml = xml.Replace(" prop=", " prob=");
+        xml = xml.Replace(" rob=", " prob=");
         xml = xml.Replace(" zfaceTarget=", " faceTarget=");
         xml = xml.Replace(" pfaceTarget=", " faceTarget=");
         xml = xml.Replace(" facePos=\"0\"", " facePos=\"0, 0, 0\""); // only this typo
