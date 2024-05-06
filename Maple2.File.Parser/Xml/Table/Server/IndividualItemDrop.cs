@@ -12,7 +12,7 @@ public partial class IndividualItemDropRoot {
 }
 
 public partial class IndividualItemDrop {
-    [XmlAttribute] public int dropGroupID;
+    [XmlAttribute] public int dropBoxID;
     [XmlAttribute] public string comment = string.Empty;
     [M2dFeatureLocale(Selector = "dropGroupID")] private IList<Group> _group;
 

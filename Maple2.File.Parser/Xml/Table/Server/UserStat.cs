@@ -44,4 +44,5 @@ public partial class UserStat {
     [XmlAttribute] public float pen;
     [XmlAttribute] public float base_atk;
     [XmlAttribute] public float sp_value;
+    [XmlAttribute] public float rmsp;
 }

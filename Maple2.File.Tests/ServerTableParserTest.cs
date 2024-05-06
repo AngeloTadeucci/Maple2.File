@@ -269,4 +269,44 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestFish() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseFish()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestFishBox() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseGlobalFishBox()) {
+            continue;
+        }
+
+        foreach ((_, _) in parser.ParseIndividualFishBox()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestFishingSpot() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseFishingSpot()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestFishLure() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseFishLure()) {
+            continue;
+        }
+    }
 }

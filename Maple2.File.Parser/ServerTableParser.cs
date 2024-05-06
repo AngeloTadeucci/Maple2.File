@@ -33,6 +33,10 @@ public class ServerTableParser {
     private readonly XmlSerializer spawnNpcSerializer;
     private readonly XmlSerializer spawnInteractObjectSerializer;
     private readonly XmlSerializer groupSpawnSerializer;
+    private readonly XmlSerializer fishSerializer;
+    private readonly XmlSerializer fishingSpotSerializer;
+    private readonly XmlSerializer fishLureSerializer;
+    private readonly XmlSerializer fishBoxSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -57,6 +61,10 @@ public class ServerTableParser {
         this.spawnNpcSerializer = new XmlSerializer(typeof(SpawnNpcRoot));
         this.spawnInteractObjectSerializer = new XmlSerializer(typeof(SpawnInteractObjectRoot));
         this.groupSpawnSerializer = new XmlSerializer(typeof(GroupSpawnRoot));
+        this.fishSerializer = new XmlSerializer(typeof(FishRoot));
+        this.fishingSpotSerializer = new XmlSerializer(typeof(FishingSpotRoot));
+        this.fishLureSerializer = new XmlSerializer(typeof(FishLureRoot));
+        this.fishBoxSerializer = new XmlSerializer(typeof(FishBoxRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -374,7 +382,7 @@ public class ServerTableParser {
         Debug.Assert(data != null);
 
         foreach (IndividualItemDrop individualItemDrop in data.dropBox) {
-            yield return (individualItemDrop.dropGroupID, individualItemDrop);
+            yield return (individualItemDrop.dropBoxID, individualItemDrop);
         }
     }
 
@@ -436,6 +444,58 @@ public class ServerTableParser {
 
         foreach (GroupSpawn spawn in data.group) {
             yield return (spawn.groupId, spawn);
+        }
+    }
+
+    public IEnumerable<(int Id, Fish Fish)> ParseFish() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/fish.xml"));
+        var data = fishSerializer.Deserialize(reader) as FishRoot;
+        Debug.Assert(data != null);
+
+        foreach (Fish fish in data.fish) {
+            yield return (fish.id, fish);
+        }
+    }
+
+    public IEnumerable<(int Id, FishBox Box)> ParseIndividualFishBox() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/individualFishBox.xml"));
+        var data = fishBoxSerializer.Deserialize(reader) as FishBoxRoot;
+        Debug.Assert(data != null);
+
+        foreach (FishBox box in data.box) {
+            yield return (box.id, box);
+        }
+    }
+
+    public IEnumerable<(int Id, FishBox Box)> ParseGlobalFishBox() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/globalFishBox.xml"));
+        var data = fishBoxSerializer.Deserialize(reader) as FishBoxRoot;
+        Debug.Assert(data != null);
+
+        foreach (FishBox box in data.box) {
+            yield return (box.id, box);
+        }
+    }
+
+    public IEnumerable<(int Id, FishingSpot Spot)> ParseFishingSpot() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/fishingSpot.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = fishingSpotSerializer.Deserialize(reader) as FishingSpotRoot;
+        Debug.Assert(data != null);
+
+        foreach (FishingSpot spot in data.spot) {
+            yield return (spot.id, spot);
+        }
+    }
+
+    public IEnumerable<(int Code, FishLure Lure)> ParseFishLure() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/fishLure.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = fishLureSerializer.Deserialize(reader) as FishLureRoot;
+        Debug.Assert(data != null);
+
+        foreach (FishLure lure in data.lure) {
+            yield return (lure.additionalEffectCode, lure);
         }
     }
 }
