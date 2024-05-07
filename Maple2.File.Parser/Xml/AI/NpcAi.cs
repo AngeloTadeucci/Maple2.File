@@ -5,26 +5,25 @@ using M2dXmlGenerator;
 namespace Maple2.File.Parser.Xml.AI;
 
 // ./data/server/ai/**/%s.xml
-[XmlRoot("npcAi")]
 public class NpcAi {
-    [XmlElement] public AiReservedNode reserved;
-    [XmlElement] public AiBattleNode battle;
-    [XmlElement] public AiBattleEndNode battleEnd;
-    [XmlElement] public AiPresetsNode aiPresets;
+    public AiReservedNode reserved = new AiReservedNode();
+    public AiBattleNode battle = new AiBattleNode();
+    public AiBattleEndNode battleEnd = new AiBattleEndNode();
+    public AiPresetsNode aiPresets = new AiPresetsNode();
 }
 
-public partial class AiReservedNode {
-    [M2dFeatureLocale] private IList<Condition> _condition;
+public class AiReservedNode {
+    public IList<Condition> conditions;
 }
 
 public class AiBattleNode {
-    [XmlElement] public List<Node> node;
+    public List<Node> nodes;
 }
 
 public class AiBattleEndNode {
-    [XmlElement] public List<Node> node;
+    public List<Node> nodes;
 }
 
 public class AiPresetsNode {
-    [XmlElement] public List<AiPreset> aiPreset;
+    public List<AiPresetDefinition> aiPresets;
 }

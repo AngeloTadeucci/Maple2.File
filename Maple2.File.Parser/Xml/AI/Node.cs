@@ -4,87 +4,89 @@ using System.Xml.Serialization;
 using System.Numerics;
 using M2dXmlGenerator;
 using Maple2.File.Parser.Enum;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Maple2.File.Parser.Xml.AI;
 
+public class Entry {
+    public string name = string.Empty;
+}
 
-public partial class Node {
-    [XmlAttribute] public string name = string.Empty;
+public partial class Node : Entry {
 
-    [XmlElement] public List<Node> node;
-    [M2dFeatureLocale] private IList<Condition> _condition;
-    [XmlElement] public List<AiPreset> aiPreset;
+    public List<Entry> entries = new List<Entry>();
+    public IList<Condition> conditions = new List<Condition>();
 
-    [XmlAttribute] public int limit;
-    [XmlAttribute] public int skillIdx;
-    [XmlAttribute] public string animation = string.Empty; // kfm anim name
-    [XmlAttribute] public int speed;
-    [XmlAttribute] public int till;
-    [XmlAttribute] public long initialCooltime;
-    [XmlAttribute] public long cooltime;
-    [XmlAttribute] public bool isKeepBattle;
-    [XmlAttribute] public int idx;
-    [XmlAttribute] public short level;
-    [M2dArray] public int[] prob = new int[] { 100 };
-    [XmlAttribute] public bool sequence;
-    [M2dVector3] public Vector3 facePos; // clean out 0
-    [XmlAttribute] public int faceTargetTick;
-    [M2dVector3] public Vector3 pos;
-    [XmlAttribute] public int faceTarget;
-    [XmlAttribute] public string key = string.Empty;
-    [XmlAttribute] public int value;
-    [XmlAttribute] public string type = string.Empty; // rand, near, far, remove, talk, cutin, mid, add, nearAssociated, hasAdditional, randAssociated, rankAssociate, slave, grabbedUser, random, 2
-    [XmlAttribute] public int rank;
-    [XmlAttribute] public int additionalId;
-    [XmlAttribute] public short additionalLevel;
-    [XmlAttribute] public int from;
-    [XmlAttribute] public int to;
-    [M2dVector3] public Vector3 center; // clean out period commas
-    [XmlAttribute] public AiTarget target = AiTarget.defaultTarget; // hostile, friendly
-    [XmlAttribute] public bool noChangeWhenNoTarget;
-    [XmlAttribute] public string message = string.Empty;
-    [XmlAttribute] public int durationTick;
-    [XmlAttribute] public int delayTick;
-    [XmlAttribute] public bool isModify;
-    [XmlAttribute] public float heightMultiplier;
-    [XmlAttribute] public bool useNpcProb;
-    [M2dVector3] public Vector3 destination;
-    [XmlAttribute] public int npcId;
-    [XmlAttribute] public int npcCountMax;
-    [XmlAttribute] public int npcCount;
-    [XmlAttribute] public int lifeTime; // sanitize a single float
-    [M2dVector3] public Vector3 summonRot;
-    [M2dVector3] public Vector3 summonPos; // sanitize double ,
-    [M2dVector3] public Vector3 summonPosOffset;
-    [M2dVector3] public Vector3 summonTargetOffset;
-    [M2dVector3] public Vector3 summonRadius; // sanitize a float
-    [XmlAttribute] public int group;
-    [XmlAttribute] public SummonMaster master; // Slave, None
-    [M2dArray] public SummonOption[] option = Array.Empty<SummonOption>(); // masterHP,hitDamage
-    [XmlAttribute] public int triggerID;
-    [XmlAttribute] public bool isRideOff;
-    [M2dArray] public int[] rideNpcIDs = Array.Empty<int>();
-    [XmlAttribute] public bool isRandom;
-    [XmlAttribute] public float hpPercent;
-    [XmlAttribute] public int id;
-    [XmlAttribute] public bool isTarget;
-    [XmlAttribute] public string effectName = string.Empty; // xml effect
-    [XmlAttribute] public int groupID;
-    [XmlAttribute] public string illust = string.Empty; // side popup asset name
-    [XmlAttribute] public int duration;
-    [XmlAttribute] public string script = string.Empty;
-    [XmlAttribute] public string sound = string.Empty; // sound asset name
-    [XmlAttribute] public string voice = string.Empty; // voice asset path
-    [XmlAttribute] public int height;
-    [XmlAttribute] public int radius;
-    [XmlAttribute] public int timeTick;
-    [XmlAttribute] public bool isShowEffect;
-    [XmlAttribute] public string normal = string.Empty; // kfm anim name
-    [XmlAttribute] public string reactable = string.Empty; // kfm anim name
-    [XmlAttribute] public int interactID;
-    [XmlAttribute] public string kfmName = string.Empty;
-    [XmlAttribute] public int randomRoomID;
-    [XmlAttribute] public int portalDuration;
+    public int limit;
+    public int skillIdx;
+    public string animation = string.Empty; // kfm anim name
+    public int speed;
+    public int till;
+    public long initialCooltime;
+    public long cooltime;
+    public bool isKeepBattle;
+    public int idx;
+    public short level;
+    public int[] prob = new int[] { 100 };
+    public bool sequence;
+    public Vector3 facePos; // clean out 0
+    public int faceTargetTick;
+    public Vector3 pos;
+    public int faceTarget;
+    public string key = string.Empty;
+    public int value;
+    public string type = string.Empty; // rand, near, far, remove, talk, cutin, mid, add, nearAssociated, hasAdditional, randAssociated, rankAssociate, slave, grabbedUser, random, 2
+    public int rank;
+    public int additionalId;
+    public short additionalLevel;
+    public int from;
+    public int to;
+    public Vector3 center; // clean out period commas
+    public AiTarget target = AiTarget.defaultTarget; // hostile, friendly
+    public bool noChangeWhenNoTarget;
+    public string message = string.Empty;
+    public int durationTick;
+    public int delayTick;
+    public bool isModify;
+    public float heightMultiplier;
+    public bool useNpcProb;
+    public Vector3 destination;
+    public int npcId;
+    public int npcCountMax;
+    public int npcCount;
+    public int lifeTime; // sanitize a single float
+    public Vector3 summonRot;
+    public Vector3 summonPos; // sanitize double ,
+    public Vector3 summonPosOffset;
+    public Vector3 summonTargetOffset;
+    public Vector3 summonRadius; // sanitize a float
+    public int group;
+    public SummonMaster master; // Slave, None
+    public SummonOption[] option = Array.Empty<SummonOption>(); // masterHP,hitDamage
+    public int triggerID;
+    public bool isRideOff;
+    public int[] rideNpcIDs = Array.Empty<int>();
+    public bool isRandom;
+    public float hpPercent;
+    public int id;
+    public bool isTarget;
+    public string effectName = string.Empty; // xml effect
+    public int groupID;
+    public string illust = string.Empty; // side popup asset name
+    public int duration;
+    public string script = string.Empty;
+    public string sound = string.Empty; // sound asset name
+    public string voice = string.Empty; // voice asset path
+    public int height;
+    public int radius;
+    public int timeTick;
+    public bool isShowEffect;
+    public string normal = string.Empty; // kfm anim name
+    public string reactable = string.Empty; // kfm anim name
+    public int interactID;
+    public string kfmName = string.Empty;
+    public int randomRoomID;
+    public int portalDuration;
 
     /*
      * for searching the xmls
@@ -99,4 +101,7 @@ public partial class Node {
      * vector3: "(?!-?[0-9]+(\.[0-9]*)?, *-?[0-9]+(\.[0-9]*)?, *-?[0-9]+(\.[0-9]*)? *")([^"]+")
      * vector3 typo: "(?!-?[0-9]+(\.[0-9]*)?[,.] *-?[0-9]+(\.[0-9]*)?[,.] *-?[0-9]+(\.[0-9]*)? *")([^"]+")
     */
+}
+
+public class AiPreset : Entry {
 }

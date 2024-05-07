@@ -5,31 +5,30 @@ using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.AI;
 
-public partial class Condition : IFeatureLocale {
-    [XmlAttribute] public string name = string.Empty;
+public partial class Condition {
+    public string name = string.Empty;
 
-    [XmlElement] public List<Node> node;
-    [XmlElement] public List<AiPreset> aiPreset;
+    public List<Entry> entries = new List<Entry>();
 
-    [XmlAttribute] public int value;
-    [XmlAttribute] public int battleTimeBegin;
-    [XmlAttribute] public int battleTimeLoop;
-    [XmlAttribute] public int battleTimeEnd;
-    [XmlAttribute] public int skillIdx;
-    [XmlAttribute] public short skillLev;
-    [XmlAttribute] public bool isKeepBattle;
-    [XmlAttribute] public string key = string.Empty;
-    [XmlAttribute] public ConditionOp op = ConditionOp.Equal; // greaterEqual, lessEqual, equal, Greater, less, greater
-    [XmlAttribute] public int count;
-    [XmlAttribute] public bool useSummonGroup;
-    [XmlAttribute] public int summonGroup;
-    [XmlAttribute] public ConditionTargetState targetState; // grabTarget, holdme
-    [XmlAttribute] public int id;
-    [XmlAttribute] public short level;
-    [XmlAttribute] public int overlapCount;
-    [XmlAttribute] public bool isTarget;
-    [XmlAttribute] public int slaveCount;
-    [XmlAttribute] public ConditionOp slaveCountOp = ConditionOp.Equal; // Greater
+    public int value;
+    public int battleTimeBegin;
+    public int battleTimeLoop;
+    public int battleTimeEnd;
+    public int skillIdx;
+    public short skillLev;
+    public bool isKeepBattle;
+    public string key = string.Empty;
+    public ConditionOp op = ConditionOp.Equal; // greaterEqual, lessEqual, equal, Greater, less, greater
+    public int count;
+    public bool useSummonGroup;
+    public int summonGroup;
+    public ConditionTargetState targetState; // grabTarget, holdme
+    public int id;
+    public short level;
+    public int overlapCount;
+    public bool isTarget;
+    public int slaveCount;
+    public ConditionOp slaveCountOp = ConditionOp.Equal; // Greater
 
     /*
      * for searching the xmls
