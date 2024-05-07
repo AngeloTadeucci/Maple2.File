@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.AI;
 
@@ -13,17 +12,17 @@ public class NpcAi {
 }
 
 public class AiReservedNode {
-    public IList<Condition> conditions;
+    public List<Condition> conditions = new List<Condition>();
 }
 
 public class AiBattleNode {
-    public List<Node> nodes;
+    public List<Node> nodes = new List<Node>();
 }
 
 public class AiBattleEndNode {
-    public List<Node> nodes;
+    public List<Node> nodes = new List<Node>();
 }
 
 public class AiPresetsNode {
-    public List<AiPresetDefinition> aiPresets;
+    public List<AiPresetDefinition> aiPresets = new List<AiPresetDefinition>();
 }

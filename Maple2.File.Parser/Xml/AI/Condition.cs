@@ -29,6 +29,7 @@ public partial class Condition {
     public bool isTarget;
     public int slaveCount;
     public ConditionOp slaveCountOp = ConditionOp.Equal; // Greater
+    public string feature = string.Empty; // this will be filtered in Maple2.Ingest
 
     /*
      * for searching the xmls

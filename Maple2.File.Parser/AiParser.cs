@@ -14,19 +14,19 @@ using System.Text;
 using System.Xml.Linq;
 using System;
 using System.Reflection;
+using System.Numerics;
+using Maple2.File.Parser.Flat.Convert;
 
 namespace Maple2.File.Parser;
 
 public class AiParser {
     private readonly M2dReader xmlReader;
-    private readonly XmlSerializer aiSerializer;
 
     public AiParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
-        this.aiSerializer = new XmlSerializer(typeof(NpcAi));
     }
 
-    public void ParseAttributes<T>(XmlNode xmlNode, T outType) {
+    public void ParseAttributes<T>(XmlNode xmlNode, T outObject) {
         foreach (XmlAttribute attrib in xmlNode.Attributes) { 
             FieldInfo? field = typeof(T).GetField(attrib.Name);
 
@@ -34,31 +34,91 @@ public class AiParser {
             {
                 throw new MemberAccessException($"object of type '{typeof(T).Name}' doesn't have member '{attrib.Name}' from node '{xmlNode.LocalName}'");
             }
-            Console.WriteLine(field.FieldType.Name);
-            // int, string, long, bool, short, int[], Vector3, enum, float, enum[]
+
             switch (field.FieldType.Name)
             {
-                case "bool":
+                case "Boolean":
+                    if (!bool.TryParse(attrib.Value, out bool outBool)) {
+						if (!int.TryParse(attrib.Value, out int outBoolInt)) {
+                        	throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+						}
+
+						outBool = outBoolInt != 0;
+                    }
+
+                    field.SetValue(outObject, outBool);
                     break;
-                case "short":
+                case "Int16":
+                    if (!short.TryParse(attrib.Value, out short outShort))
+                    {
+                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
+
+                    field.SetValue(outObject, outShort);
                     break;
-                case "int":
+                case "Int32":
+                    if (!int.TryParse(attrib.Value, out int outInt))
+                    {
+                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
+
+                    field.SetValue(outObject, outInt);
                     break;
-                case "long":
+                case "Int64":
+                    if (!long.TryParse(attrib.Value, out long outLong))
+                    {
+                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
+
+                    field.SetValue(outObject, outLong);
                     break;
-                case "float":
+                case "Single":
+                    if (!float.TryParse(attrib.Value, out float outFloat))
+                    {
+                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
+
+                    field.SetValue(outObject, outFloat);
                     break;
                 case "Vector3":
+                    float[] floatValues = Array.ConvertAll(attrib.Value.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries), float.Parse);
+
+                    if (floatValues.Length != 3)
+                    {
+                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
+
+                    field.SetValue(outObject, new Vector3(floatValues[0], floatValues[1], floatValues[2]));
                     break;
-                case "string":
+                case "String":
+                    field.SetValue(outObject, attrib.Value);
                     break;
-                case "int[]":
+                case "Int32[]":
+                    int[] intValues = Array.ConvertAll(attrib.Value.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries), int.Parse);
+
+                    field.SetValue(outObject, intValues);
                     break;
                 default:
-                    if (field.FieldType.IsArray && field.FieldType.GetElementType().IsEnum) { 
+                    if (field.FieldType.IsArray && field.FieldType.GetElementType().IsEnum) {
+                        Type? nestedType = field.FieldType.GetElementType();
+                        if (nestedType is null) {
+                            throw new InvalidDataException($"unhandled type of {field.FieldType.Name} on value '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                        }
+                        // generates an object[] array of the enums. i couldn't find a way to generate the actual underlying enum type array directly because it kept resolving to object[]
+                        var enumObjectValues = Array.ConvertAll(attrib.Value.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries), value => System.Enum.Parse(nestedType, value));
+                        // forcibly create an enum array and copy values over so that field.SetValue is happy & copies the array over to the member
+                        dynamic enumValues = Array.CreateInstance(field.FieldType.GetElementType(), enumObjectValues.GetLength(0));
+                        for (int i = 0; i < enumObjectValues.Length; ++i) {
+                            enumValues[i] = (dynamic)enumObjectValues[i];
+                        }
+                        field.SetValue(outObject, enumValues);
                     }
-                    else if (field.FieldType.IsEnum) { 
-                    }//field.FieldType.arr
+                    else if (field.FieldType.IsEnum) {
+                        field.SetValue(outObject, System.Enum.Parse(field.FieldType, attrib.Value));
+                    }
+                    else {
+                        throw new InvalidDataException($"unhandled type of {field.FieldType.Name} on value '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    }
                     break;
             }
         }
@@ -72,12 +132,16 @@ public class AiParser {
             var nodeStack = new List<(int StackIndex, XmlNodeList Nodes, object OutNode)>();
             NpcAi root = new NpcAi();
 
+            document.LoadXml(sanitized);
+
             nodeStack.Add((0, document.ChildNodes, root));
 
             while (nodeStack.Count > 0) {
                 (int StackIndex, XmlNodeList Nodes, object OutNode) = nodeStack.Last();
 
-                if (StackIndex > Nodes.Count)
+				int stackIndex = nodeStack.Count - 1;
+
+                if (StackIndex >= Nodes.Count)
                 {
                     nodeStack.RemoveAt(nodeStack.Count - 1);
 
@@ -85,7 +149,26 @@ public class AiParser {
                 }
 
                 // child node of stack entry
-                XmlNode xmlNode = Nodes[StackIndex];
+                XmlNode? xmlNode = Nodes.Item(StackIndex);
+
+                if (xmlNode is null) {
+                    throw new IndexOutOfRangeException($"stack index {StackIndex} node is null [{Nodes.Count}]");
+                }
+
+				bool skipHeader = nodeStack.Count == 1 && xmlNode.Name == "xml";
+
+                if (skipHeader || xmlNode.Name == "#comment") {
+                    nodeStack[nodeStack.Count - 1] = (StackIndex + 1, Nodes, OutNode);
+
+                    continue;
+                }
+
+                if (nodeStack.Count == 1 && xmlNode.Name == "npcAi")
+                {
+                    nodeStack[nodeStack.Count - 1] = (0, xmlNode.ChildNodes, OutNode);
+
+                    continue;
+                }
 
                 switch (OutNode) {
                     case NpcAi npcAi:
@@ -184,16 +267,8 @@ public class AiParser {
                         throw new NotImplementedException($"unknown type {OutNode.GetType().Name}");
                 }
 
-                nodeStack[nodeStack.Count + 1] = (StackIndex + 1, Nodes, OutNode);
+                nodeStack[stackIndex] = (StackIndex + 1, Nodes, OutNode);
             }
-
-            //document.LoadXml(sanitized);
-            //
-            //document.SelectNodes("")
-            //
-            //var root = aiSerializer.Deserialize(XmlReader.Create(new StringReader(sanitized))) as NpcAi;
-            //
-            //Debug.Assert(root != null);
 
             // removing the AI/ prefix because the <aiInfo path> attribute is relative to AI
             string aiName = entry.Name.Substring(3);

@@ -25,6 +25,7 @@ public static class Sanitizer {
         xml = xml.Replace(" rob=", " prob=");
         xml = xml.Replace(" zfaceTarget=", " faceTarget=");
         xml = xml.Replace(" pfaceTarget=", " faceTarget=");
+        xml = xml.Replace(" sequnce=", " sequence=");
         xml = xml.Replace(" facePos=\"0\"", " facePos=\"0, 0, 0\""); // only this typo
         xml = xml.Replace(" center=\"4725, 4575. 5710\"", " center=\"4725, 4575, 5710\""); // only this typo
         xml = xml.Replace(" lifeTime=\"15.6\"", " lifeTime=\"15600\""); // only this typo
