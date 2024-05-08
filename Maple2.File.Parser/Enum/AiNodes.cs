@@ -2,7 +2,7 @@
 
 public enum ConditionTargetState {
     grabTarget,
-    holdme
+    holdme,
 }
 
 public enum ConditionOp {
@@ -16,24 +16,56 @@ public enum ConditionOp {
     greaterEqual = GreaterEqual,
     lessEqual = LessEqual,
     greater = Greater,
-    less = Less
+    less = Less,
 }
 
 public enum SummonOption {
     none,
     masterHP,
     hitDamage,
-    linkHP
+    linkHP,
 }
 
 public enum SummonMaster {
     Master,
     Slave,
-    None
+    None,
 }
 
 public enum AiTarget {
     defaultTarget,
     hostile,
-    friendly
+    friendly,
+}
+
+public enum NodeTargetType {
+    rand,
+    near,
+    far,
+    mid,
+    nearAssociated,
+    rankAssociate,
+    hasAdditional,
+    randAssociated,
+    grabbedUser,
+    random = rand,
+}
+
+public enum NodeJumpType {
+    jumpA = 1,
+    jumpB = 2,
+}
+
+public enum NodeRideType {
+    slave,
+}
+
+public enum NodeBuffType {
+    add,
+    remove,
+}
+
+public enum NodePopupType {
+    talk,
+    cutin,
 }

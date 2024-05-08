@@ -1,111 +1,119 @@
-﻿using Maple2.File.Parser.Xml.AI;
+﻿using System.Diagnostics;
+using Maple2.File.Parser.Xml.AI;
 using Maple2.File.Parser;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static Maple2.File.Parser.Xml.Table.InteractObject;
 
 namespace Maple2.File.Tests;
 
 [TestClass]
 public class AiParserTest {
-    private void TestNode(Node node, HashSet<string> definedPresets) {
-        Assert.IsTrue(node.name != "");
-        Assert.IsFalse(node.condition.Count != 0 && node.name != "conditions");
+    private void TestEntry(Entry entry, HashSet<string> definedPresets) {
+        Assert.IsTrue(entry.name != "");
 
-        foreach (Node child in node.node) {
-            TestNode(child, definedPresets);
-        }
-
-        foreach (Condition child in node.condition) {
-            TestCondition(child, definedPresets);
-        }
-
-        foreach (AiPreset child in node.aiPreset) {
-            TestAiPreset(child, definedPresets, false);
+        foreach (Entry child in entry.Entries) {
+            switch (child) {
+                case NodeEntry node:
+                    TestNode(node, definedPresets);
+                    break;
+                case ConditionEntry condition:
+                    TestCondition(condition, definedPresets);
+                    break;
+                case AiPresetEntry preset:
+                    TestAiPreset(preset, definedPresets, false);
+                    break;
+            }
         }
     }
 
-    private void TestCondition(Condition condition, HashSet<string> definedPresets) {
+    private void TestNode(NodeEntry entry, HashSet<string> definedPresets) {
+        Assert.IsTrue(entry.name != "");
+
+        foreach (Entry child in entry.Entries) {
+            TestEntry(child, definedPresets);
+        }
+    }
+
+    private void TestCondition(ConditionEntry condition, HashSet<string> definedPresets) {
         Assert.IsTrue(condition.name != "");
 
-        foreach (Node child in condition.node) {
-            TestNode(child, definedPresets);
-        }
-
-        foreach (AiPreset child in condition.aiPreset) {
-            TestAiPreset(child, definedPresets, false);
+        foreach (Entry child in condition.Entries) {
+            TestEntry(child, definedPresets);
         }
     }
 
-    private void TestAiPreset(AiPreset preset, HashSet<string> definedPresets, bool isTopLevel) {
+    private void TestAiPreset(AiPresetEntry preset, HashSet<string> definedPresets, bool isTopLevel) {
         Assert.IsTrue(preset.name != "");
-
-        Assert.IsFalse(preset.node.Count != 0 && !isTopLevel);
-        Assert.IsFalse(preset.aiPreset.Count != 0 && !isTopLevel);
+        Assert.IsFalse(preset.Entries.Count != 0 && !isTopLevel);
 
         if (isTopLevel) {
-            foreach (Node child in preset.node) {
-                TestNode(child, definedPresets);
-            }
-
-            foreach (AiPreset child in preset.aiPreset) {
-                TestAiPreset(child, definedPresets, false);
+            foreach (Entry child in preset.Entries) {
+                TestEntry(child, definedPresets);
             }
         }
     }
 
     [TestMethod]
     public void TestAiParser() {
-        var parser = new AiParser(TestUtils.ServerReader);
+        var parser = new AiParser(TestUtils.ServerReader, includeComments:true);
 
         bool foundAnyNodes = false;
 
         foreach ((string name, NpcAi data) in parser.Parse()) {
             HashSet<string> definedPresets = new();
 
-            bool hasReserved = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
-            bool hasBattle = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
-            bool hasBattleEnd = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
-            bool hasAiPresets = (data.aiPresets?.aiPreset.Count ?? 0) > 0;
+            bool hasReserved = data.Reserved.Count > 0;
+            bool hasBattle = data.Battle.Count > 0;
+            bool hasBattleEnd = data.BattleEnd.Count > 0;
+            bool hasAiPresets = data.AiPresets.Count > 0;
             bool hasAnyNodes = hasReserved || hasBattle || hasBattleEnd || hasAiPresets;
             bool hasAnySubNodes = false;
 
-            foreach (AiPreset preset in data.aiPresets?.aiPreset ?? new List<AiPreset>()) {
+            foreach (Entry entry in data.AiPresets) {
+                if (entry is Comment) continue;
+                if (entry is not AiPresetEntry preset) {
+                    throw new ArgumentException($"Unexpected AiPreset node: {entry.name}");
+                }
+
                 // mostly true except LargeBlueAge_04 can appear twice
                 //Assert.IsFalse(definedPresets.Contains(preset.name));
 
                 definedPresets.Add(preset.name);
 
-                hasAnySubNodes |= true;
+                hasAnySubNodes = true;
             }
 
-            foreach (Node node in data.battle?.node ?? new List<Node>()) {
-                TestNode(node, definedPresets);
+            foreach (Entry entry in data.Battle) {
+                TestEntry(entry, definedPresets);
 
-                hasAnySubNodes |= true;
+                hasAnySubNodes = true;
             }
 
-            foreach (Node node in data.battleEnd?.node ?? new List<Node>()) {
-                TestNode(node, definedPresets);
+            foreach (Entry entry in data.BattleEnd) {
+                TestEntry(entry, definedPresets);
 
-                hasAnySubNodes |= true;
+                hasAnySubNodes = true;
             }
 
-            foreach (AiPreset preset in data.aiPresets?.aiPreset ?? new List<AiPreset>()) {
+            foreach (Entry entry in data.AiPresets) {
+                if (entry is Comment) continue;
+                if (entry is not AiPresetEntry preset) {
+                    throw new ArgumentException($"Unexpected AiPreset node: {entry.name}");
+                }
+
                 TestAiPreset(preset, definedPresets, true);
 
-                hasAnySubNodes |= true;
+                hasAnySubNodes = true;
             }
 
-            foreach (Condition condition in data.reserved?.condition ?? new List<Condition>()) {
+            foreach (Entry entry in data.Reserved) {
+                if (entry is Comment) continue;
+                if (entry is not ConditionEntry condition) {
+                    throw new ArgumentException($"Unexpected Condition node: {entry.name}");
+                }
+
                 TestCondition(condition, definedPresets);
 
-                hasAnySubNodes |= true;
+                hasAnySubNodes = true;
             }
 
             foundAnyNodes |= hasAnyNodes && hasAnySubNodes;
