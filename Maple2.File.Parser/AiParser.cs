@@ -30,13 +30,11 @@ public class AiParser {
         foreach (XmlAttribute attrib in xmlNode.Attributes) { 
             FieldInfo? field = typeof(T).GetField(attrib.Name);
 
-            if (field is null)
-            {
+            if (field is null) {
                 throw new MemberAccessException($"object of type '{typeof(T).Name}' doesn't have member '{attrib.Name}' from node '{xmlNode.LocalName}'");
             }
 
-            switch (field.FieldType.Name)
-            {
+            switch (field.FieldType.Name) {
                 case "Boolean":
                     if (!bool.TryParse(attrib.Value, out bool outBool)) {
 						if (!int.TryParse(attrib.Value, out int outBoolInt)) {
@@ -49,33 +47,29 @@ public class AiParser {
                     field.SetValue(outObject, outBool);
                     break;
                 case "Int16":
-                    if (!short.TryParse(attrib.Value, out short outShort))
-                    {
-                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    if (!short.TryParse(attrib.Value, out short outShort)) {
+                        throw new InvalidDataException($"invalid short '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
                     }
 
                     field.SetValue(outObject, outShort);
                     break;
                 case "Int32":
-                    if (!int.TryParse(attrib.Value, out int outInt))
-                    {
-                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    if (!int.TryParse(attrib.Value, out int outInt)) {
+                        throw new InvalidDataException($"invalid int '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
                     }
 
                     field.SetValue(outObject, outInt);
                     break;
                 case "Int64":
-                    if (!long.TryParse(attrib.Value, out long outLong))
-                    {
-                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    if (!long.TryParse(attrib.Value, out long outLong)) {
+                        throw new InvalidDataException($"invalid long '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
                     }
 
                     field.SetValue(outObject, outLong);
                     break;
                 case "Single":
-                    if (!float.TryParse(attrib.Value, out float outFloat))
-                    {
-                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    if (!float.TryParse(attrib.Value, out float outFloat)) {
+                        throw new InvalidDataException($"invalid float '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
                     }
 
                     field.SetValue(outObject, outFloat);
@@ -83,9 +77,8 @@ public class AiParser {
                 case "Vector3":
                     float[] floatValues = Array.ConvertAll(attrib.Value.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries), float.Parse);
 
-                    if (floatValues.Length != 3)
-                    {
-                        throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                    if (floatValues.Length != 3) {
+                        throw new InvalidDataException($"invalid Vector3 '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
                     }
 
                     field.SetValue(outObject, new Vector3(floatValues[0], floatValues[1], floatValues[2]));
@@ -129,7 +122,7 @@ public class AiParser {
             string sanitized = Sanitizer.SanitizeAi(xmlReader.GetString(entry));
 
             XmlDocument document = new XmlDocument();
-            var nodeStack = new List<(int StackIndex, XmlNodeList Nodes, object OutNode)>();
+            var nodeStack = new List<(int stackIndex, XmlNodeList nodes, object outNode)>();
             NpcAi root = new NpcAi();
 
             document.LoadXml(sanitized);
@@ -137,43 +130,40 @@ public class AiParser {
             nodeStack.Add((0, document.ChildNodes, root));
 
             while (nodeStack.Count > 0) {
-                (int StackIndex, XmlNodeList Nodes, object OutNode) = nodeStack.Last();
+                (int stackIndex, XmlNodeList nodes, object outNode) = nodeStack.Last();
 
-				int stackIndex = nodeStack.Count - 1;
+				int currentStackIndex = nodeStack.Count - 1;
 
-                if (StackIndex >= Nodes.Count)
-                {
+                if (stackIndex >= nodes.Count) {
                     nodeStack.RemoveAt(nodeStack.Count - 1);
 
                     continue;
                 }
 
                 // child node of stack entry
-                XmlNode? xmlNode = Nodes.Item(StackIndex);
+                XmlNode? xmlNode = nodes.Item(stackIndex);
 
                 if (xmlNode is null) {
-                    throw new IndexOutOfRangeException($"stack index {StackIndex} node is null [{Nodes.Count}]");
+                    throw new IndexOutOfRangeException($"stack index {stackIndex} node is null [{nodes.Count}]");
                 }
 
 				bool skipHeader = nodeStack.Count == 1 && xmlNode.Name == "xml";
 
                 if (skipHeader || xmlNode.Name == "#comment") {
-                    nodeStack[nodeStack.Count - 1] = (StackIndex + 1, Nodes, OutNode);
+                    nodeStack[nodeStack.Count - 1] = (stackIndex + 1, nodes, outNode);
 
                     continue;
                 }
 
-                if (nodeStack.Count == 1 && xmlNode.Name == "npcAi")
-                {
-                    nodeStack[nodeStack.Count - 1] = (0, xmlNode.ChildNodes, OutNode);
+                if (nodeStack.Count == 1 && xmlNode.Name == "npcAi") {
+                    nodeStack[nodeStack.Count - 1] = (0, xmlNode.ChildNodes, outNode);
 
                     continue;
                 }
 
-                switch (OutNode) {
+                switch (outNode) {
                     case NpcAi npcAi:
-                        switch(xmlNode.LocalName)
-                        {
+                        switch(xmlNode.LocalName) {
                             case "reserved":
                                 nodeStack.Add((0, xmlNode.ChildNodes, npcAi.reserved));
                                 break;
@@ -230,44 +220,38 @@ public class AiParser {
                         }
                         break;
                     case Condition condition:
-                        if (xmlNode.LocalName == "node")
-                        {
+                        if (xmlNode.LocalName == "node") {
                             condition.entries.Add(new Node());
                             ParseAttributes(xmlNode, (Node)condition.entries.Last());
                             nodeStack.Add((0, xmlNode.ChildNodes, (Node)condition.entries.Last()));
                         }
-                        else if (xmlNode.LocalName == "aiPreset")
-                        {
+                        else if (xmlNode.LocalName == "aiPreset") {
                             condition.entries.Add(new AiPreset());
                             ParseAttributes(xmlNode, (AiPreset)condition.entries.Last());
                         }
-                        else
-                        {
+                        else {
                             throw new NotImplementedException($"unknown node type {xmlNode.LocalName} in condition name='{condition.name}'");
                         }
                         break;
                     case AiPresetDefinition aiPreset:
-                        if (xmlNode.LocalName == "node")
-                        {
+                        if (xmlNode.LocalName == "node") {
                             aiPreset.entries.Add(new Node());
                             ParseAttributes(xmlNode, (Node)aiPreset.entries.Last());
                             nodeStack.Add((0, xmlNode.ChildNodes, (Node)aiPreset.entries.Last()));
                         }
-                        else if (xmlNode.LocalName == "aiPreset")
-                        {
+                        else if (xmlNode.LocalName == "aiPreset") {
                             aiPreset.entries.Add(new AiPreset());
                             ParseAttributes(xmlNode, (AiPreset)aiPreset.entries.Last());
                         }
-                        else
-                        {
+                        else {
                             throw new NotImplementedException($"unknown node type {xmlNode.LocalName} in aiPreset definition name='{aiPreset.name}'");
                         }
                         break;
                     default:
-                        throw new NotImplementedException($"unknown type {OutNode.GetType().Name}");
+                        throw new NotImplementedException($"unknown type {outNode.GetType().Name}");
                 }
 
-                nodeStack[stackIndex] = (StackIndex + 1, Nodes, OutNode);
+                nodeStack[currentStackIndex] = (currentStackIndex + 1, nodes, outNode);
             }
 
             // removing the AI/ prefix because the <aiInfo path> attribute is relative to AI

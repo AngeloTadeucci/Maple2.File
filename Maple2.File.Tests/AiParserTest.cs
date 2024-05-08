@@ -17,8 +17,7 @@ public class AiParserTest {
     private void TestNode(Entry entry, HashSet<string> definedPresets) {
         Assert.IsTrue(entry.name != "");
 
-        if (entry is AiPreset)
-        {
+        if (entry is AiPreset) {
             Assert.IsTrue(definedPresets.Contains(entry.name));
 
             return;
@@ -30,8 +29,7 @@ public class AiParserTest {
 
         Assert.IsFalse(node.conditions.Count != 0 && node.name != "conditions");
 
-        foreach (Entry child in node.entries)
-        {
+        foreach (Entry child in node.entries) {
             TestNode(child, definedPresets);
         }
 

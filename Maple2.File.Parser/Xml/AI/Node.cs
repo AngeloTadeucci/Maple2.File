@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Numerics;
-using M2dXmlGenerator;
 using Maple2.File.Parser.Enum;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Maple2.File.Parser.Xml.AI;
 
@@ -12,7 +10,11 @@ public class Entry {
     public string name = string.Empty;
 }
 
-public partial class Node : Entry {
+public class Comment : Entry {
+    public string contents;
+}
+
+public class Node : Entry {
 
     public List<Entry> entries = new List<Entry>();
     public IList<Condition> conditions = new List<Condition>();

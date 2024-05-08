@@ -1,11 +1,10 @@
 ﻿using Maple2.File.Parser.Enum;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using M2dXmlGenerator;
 
 namespace Maple2.File.Parser.Xml.AI;
 
-public partial class Condition {
+public class Condition {
     public string name = string.Empty;
 
     public List<Entry> entries = new List<Entry>();
