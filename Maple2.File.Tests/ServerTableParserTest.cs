@@ -309,4 +309,22 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestAdventureIdExp() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseAdventureIdExp()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestAdventureExp() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseAdventureExp()) {
+            continue;
+        }
+    }
 }

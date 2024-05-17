@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Maple2.File.IO;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Table.Server;
 
@@ -37,6 +38,8 @@ public class ServerTableParser {
     private readonly XmlSerializer fishingSpotSerializer;
     private readonly XmlSerializer fishLureSerializer;
     private readonly XmlSerializer fishBoxSerializer;
+    private readonly XmlSerializer adventureIdExpTableSerializer;
+    private readonly XmlSerializer adventureExpTableSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -65,6 +68,8 @@ public class ServerTableParser {
         this.fishingSpotSerializer = new XmlSerializer(typeof(FishingSpotRoot));
         this.fishLureSerializer = new XmlSerializer(typeof(FishLureRoot));
         this.fishBoxSerializer = new XmlSerializer(typeof(FishBoxRoot));
+        this.adventureIdExpTableSerializer = new XmlSerializer(typeof(AdventureIdExpTableRoot));
+        this.adventureExpTableSerializer = new XmlSerializer(typeof(AdventureExpTableRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -501,6 +506,28 @@ public class ServerTableParser {
 
         foreach (FishLure lure in data.lure) {
             yield return (lure.additionalEffectCode, lure);
+        }
+    }
+
+    public IEnumerable<(int Id, AdventureIdExpTable Table)> ParseAdventureIdExp() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/AdventureIDExpTable.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = adventureIdExpTableSerializer.Deserialize(reader) as AdventureIdExpTableRoot;
+        Debug.Assert(data != null);
+
+        foreach (AdventureIdExpTable exp in data.exp) {
+            yield return (exp.id, exp);
+        }
+    }
+
+    public IEnumerable<(AdventureExpType Type, AdventureExpTable Table)> ParseAdventureExp() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/AdventureExpTable.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = adventureExpTableSerializer.Deserialize(reader) as AdventureExpTableRoot;
+        Debug.Assert(data != null);
+
+        foreach (AdventureExpTable exp in data.exp) {
+            yield return (exp.type, exp);
         }
     }
 }
