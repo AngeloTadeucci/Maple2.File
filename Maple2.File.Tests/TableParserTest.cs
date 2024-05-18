@@ -641,4 +641,27 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestBlackMarketStatTable() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseBlackMarketStatTable()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestBlackMarketOption() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        (_, _) = parser.ParseBlackMarketOption();
+    }
+
+    [TestMethod]
+    public void TestBlackMarketCategory() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        (_, _) = parser.ParseBlackMarketCategory();
+    }
 }

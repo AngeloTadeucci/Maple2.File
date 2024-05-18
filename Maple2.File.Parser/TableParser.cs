@@ -82,6 +82,7 @@ public class TableParser {
     private readonly XmlSerializer rewardContentMesoStaticSerializer;
     private readonly XmlSerializer survivalLevelSerializer;
     private readonly XmlSerializer survivalLevelRewardSerializer;
+    private readonly XmlSerializer blackMarketSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -152,6 +153,7 @@ public class TableParser {
         this.rewardContentMesoStaticSerializer = new XmlSerializer(typeof(RewardContentMesoStaticRoot));
         this.survivalLevelSerializer = new XmlSerializer(typeof(SurvivalLevelRoot));
         this.survivalLevelRewardSerializer = new XmlSerializer(typeof(SurvivalLevelRewardRoot));
+        this.blackMarketSerializer = new XmlSerializer(typeof(BlackMarketRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1051,5 +1053,36 @@ public class TableParser {
         foreach (SurvivalLevelReward entry in data.survivalLevelReward) {
             yield return (entry.level, entry);
         }
+    }
+
+    public IEnumerable<(int Id, BlackMarketStatTable StatTable)> ParseBlackMarketStatTable() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/blackmarkettable.xml")));
+        xml = Sanitizer.SanitizeBool(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = blackMarketSerializer.Deserialize(reader) as BlackMarketRoot;
+        Debug.Assert(data != null);
+
+        foreach (BlackMarketStatTable entry in data.stat_table) {
+            yield return (entry.id, entry);
+        }
+    }
+
+    public (int, BlackMarketOption) ParseBlackMarketOption() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/blackmarkettable.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = blackMarketSerializer.Deserialize(reader) as BlackMarketRoot;
+        Debug.Assert(data != null);
+
+        return (data.option.id, data.option);
+    }
+
+    public (int, BlackMarketCategory) ParseBlackMarketCategory() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/blackmarkettable.xml")));
+        xml = Sanitizer.SanitizeBool(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = blackMarketSerializer.Deserialize(reader) as BlackMarketRoot;
+        Debug.Assert(data != null);
+
+        return (data.category.id, data.category);
     }
 }
