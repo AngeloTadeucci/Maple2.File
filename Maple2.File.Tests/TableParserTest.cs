@@ -72,6 +72,42 @@ public class TableParserTest {
             continue;
         }
     }
+    
+    [TestMethod]
+    public void TestDungeonRoundData() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseDungeonRoundData()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestDungeonRankReward() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseDungeonRankReward()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestDungeonMission() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseDungeonMission()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestDungeonConfig() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseDungeonConfig()) {
+            continue;
+        }
+    }
 
     [TestMethod]
     public void TestFish() {
