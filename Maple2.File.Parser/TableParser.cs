@@ -264,13 +264,33 @@ public class TableParser {
         }
     }
 
-    public IEnumerable<(int Id, DungeonConfig Config)> ParseDungeonConfig() {
+    public IEnumerable<DungeonConfig> ParseDungeonConfig() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/na/dungeonconfig.xml"));
         var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
         Debug.Assert(data != null);
 
         foreach (DungeonConfig config in data.dungeonConfig) {
-            yield return (config.id, config);
+            yield return config;
+        }
+    }
+
+    public IEnumerable<ReverseRaidConfig> ParseReverseRaidConfig() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/na/dungeonconfig.xml"));
+        var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
+        Debug.Assert(data != null);
+
+        foreach (ReverseRaidConfig config in data.reverseRaidConfig) {
+            yield return config;
+        }
+    }
+
+    public IEnumerable<UnitedWeeklyReward> ParseUnitedWeeklyReward() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/na/dungeonconfig.xml"));
+        var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
+        Debug.Assert(data != null);
+
+        foreach (UnitedWeeklyReward config in data.unitedWeeklyReward) {
+            yield return config;
         }
     }
 

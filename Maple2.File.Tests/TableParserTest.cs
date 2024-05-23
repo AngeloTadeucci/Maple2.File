@@ -104,7 +104,25 @@ public class TableParserTest {
     public void TestDungeonConfig() {
         var parser = new TableParser(TestUtils.XmlReader);
 
-        foreach ((_, _) in parser.ParseDungeonConfig()) {
+        foreach (var _ in parser.ParseDungeonConfig()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestReverseRaidConfig() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach (var _ in parser.ParseReverseRaidConfig()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestUnitedWeeklyReward() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach (var _ in parser.ParseUnitedWeeklyReward()) {
             continue;
         }
     }

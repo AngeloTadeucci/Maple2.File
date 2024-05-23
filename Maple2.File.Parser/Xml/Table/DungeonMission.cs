@@ -14,7 +14,7 @@ public partial class DungeonMissionRoot {
 
 public partial class DungeonMission : IFeatureLocale {
     [XmlAttribute] public int id;
-    [XmlAttribute] public string type;
+    [XmlAttribute] public string type = string.Empty;
     [M2dArray] public int[] value1 = Array.Empty<int>();
     [XmlAttribute] public int value2 = 0;
     [XmlAttribute] public int maxScore;

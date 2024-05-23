@@ -24,7 +24,7 @@ public partial class MissionRank {
 
 public class MissionRankGroup {
     [XmlAttribute] public int id;
-    [XmlAttribute] public string desc;
+    [XmlAttribute] public string desc = string.Empty;
     [XmlAttribute] public int maxScore;
     [XmlElement] public List<MissionRankGroupEntry> entries;
 }
@@ -34,7 +34,7 @@ public class MissionRankGroupEntry {
 }
 
 public partial class ReverseRaidConfig {
-    [XmlAttribute] public string startDate;
+    [XmlAttribute] public string startDate = string.Empty;
     [XmlAttribute] public int periodDays;
     [XmlElement] public List<ReverseRaidConfigEntry> entries;
 }
