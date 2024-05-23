@@ -9,12 +9,12 @@ namespace Maple2.File.Parser.Xml.Table;
 // ./data/xml/table/dungeonrankreward.xml
 [XmlRoot("ms2")]
 public partial class DungeonRankRewardRoot {
-    [M2dFeatureLocale(Selector = "rewardID")] private IList<DungeonRankReward> _dungeonRankReward;
+    [M2dFeatureLocale(Selector = "rewardID")] private IList<DungeonRankReward> _DungeonRankReward;
 }
 
 public partial class DungeonRankReward : IFeatureLocale {
     [XmlAttribute] public int rewardID;
-    [XmlElement] public List<DungeonRankRewardEntry> items;
+    [XmlElement] public List<DungeonRankRewardEntry> v;
 }
 
 public class DungeonRankRewardEntry {

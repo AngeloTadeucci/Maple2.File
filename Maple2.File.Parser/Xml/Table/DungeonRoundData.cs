@@ -9,12 +9,12 @@ namespace Maple2.File.Parser.Xml.Table;
 // ./data/xml/table/dungeonrounddata.xml
 [XmlRoot("ms2")]
 public partial class DungeonRoundDataRoot {
-    public List<DungeonRoundGroup> dungeonRoundGroup;
+    [XmlElement] public List<DungeonRoundGroup> DungeonRoundGroup;
 }
 
 public partial class DungeonRoundGroup {
     [XmlAttribute] public int id;
-    [XmlElement] public List<DungeonRoundGroupEntry> entries;
+    [XmlElement] public List<DungeonRoundGroupEntry> v;
 }
 
 public class DungeonRoundGroupEntry {

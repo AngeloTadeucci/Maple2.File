@@ -31,9 +31,9 @@ public partial class DungeonRoom : IFeatureLocale {
     [XmlAttribute] public float rewardExpRate;
     [XmlAttribute] public long rewardMeso;
     [XmlAttribute] public int scoreBonusId;
-    [M2dArray] public int[] rewardLimitedDropBoxIds;
+    [M2dArray] public int[] rewardLimitedDropBoxIds = Array.Empty<int>();
     //[M2dArray] public int[] rewardLimitedDropBoxIds2;
-    [M2dArray] public int[] rewardUnlimitedDropBoxIds;
+    [M2dArray] public int[] rewardUnlimitedDropBoxIds = Array.Empty<int>();
     [XmlAttribute] public int seasonRankRewardID;
     [XmlAttribute] public int lobbyFieldID;
     [M2dArray] public int[] fieldIDs;
@@ -49,14 +49,14 @@ public partial class DungeonRoom : IFeatureLocale {
     [M2dArray] public DayOfWeek[] limitDayOfWeeks;
     [XmlAttribute] public bool limitMesoRevival;
     [XmlAttribute] public bool limitMeratRevival;
-    [M2dArray] public int[] limitClearDungeon;
-    [M2dArray] public int[] limitAdditionalEffects;
+    [M2dArray] public int[] limitClearDungeon = Array.Empty<int>();
+    [M2dArray] public int[] limitAdditionalEffects = Array.Empty<int>();
     [XmlAttribute] public bool limitRecommendWeapon;
-    [XmlAttribute] public string dungeonBanner;
-    [XmlAttribute] public string bossIcon;
+    [XmlAttribute] public string dungeonBanner = string.Empty;
+    [XmlAttribute] public string bossIcon = string.Empty;
     [XmlAttribute] public bool isUseBossIcon;
     [XmlAttribute] public DungeonBossRankingType BossRankingType;
-    [XmlAttribute] public string openPeriodTag; // 2019-05-31-00-00
+    [XmlAttribute] public string openPeriodTag = string.Empty;  // 2019-05-31-00-00
     [XmlAttribute] public bool isPartyOnly;
     [XmlAttribute] public bool isChangeMaxUser;
     [XmlAttribute] public int playerCountFactorID;
@@ -67,14 +67,14 @@ public partial class DungeonRoom : IFeatureLocale {
     [XmlAttribute] public int dungeonHelperRequireClearCount;
     [XmlAttribute] public bool isUseRandomMatch;
     [XmlAttribute] public bool isLeaveAfterCloseReward;
-    [M2dArray] public int[] partyMissions;
-    [M2dArray] public int[] userMissions;
+    [M2dArray] public int[] partyMissions = Array.Empty<int>();
+    [M2dArray] public int[] userMissions = Array.Empty<int>();
     [XmlAttribute] public int rankTableID;
     [XmlAttribute] public int representID;
 
-    [XmlAttribute] public string clearType;
+    [XmlAttribute] public string clearType = string.Empty;
     [XmlAttribute] public int BossRanking;
-    [XmlAttribute] public string openPeriodDate;
+    [XmlAttribute] public string openPeriodDate = string.Empty;
     [XmlAttribute] public bool isDisableFindHelper;
     [XmlAttribute] public int extraRewardTicketBaseCount; // 0
 

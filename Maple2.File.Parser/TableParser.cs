@@ -239,7 +239,7 @@ public class TableParser {
         var data = dungeonRoundDataSerializer.Deserialize(reader) as DungeonRoundDataRoot;
         Debug.Assert(data != null);
 
-        foreach (DungeonRoundGroup round in data.dungeonRoundGroup) {
+        foreach (DungeonRoundGroup round in data.DungeonRoundGroup) {
             yield return (round.id, round);
         }
     }
@@ -249,7 +249,7 @@ public class TableParser {
         var data = dungeonRankRewardSerializer.Deserialize(reader) as DungeonRankRewardRoot;
         Debug.Assert(data != null);
 
-        foreach (DungeonRankReward reward in data.dungeonRankReward) {
+        foreach (DungeonRankReward reward in data.DungeonRankReward) {
             yield return (reward.rewardID, reward);
         }
     }
@@ -259,7 +259,7 @@ public class TableParser {
         var data = dungeonMissionSerializer.Deserialize(reader) as DungeonMissionRoot;
         Debug.Assert(data != null);
 
-        foreach (DungeonMission mission in data.dungeonMission) {
+        foreach (DungeonMission mission in data.DungeonMission) {
             yield return (mission.id, mission);
         }
     }
@@ -269,7 +269,7 @@ public class TableParser {
         var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
         Debug.Assert(data != null);
 
-        foreach (DungeonConfig config in data.dungeonConfig) {
+        foreach (DungeonConfig config in data.DungeonConfig) {
             yield return config;
         }
     }
@@ -279,7 +279,7 @@ public class TableParser {
         var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
         Debug.Assert(data != null);
 
-        foreach (ReverseRaidConfig config in data.reverseRaidConfig) {
+        foreach (ReverseRaidConfig config in data.ReverseRaidConfig) {
             yield return config;
         }
     }
@@ -289,7 +289,7 @@ public class TableParser {
         var data = dungeonConfigSerializer.Deserialize(reader) as DungeonConfigRoot;
         Debug.Assert(data != null);
 
-        foreach (UnitedWeeklyReward config in data.unitedWeeklyReward) {
+        foreach (UnitedWeeklyReward config in data.UnitedWeeklyReward) {
             yield return config;
         }
     }
