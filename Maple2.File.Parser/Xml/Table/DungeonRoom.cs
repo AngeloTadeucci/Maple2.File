@@ -36,7 +36,7 @@ public partial class DungeonRoom : IFeatureLocale {
     [M2dArray] public int[] rewardUnlimitedDropBoxIds = Array.Empty<int>();
     [XmlAttribute] public int seasonRankRewardID;
     [XmlAttribute] public int lobbyFieldID;
-    [M2dArray] public int[] fieldIDs;
+    [M2dArray] public int[] fieldIDs = Array.Empty<int>();
     [XmlAttribute] public int durationTick;
     [XmlAttribute] public bool isExpireTimeOut;
     [XmlAttribute] public DungeonTimerType timerType;
@@ -46,7 +46,7 @@ public partial class DungeonRoom : IFeatureLocale {
     [XmlAttribute] public int limitAchieveID;
     [XmlAttribute] public short limitPlayerLevel;
     [XmlAttribute] public bool limitVIP;
-    [M2dArray] public DayOfWeek[] limitDayOfWeeks;
+    [M2dArray] public DayOfWeek[] limitDayOfWeeks = Array.Empty<DayOfWeek>();
     [XmlAttribute] public bool limitMesoRevival;
     [XmlAttribute] public bool limitMeratRevival;
     [M2dArray] public int[] limitClearDungeon = Array.Empty<int>();
