@@ -14,7 +14,7 @@
         <!-- Use following lines to write the generated files to disk. -->
         <EmitCompilerGeneratedFiles Condition=" '$(Configuration)' == 'Debug' ">true</EmitCompilerGeneratedFiles>
         <PackageVersion>2.1.10</PackageVersion>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
 
