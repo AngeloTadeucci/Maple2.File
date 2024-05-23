@@ -1,4 +1,4 @@
-using Maple2.File.Flat.beastmodellibrary;
+﻿using Maple2.File.Flat.beastmodellibrary;
 
 namespace Maple2.File.Flat.tool {
     public interface IToolSpotLight : IBeastSpotLight {

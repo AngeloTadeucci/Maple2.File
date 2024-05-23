@@ -1,4 +1,4 @@
-using Maple2.File.Parser;
+﻿using Maple2.File.Parser;
 using Maple2.File.Parser.Xml.Quest;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

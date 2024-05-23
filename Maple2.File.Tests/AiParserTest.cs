@@ -54,7 +54,7 @@ public class AiParserTest {
 
     [TestMethod]
     public void TestAiParser() {
-        var parser = new AiParser(TestUtils.ServerReader, includeComments:true);
+        var parser = new AiParser(TestUtils.ServerReader, includeComments: true);
 
         bool foundAnyNodes = false;
 

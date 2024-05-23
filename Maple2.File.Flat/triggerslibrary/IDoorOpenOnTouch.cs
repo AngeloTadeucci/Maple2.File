@@ -1,4 +1,5 @@
-namespace Maple2.File.Flat.triggerslibrary {
+﻿namespace Maple2.File.Flat.triggerslibrary {
     public interface IDoorOpenOnTouch : IMapEntity {
-        string ModelName => "DoorOpenOnTouch"; }
+        string ModelName => "DoorOpenOnTouch";
+    }
 }

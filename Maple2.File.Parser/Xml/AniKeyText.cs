@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml; 
+namespace Maple2.File.Parser.Xml;
 
 // ./data/xml/anikeytext.xml
 [XmlRoot("ms2ani")]

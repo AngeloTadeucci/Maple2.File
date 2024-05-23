@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Map; 
+namespace Maple2.File.Parser.Xml.Map;
 
 public class HDR {
     [XmlAttribute] public float threshold;

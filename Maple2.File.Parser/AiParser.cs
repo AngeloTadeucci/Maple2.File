@@ -32,7 +32,7 @@ public class AiParser {
             XmlNode? reservedNode = document.SelectSingleNode("npcAi/reserved");
             if (reservedNode != null) {
                 XmlNode? commentNode = reservedNode.PreviousSibling;
-                while (includeComments && commentNode is XmlComment {Value: not null} comment) {
+                while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
 
                     if (comment.Value.Trim() == "예약") continue; // Redundant comment
@@ -45,7 +45,7 @@ public class AiParser {
             XmlNode? battleNode = document.SelectSingleNode("npcAi/battle");
             if (battleNode != null) {
                 XmlNode? commentNode = battleNode.PreviousSibling;
-                while (includeComments && commentNode is XmlComment {Value: not null} comment) {
+                while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
 
                     if (comment.Value.Trim() == "전투") continue; // Redundant comment
@@ -58,7 +58,7 @@ public class AiParser {
             XmlNode? battleEndNode = document.SelectSingleNode("npcAi/battleEnd");
             if (battleEndNode != null) {
                 XmlNode? commentNode = battleEndNode.PreviousSibling;
-                while (includeComments && commentNode is XmlComment {Value: not null} comment) {
+                while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
                     ai.BattleEnd.Insert(0, new Comment {
                         Value = comment.Value,
@@ -69,7 +69,7 @@ public class AiParser {
             XmlNode? aiPresetsNode = document.SelectSingleNode("npcAi/aiPresets");
             if (aiPresetsNode != null) {
                 XmlNode? commentNode = aiPresetsNode.PreviousSibling;
-                while (includeComments && commentNode is XmlComment {Value: not null} comment) {
+                while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
 
                     if (comment.Value.StartsWith("ai프리셋 모음")) continue; // Redundant comment
@@ -180,11 +180,11 @@ public class AiParser {
             switch (field.FieldType.Name) {
                 case "Boolean":
                     if (!bool.TryParse(attrib.Value, out bool outBool)) {
-						if (!int.TryParse(attrib.Value, out int outBoolInt)) {
-                        	throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
-						}
+                        if (!int.TryParse(attrib.Value, out int outBoolInt)) {
+                            throw new InvalidDataException($"invalid bool '{attrib.Value}' for {typeof(T).Name} member {field.Name}");
+                        }
 
-						outBool = outBoolInt != 0;
+                        outBool = outBoolInt != 0;
                     }
 
                     field.SetValue(result, outBool);
@@ -245,7 +245,7 @@ public class AiParser {
                         // forcibly create an enum array and copy values over so that field.SetValue is happy & copies the array over to the member
                         dynamic enumValues = Array.CreateInstance(field.FieldType.GetElementType(), enumObjectValues.GetLength(0));
                         for (int i = 0; i < enumObjectValues.Length; ++i) {
-                            enumValues[i] = (dynamic)enumObjectValues[i];
+                            enumValues[i] = (dynamic) enumObjectValues[i];
                         }
                         field.SetValue(result, enumValues);
                     } else if (field.FieldType.IsEnum) {

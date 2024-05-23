@@ -1,4 +1,5 @@
-namespace Maple2.File.Flat.physxmodellibrary {
+﻿namespace Maple2.File.Flat.physxmodellibrary {
     public interface IPhysXBox : IPhysXShape {
-        string ModelName => "PhysXBox"; }
+        string ModelName => "PhysXBox";
+    }
 }

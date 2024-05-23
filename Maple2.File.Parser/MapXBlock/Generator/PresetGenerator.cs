@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Maple2.File.Parser.Flat;
 
-namespace Maple2.File.Parser.MapXBlock.Generator; 
+namespace Maple2.File.Parser.MapXBlock.Generator;
 
 public class PresetGenerator {
     private readonly FlatTypeIndex index;
@@ -38,7 +38,7 @@ public class PresetGenerator {
                 if (mixinType == null) {
                     Console.WriteLine($"Invalid type {type.Name} is not derived from library. Expected: {requiredMixin.Name}");
                 }
-                    
+
                 string filePath = Path.Combine(path, $"{type.Name}.cs");
                 string code = GenerateClass(directory, type, mixinType);
 

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Maple2.File.Flat.standardmodellibrary {
     public interface IActor : IRenderable, IShadowable, IBaseEntity, ILightable, IPreloadable, INameable {

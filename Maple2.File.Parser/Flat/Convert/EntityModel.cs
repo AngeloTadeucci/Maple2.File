@@ -172,7 +172,14 @@ public class Value : IXmlSerializable {
                 case bool boolean:
                     writer.WriteAttributeString("Value", boolean ? "True" : "False");
                     break;
-                case ushort: case uint: case ulong: case short: case int: case long: case float: case double:
+                case ushort:
+                case uint:
+                case ulong:
+                case short:
+                case int:
+                case long:
+                case float:
+                case double:
                     writer.WriteAttributeString("Value", value.ToString());
                     break;
                 case Vector3 point3:

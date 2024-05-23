@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Maple2.File.Flat.physxmodellibrary;
 
 namespace Maple2.File.Flat.maplestory2library {

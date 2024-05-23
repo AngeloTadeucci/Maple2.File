@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Map; 
+namespace Maple2.File.Parser.Xml.Map;
 
 public class CashCall {
     [XmlAttribute] public bool cashTaxiNotDeparture;

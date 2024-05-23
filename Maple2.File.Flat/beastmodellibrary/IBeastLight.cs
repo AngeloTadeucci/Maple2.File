@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.beastmodellibrary {
+﻿namespace Maple2.File.Flat.beastmodellibrary {
     public interface IBeastLight : IMapEntity {
         string ModelName => "BeastLight";
         float ilbDirectLightScale => 1;

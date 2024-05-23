@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.Object; 
+namespace Maple2.File.Parser.Xml.Object;
 
 public partial class FirstPcAnimation {
     [XmlAttribute] public string firstAnimation = string.Empty;

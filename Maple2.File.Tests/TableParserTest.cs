@@ -72,7 +72,7 @@ public class TableParserTest {
             continue;
         }
     }
-    
+
     [TestMethod]
     public void TestDungeonRoundData() {
         var parser = new TableParser(TestUtils.XmlReader);

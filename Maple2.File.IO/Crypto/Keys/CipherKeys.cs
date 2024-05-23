@@ -67,8 +67,8 @@ namespace Maple2.File.IO.Crypto.Keys {
                     iv = PS2F_IV;
                     break;
                 default: {
-                    throw new Exception("ERROR generating Key/IV: the specified package version does not exist!");
-                }
+                        throw new Exception("ERROR generating Key/IV: the specified package version does not exist!");
+                    }
             }
 
             userKey = new byte[KEY_LEN];
@@ -104,10 +104,10 @@ namespace Maple2.File.IO.Crypto.Keys {
                     key = PS2F_XOR.Value;
                     break;
                 default: {
-                    // Nexon always defaults to MS2F here.
-                    key = MS2F_XOR.Value;
-                    break;
-                }
+                        // Nexon always defaults to MS2F here.
+                        key = MS2F_XOR.Value;
+                        break;
+                    }
             }
         }
     }

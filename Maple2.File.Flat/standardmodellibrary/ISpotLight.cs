@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.standardmodellibrary {
+﻿namespace Maple2.File.Flat.standardmodellibrary {
     public interface ISpotLight : IPointLight {
         string ModelName => "SpotLight";
         float OuterSpotAngle => 22.5f;

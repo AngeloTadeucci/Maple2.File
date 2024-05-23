@@ -46,7 +46,7 @@ namespace Maple2.File.IO.Crypto.Common {
         public static List<PackFileEntry> CreateFileList(string fileString) {
             List<PackFileEntry> fileList = new List<PackFileEntry>();
 
-            string[] entries = fileString.Split(new[] {"\r\n"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] entries = fileString.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string entry in entries) {
                 int properties = 0;
                 foreach (char c in entry) {

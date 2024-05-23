@@ -87,13 +87,13 @@ public class FlatToModel {
             Name = prop.Name,
             Value = new Value(assetIndex, prop.Type, prop.Value),
             Traits = new LTraits {
-                Trait = prop.Trait.Select(trait => new Trait{Name = trait}).ToList(),
+                Trait = prop.Trait.Select(trait => new Trait { Name = trait }).ToList(),
             },
         }).ToList();
         // PropertyOverrides
         foreach (FlatProperty property in type.GetAllProperties()) {
             bool overridden = false;
-            var propOverride = new PropertyOverride {Name = property.Name};
+            var propOverride = new PropertyOverride { Name = property.Name };
 
             foreach (FlatType mixin in requiredMixin) {
                 FlatProperty mixinProperty = mixin.GetProperty(property.Name);
@@ -114,7 +114,7 @@ public class FlatToModel {
                         if (inMixin != inProp) {
                             propOverride.TraitOverrides.TraitOverride.Add(new TraitOverride {
                                 IsActive = !inMixin,
-                                Trait = new Trait{Name = trait},
+                                Trait = new Trait { Name = trait },
                             });
                         }
                     }
@@ -130,7 +130,7 @@ public class FlatToModel {
             Name = behavior.Name,
             Target = behavior.Type,
             Traits = new LTraits {
-                Trait = behavior.Trait.Select(trait => new Trait {Name = trait}).ToList(),
+                Trait = behavior.Trait.Select(trait => new Trait { Name = trait }).ToList(),
             },
         }).ToList();
         // TODO: BehaviorOverrides
@@ -166,7 +166,7 @@ public class FlatToModel {
         // }
 
         model.Traits = new LTraits {
-            Trait = type.Trait.Select(trait => new Trait {Name = trait}).ToList(),
+            Trait = type.Trait.Select(trait => new Trait { Name = trait }).ToList(),
         };
 
         return model;

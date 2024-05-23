@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.beastmodellibrary {
+﻿namespace Maple2.File.Flat.beastmodellibrary {
     public interface IBeastFinalGatherSettings : IMapEntity {
         string ModelName => "BeastFinalGatherSettings";
         ushort ilbFGNumRays => 300;

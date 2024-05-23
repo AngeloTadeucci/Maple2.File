@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Maple2.File.Flat.maplestory2library {
     public interface IMS2Telescope : IMS2PhysXProp, IMS2InteractObject {

@@ -1,4 +1,5 @@
-namespace Maple2.File.Flat.beastmodellibrary {
+﻿namespace Maple2.File.Flat.beastmodellibrary {
     public interface IBeastQualityPresetPreviewGI : IBeastQualitySettings {
-        string ModelName => "BeastQualityPresetPreviewGI"; }
+        string ModelName => "BeastQualityPresetPreviewGI";
+    }
 }

@@ -1,4 +1,4 @@
-using Maple2.File.Flat.beastmodellibrary;
+﻿using Maple2.File.Flat.beastmodellibrary;
 
 namespace Maple2.File.Flat.maplestory2library {
     public interface IEffectPointLight : IBeastPointLight {

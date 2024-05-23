@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Maple2.File.Parser.Flat;
 
-namespace Maple2.File.Parser.MapXBlock.Generator; 
+namespace Maple2.File.Parser.MapXBlock.Generator;
 
 public class LibraryGenerator {
     private readonly FlatTypeIndex index;

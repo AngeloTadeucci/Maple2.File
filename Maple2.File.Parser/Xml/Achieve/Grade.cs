@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using Maple2.File.Parser.Xml.Common;
 
-namespace Maple2.File.Parser.Xml.Achieve; 
+namespace Maple2.File.Parser.Xml.Achieve;
 
 public class Grade {
     [XmlAttribute] public int value;

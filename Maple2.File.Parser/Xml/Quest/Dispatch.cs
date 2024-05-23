@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Quest; 
+namespace Maple2.File.Parser.Xml.Quest;
 
 public class Dispatch {
     [XmlAttribute] public string type = string.Empty; // DispatchType

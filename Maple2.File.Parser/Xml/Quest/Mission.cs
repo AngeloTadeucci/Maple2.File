@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Quest; 
+namespace Maple2.File.Parser.Xml.Quest;
 
 public class EventMission {
     [XmlAttribute("event")] public string @event = string.Empty; // EventMission

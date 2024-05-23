@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.maplestory2library {
+﻿namespace Maple2.File.Flat.maplestory2library {
     public interface IEventSpawnPointNPC : ISpawnPointNPC {
         string ModelName => "EventSpawnPointNPC";
         float LifeTime => 0;

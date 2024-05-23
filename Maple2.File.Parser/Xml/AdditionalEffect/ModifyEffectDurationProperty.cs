@@ -1,7 +1,7 @@
 ﻿using System;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.AdditionalEffect; 
+namespace Maple2.File.Parser.Xml.AdditionalEffect;
 
 public partial class ModifyEffectDurationProperty {
     [M2dArray] public int[] effectCodes = Array.Empty<int>();

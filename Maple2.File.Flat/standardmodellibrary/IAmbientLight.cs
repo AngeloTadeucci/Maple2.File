@@ -1,4 +1,4 @@
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace Maple2.File.Flat.standardmodellibrary {
     public interface IAmbientLight : ILight {

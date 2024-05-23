@@ -9,7 +9,7 @@ using Maple2.File.IO.Crypto.Common;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Object;
 
-namespace Maple2.File.Parser; 
+namespace Maple2.File.Parser;
 
 public class FunctionCubeParser {
     private readonly M2dReader xmlReader;

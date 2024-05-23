@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Skill; 
+namespace Maple2.File.Parser.Xml.Skill;
 
 public class TargetItem {
     [XmlAttribute] public bool consumeByPetTrap;

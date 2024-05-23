@@ -10,7 +10,7 @@ public partial class ItemExtractionRoot {
     [M2dFeatureLocale(Selector = "TargetItemID")] private IList<ItemExtraction> _key;
 }
 
-public partial class ItemExtraction : IFeatureLocale{
+public partial class ItemExtraction : IFeatureLocale {
     [XmlAttribute] public int TargetItemID;
     [XmlAttribute] public int TryCount;
     [XmlAttribute] public int ScrollCount;

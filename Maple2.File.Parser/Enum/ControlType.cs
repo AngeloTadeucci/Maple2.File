@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Enum; 
+﻿namespace Maple2.File.Parser.Enum;
 
 public enum ControlType {
     None = 0,
@@ -14,7 +14,7 @@ public enum ControlType {
     InstallNPC = 11,
     Notice = 12,
     Nurturing = 13,
-    
+
     // Not sure which values these are, all map to 3?
     Switch,
     FunctionUI,

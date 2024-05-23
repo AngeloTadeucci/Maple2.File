@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.physxmodellibrary {
+﻿namespace Maple2.File.Flat.physxmodellibrary {
     public interface IPhysXTrigger : IMapEntity {
         string ModelName => "PhysXTrigger";
         bool TriggerOnEnter => true;

@@ -1,4 +1,5 @@
-namespace Maple2.File.Flat.standardmodellibrary {
+﻿namespace Maple2.File.Flat.standardmodellibrary {
     public interface IBaseEntity : IMapEntity {
-        string ModelName => "BaseEntity"; }
+        string ModelName => "BaseEntity";
+    }
 }

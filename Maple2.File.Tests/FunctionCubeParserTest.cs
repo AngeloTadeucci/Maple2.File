@@ -2,7 +2,7 @@
 using Maple2.File.Parser.Xml.Object;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Maple2.File.Tests; 
+namespace Maple2.File.Tests;
 
 [TestClass]
 public class FunctionCubeParserTest {

@@ -9,7 +9,7 @@ public class RewardContentItemRoot {
     [XmlElement] public List<RewardContentItem> table;
 }
 
-public class RewardContentItem { 
+public class RewardContentItem {
     [XmlAttribute] public int itemTableID;
     [XmlElement] public List<RewardContentValue> v;
 }
@@ -17,7 +17,7 @@ public class RewardContentItem {
 public class RewardContentValue {
     [XmlAttribute] public int minLevel;
     [XmlAttribute] public int maxLevel;
-    
+
     [XmlElement] public List<RewardContentItemEntry> item;
 }
 

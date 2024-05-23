@@ -1,7 +1,7 @@
 ﻿using System.Xml.Serialization;
 using Maple2.File.Parser.Xml.Common;
 
-namespace Maple2.File.Parser.Xml.Skill; 
+namespace Maple2.File.Parser.Xml.Skill;
 
 public class Consume {
     [XmlAttribute] public long money;

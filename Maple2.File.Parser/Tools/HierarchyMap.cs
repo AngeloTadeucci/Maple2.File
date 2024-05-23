@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Maple2.File.Parser.Tools; 
+namespace Maple2.File.Parser.Tools;
 
 public class HierarchyMap<T> {
     private readonly Dictionary<string, HierarchyMap<T>> directories;
@@ -24,7 +24,7 @@ public class HierarchyMap<T> {
     // Example: Add("a/b/c/key", T)
     public void Add(string path, T value) {
         path ??= ""; // Default to empty string if null
-        string[] split = path.Split(new[] {'/', '\\'}, 2, StringSplitOptions.RemoveEmptyEntries);
+        string[] split = path.Split(new[] { '/', '\\' }, 2, StringSplitOptions.RemoveEmptyEntries);
         if (split.Length == 1) {
             values.Add(split[0], value);
             return;
@@ -43,7 +43,7 @@ public class HierarchyMap<T> {
     // Example: TryGet("a/b/c/key", T)
     public bool TryGet(string path, out T value) {
         path ??= ""; // Default to empty string if null
-        string[] split = path.Split(new[] {'/', '\\'}, 2, StringSplitOptions.RemoveEmptyEntries);
+        string[] split = path.Split(new[] { '/', '\\' }, 2, StringSplitOptions.RemoveEmptyEntries);
         if (split.Length == 1) {
             if (values.ContainsKey(split[0])) {
                 value = values[split[0]];
@@ -103,7 +103,7 @@ public class HierarchyMap<T> {
 
     private HierarchyMap<T> NavigateTo(string path) {
         path ??= ""; // Default to empty string if null
-        string[] split = path.Split(new[] {'/', '\\'}, StringSplitOptions.RemoveEmptyEntries);
+        string[] split = path.Split(new[] { '/', '\\' }, StringSplitOptions.RemoveEmptyEntries);
 
         HierarchyMap<T> current = this;
         foreach (string directory in split) {

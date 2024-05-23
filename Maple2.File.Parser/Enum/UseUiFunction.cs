@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Enum; 
+﻿namespace Maple2.File.Parser.Enum;
 
 // This is only used if ControlType == FunctionUI
 public enum UseUiFunction {

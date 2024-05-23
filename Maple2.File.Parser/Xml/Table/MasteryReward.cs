@@ -11,7 +11,7 @@ public partial class MasteryRewardRoot {
     [M2dFeatureLocale(Selector = "type")] private IList<MasteryReward> _mastery;
 }
 
-public partial class MasteryReward : IFeatureLocale{
+public partial class MasteryReward : IFeatureLocale {
     [M2dEnum] public MasteryType type;
     [XmlElement] public List<MasteryLevel> v;
 }

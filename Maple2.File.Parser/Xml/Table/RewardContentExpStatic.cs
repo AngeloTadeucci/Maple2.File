@@ -9,7 +9,7 @@ public class RewardContentExpStaticRoot {
     [XmlElement] public List<RewardContentExpStatic> table;
 }
 
-public class RewardContentExpStatic { 
+public class RewardContentExpStatic {
     [XmlAttribute] public int expTableID;
     [XmlElement] public List<RewardContentExpBase> @base;
 }

@@ -10,6 +10,9 @@ indent_size = 4
 [*.yml]
 indent_size = 2
 
+[*.cs]
+csharp_new_line_before_open_brace = none
+
 # Microsoft .NET properties
 csharp_new_line_before_catch = false
 csharp_new_line_before_else = false

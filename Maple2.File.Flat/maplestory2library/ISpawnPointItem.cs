@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.maplestory2library {
+﻿namespace Maple2.File.Flat.maplestory2library {
     public interface ISpawnPointItem : ISpawnPoint {
         string ModelName => "SpawnPointItem";
         uint globalDropLevel => 1;

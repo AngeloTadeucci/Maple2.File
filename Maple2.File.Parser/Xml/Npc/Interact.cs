@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Xml.Npc; 
+namespace Maple2.File.Parser.Xml.Npc;
 
 public class Interact {
     [XmlAttribute] public string interactFunction = string.Empty;

@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Maple2.File.Flat.standardmodellibrary {
     public interface ICamera : I3DProxy {

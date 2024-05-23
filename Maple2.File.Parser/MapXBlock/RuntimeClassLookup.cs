@@ -27,15 +27,15 @@ public sealed class RuntimeClassLookup : ClassLookup {
             .DefineDynamicModule(assemblyName.Name);
 
         // Manual index overrides
-        var proxyNifAsset = new FlatProperty {Name = "ProxyNifAsset", Type = "AssetID", Value = ""};
-        var interval = new FlatProperty {Name = "Interval", Type = "SInt32", Value = 0};
-        var friendly = new FlatProperty {Name = "friendly", Type = "SInt32", Value = 0};
-        var dropID = new FlatProperty {Name = "dropID", Type = "SInt32", Value = 0};
-        var npcList = new FlatProperty {Name = "NpcList", Type = "AssocString", Value = new Dictionary<string, string>()};
-        var spawnPointID = new FlatProperty {Name = "SpawnPointID", Type = "SInt32", Value = 0};
-        var spawnRadius = new FlatProperty {Name = "SpawnRadius", Type = "Float32", Value = 0f};
-        var npcCount = new FlatProperty {Name = "NpcCount", Type = "UInt32", Value = (uint)0};
-        var reactableSequenceName = new FlatProperty {Name = "reactableSequenceName", Type = "String", Value = ""};
+        var proxyNifAsset = new FlatProperty { Name = "ProxyNifAsset", Type = "AssetID", Value = "" };
+        var interval = new FlatProperty { Name = "Interval", Type = "SInt32", Value = 0 };
+        var friendly = new FlatProperty { Name = "friendly", Type = "SInt32", Value = 0 };
+        var dropID = new FlatProperty { Name = "dropID", Type = "SInt32", Value = 0 };
+        var npcList = new FlatProperty { Name = "NpcList", Type = "AssocString", Value = new Dictionary<string, string>() };
+        var spawnPointID = new FlatProperty { Name = "SpawnPointID", Type = "SInt32", Value = 0 };
+        var spawnRadius = new FlatProperty { Name = "SpawnRadius", Type = "Float32", Value = 0f };
+        var npcCount = new FlatProperty { Name = "NpcCount", Type = "UInt32", Value = (uint) 0 };
+        var reactableSequenceName = new FlatProperty { Name = "reactableSequenceName", Type = "String", Value = "" };
 
         FlatType ms2CubeProp = index.GetType("MS2CubeProp");
         ms2CubeProp.Properties.Add(proxyNifAsset.Name, proxyNifAsset);
@@ -73,7 +73,7 @@ public sealed class RuntimeClassLookup : ClassLookup {
             mixinType.Name[1..], // Remove "I" prefix from interface
             TypeAttributes.Class | TypeAttributes.Public,
             typeof(object),
-            new[] {mixinType}
+            new[] { mixinType }
         );
 
         var backingFields = new List<(FlatProperty, FieldInfo)>();

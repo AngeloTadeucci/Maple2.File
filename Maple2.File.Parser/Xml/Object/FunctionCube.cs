@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.Parser.Enum;
 
-namespace Maple2.File.Parser.Xml.Object; 
+namespace Maple2.File.Parser.Xml.Object;
 
 // ./data/xml/object/%08d.xml
 [XmlRoot("ms2")]

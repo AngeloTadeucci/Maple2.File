@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.Skill; 
+namespace Maple2.File.Parser.Xml.Skill;
 
 public partial class Upgrade {
     [XmlAttribute] public short level;

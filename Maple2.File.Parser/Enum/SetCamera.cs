@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace Maple2.File.Parser.Enum; 
+namespace Maple2.File.Parser.Enum;
 
 public enum SetCamera {
     None = 0,

@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.beastmodellibrary {
+﻿namespace Maple2.File.Flat.beastmodellibrary {
     public interface IBeastGlobalSettings : IMapEntity {
         string ModelName => "BeastGlobalSettings";
         string ilbActiveEnvironment => "00000000-0000-0000-0000-000000000000";

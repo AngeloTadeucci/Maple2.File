@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Maple2.File.Generator.Utils; 
+namespace Maple2.File.Generator.Utils;
 
 internal static class Extensions {
     public static Compilation AddSource(this Compilation compilation, string source) {

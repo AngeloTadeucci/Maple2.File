@@ -2,7 +2,7 @@
 using System.Text;
 using Microsoft.CodeAnalysis;
 
-namespace Maple2.File.Generator.Utils; 
+namespace Maple2.File.Generator.Utils;
 
 internal class SourceBuilder {
     private readonly INamespaceSymbol @namespace;

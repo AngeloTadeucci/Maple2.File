@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.Object; 
+namespace Maple2.File.Parser.Xml.Object;
 
 public partial class Nurturing {
     [M2dArray] public int[] pluralNpcID = Array.Empty<int>();

@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.maplestory2library {
+﻿namespace Maple2.File.Flat.maplestory2library {
     public interface ISpawnPointPC : ISpawnPoint {
         string ModelName => "SpawnPointPC";
         int SpawnPointID => 0;

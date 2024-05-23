@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Maple2.File.Generator.Utils; 
+namespace Maple2.File.Generator.Utils;
 
 internal class ClassSyntaxReceiver : ISyntaxReceiver {
     public List<ClassDeclarationSyntax> Classes { get; } = new List<ClassDeclarationSyntax>();

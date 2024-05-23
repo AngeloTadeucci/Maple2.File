@@ -1,4 +1,5 @@
-namespace Maple2.File.Flat.physxmodellibrary {
+﻿namespace Maple2.File.Flat.physxmodellibrary {
     public interface IPhysXBoxTrigger : IPhysXBox, IPhysXTrigger {
-        string ModelName => "PhysXBoxTrigger"; }
+        string ModelName => "PhysXBoxTrigger";
+    }
 }

@@ -20,8 +20,8 @@ namespace Maple2.File.IO.Tok {
             position = 0;
 
             // Add NULL element to offset indices.
-            elements = new List<string> {"NULL"};
-            attributes = new List<(TokDataType Type, string Attribute)> {(0, "NULL")};
+            elements = new List<string> { "NULL" };
+            attributes = new List<(TokDataType Type, string Attribute)> { (0, "NULL") };
             serializer = new XmlSerializer(typeof(Mesh));
         }
 

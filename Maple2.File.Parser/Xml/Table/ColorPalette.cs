@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.Table; 
+namespace Maple2.File.Parser.Xml.Table;
 
 // ./data/xml/table/colorpalette.xml
 // ./data/xml/table/na/colorpalette_achieve.xml
@@ -13,7 +13,7 @@ public class ColorPaletteRoot {
 
 public partial class ColorPalette {
     [XmlAttribute] public int id;
-    
+
     [XmlElement] public List<Color> color;
 
     public partial class Color {

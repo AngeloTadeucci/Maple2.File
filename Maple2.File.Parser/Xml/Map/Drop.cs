@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.Map; 
+namespace Maple2.File.Parser.Xml.Map;
 
 public partial class Drop {
     [XmlAttribute] public int maplevel = 1;

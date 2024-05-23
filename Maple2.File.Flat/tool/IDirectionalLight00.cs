@@ -1,4 +1,4 @@
-using System.Numerics;
+﻿using System.Numerics;
 using Maple2.File.Flat.beastmodellibrary;
 
 namespace Maple2.File.Flat.tool {

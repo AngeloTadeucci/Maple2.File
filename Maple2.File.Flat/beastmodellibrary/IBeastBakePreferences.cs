@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.beastmodellibrary {
+﻿namespace Maple2.File.Flat.beastmodellibrary {
     public interface IBeastBakePreferences : IMapEntity {
         string ModelName => "BeastBakePreferences";
         string ilbPreferredBakeTarget => "Texture";

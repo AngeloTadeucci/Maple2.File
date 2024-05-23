@@ -80,14 +80,14 @@ public partial class DungeonRoom : IFeatureLocale {
 
     // Not in XML
     // enum extraRewardItemType
-    [XmlAttribute] [Obsolete("Unused")] public int extraRewardTicketTableID;
-    [XmlAttribute] [Obsolete("Unused")] public bool isLimitTime;
-    [XmlAttribute] [Obsolete("Unused")] public bool isTimeUp;
-    [XmlAttribute] [Obsolete("Unused")] public bool isRandomField;
-    [XmlAttribute] [Obsolete("Unused")] public bool dungeonHelperManualChange;
-    [XmlAttribute] [Obsolete("Unused")] public bool isUseFindMember;
-    [M2dArray] [Obsolete("Unused")] public int[] findHelperRewardDropBoxIds;
-    [M2dArray] [Obsolete("Unused")] public int[] findHelperExtraRewardDropBoxIds;
-    [XmlAttribute] [Obsolete("Unused")] public bool isDisableRandomMatch;
-    [XmlAttribute] [Obsolete("Unused")] public DungeonRequireRole requireRole;
+    [XmlAttribute][Obsolete("Unused")] public int extraRewardTicketTableID;
+    [XmlAttribute][Obsolete("Unused")] public bool isLimitTime;
+    [XmlAttribute][Obsolete("Unused")] public bool isTimeUp;
+    [XmlAttribute][Obsolete("Unused")] public bool isRandomField;
+    [XmlAttribute][Obsolete("Unused")] public bool dungeonHelperManualChange;
+    [XmlAttribute][Obsolete("Unused")] public bool isUseFindMember;
+    [M2dArray][Obsolete("Unused")] public int[] findHelperRewardDropBoxIds;
+    [M2dArray][Obsolete("Unused")] public int[] findHelperExtraRewardDropBoxIds;
+    [XmlAttribute][Obsolete("Unused")] public bool isDisableRandomMatch;
+    [XmlAttribute][Obsolete("Unused")] public DungeonRequireRole requireRole;
 }

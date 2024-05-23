@@ -14,7 +14,7 @@ public partial class ShopBeautyCoupon {
     [XmlAttribute] public int shopID;
     [XmlAttribute] public byte byItem;
     [M2dFeatureLocale(Selector = "id")] private IList<Item> _item;
-    
+
     public partial class Item : IFeatureLocale {
         [XmlAttribute] public int id;
     }

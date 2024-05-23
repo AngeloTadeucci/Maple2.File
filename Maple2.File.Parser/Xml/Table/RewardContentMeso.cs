@@ -9,7 +9,7 @@ public class RewardContentMesoRoot {
     [XmlElement] public List<RewardContentMeso> table;
 }
 
-public class RewardContentMeso { 
+public class RewardContentMeso {
     [XmlAttribute] public int mesoTableID;
     [XmlElement] public List<RewardContentMesoValue> v;
 }

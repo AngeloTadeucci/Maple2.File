@@ -1,4 +1,4 @@
-namespace Maple2.File.Flat.maplestory2library {
+﻿namespace Maple2.File.Flat.maplestory2library {
     public interface IMS2TriggerActorCube : IMS2TriggerActor, IMS2MapProperties {
         string ModelName => "MS2TriggerActorCube";
         int ActorCubeType => 0;

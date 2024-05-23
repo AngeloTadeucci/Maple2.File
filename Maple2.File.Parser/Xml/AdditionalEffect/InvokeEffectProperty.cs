@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using M2dXmlGenerator;
 
-namespace Maple2.File.Parser.Xml.AdditionalEffect; 
+namespace Maple2.File.Parser.Xml.AdditionalEffect;
 
 public partial class InvokeEffectProperty {
     [XmlAttribute] public int skillID;

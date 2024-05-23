@@ -5,7 +5,7 @@ using Maple2.File.Generator.Utils;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
-namespace Maple2.File.Generator; 
+namespace Maple2.File.Generator;
 
 public abstract class XmlGenerator : ISourceGenerator {
     private readonly SourceText attributeSource;

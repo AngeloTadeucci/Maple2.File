@@ -1,4 +1,4 @@
-using Maple2.File.Flat.physxmodellibrary;
+﻿using Maple2.File.Flat.physxmodellibrary;
 
 namespace Maple2.File.Flat.triggerslibrary {
     public interface ICollisionTriggerSource : IAbstractTriggerSource, IPhysXTrigger, IPhysXShape {
