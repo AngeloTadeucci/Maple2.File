@@ -1,4 +1,4 @@
-name: Build+Test .NET
+name: Build .NET
 
 on:
   push:
