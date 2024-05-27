@@ -718,4 +718,14 @@ public class TableParserTest {
 
         (_, _) = parser.ParseBlackMarketCategory();
     }
+
+    [TestMethod]
+    public void TestChangeJob() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        var results = parser.ParseChangeJob();
+        foreach ((_, _) in parser.ParseChangeJob()) {
+            continue;
+        }
+    }
 }

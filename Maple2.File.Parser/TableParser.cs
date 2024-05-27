@@ -83,6 +83,7 @@ public class TableParser {
     private readonly XmlSerializer survivalLevelSerializer;
     private readonly XmlSerializer survivalLevelRewardSerializer;
     private readonly XmlSerializer blackMarketSerializer;
+    private readonly XmlSerializer changeJobSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -158,6 +159,7 @@ public class TableParser {
         survivalLevelSerializer = new XmlSerializer(typeof(SurvivalLevelRoot));
         survivalLevelRewardSerializer = new XmlSerializer(typeof(SurvivalLevelRewardRoot));
         blackMarketSerializer = new XmlSerializer(typeof(BlackMarketRoot));
+        changeJobSerializer = new XmlSerializer(typeof(ChangeJobRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1148,5 +1150,16 @@ public class TableParser {
         Debug.Assert(data != null);
 
         return (data.category.id, data.category);
+    }
+
+    public IEnumerable<(int JobCode, ChangeJob Job)> ParseChangeJob() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/changejob.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = changeJobSerializer.Deserialize(reader) as ChangeJobRoot;
+        Debug.Assert(data != null);
+
+        foreach (ChangeJob entry in data.subjob) {
+            yield return (entry.subJobCode, entry);
+        }
     }
 }
