@@ -66,6 +66,8 @@ public partial class IndividualItemDrop {
             [XmlAttribute] public bool showIconOnGachaUI;
             [XmlAttribute][M2dArray] public int[] mapDependency = Array.Empty<int>();
             [XmlAttribute] public bool constraintsQuest;
+            [XmlAttribute] public int itemLifeType;
+            [XmlAttribute] public int itemLifeValue;
 
             public bool ShouldSerializeitemID2() => itemID2 != 0;
 
