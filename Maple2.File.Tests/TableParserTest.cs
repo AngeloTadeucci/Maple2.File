@@ -723,7 +723,6 @@ public class TableParserTest {
     public void TestChangeJob() {
         var parser = new TableParser(TestUtils.XmlReader);
 
-        var results = parser.ParseChangeJob();
         foreach ((_, _) in parser.ParseChangeJob()) {
             continue;
         }
