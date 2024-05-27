@@ -47,6 +47,9 @@ public class FeatureLocaleGenerator : ISourceGenerator {
             builder.Code.Add(@"public string Feature => _feature;");
             builder.Code.Add(@"public string Locale => _locale;");
 
+            builder.Code.Add(@"public bool ShouldSerialize_locale() { return _locale != string.Empty; }");
+            builder.Code.Add(@"public bool ShouldSerialize_feature() { return _feature != string.Empty; }");
+
             context.AddSource(hintName.ToString(), SourceText.From(builder.Build(), Encoding.UTF8));
         }
     }
