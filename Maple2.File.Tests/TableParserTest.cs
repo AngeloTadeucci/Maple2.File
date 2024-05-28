@@ -727,4 +727,13 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestFieldMission() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseFieldMission()) {
+            continue;
+        }
+    }
 }

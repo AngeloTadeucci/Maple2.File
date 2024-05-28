@@ -14,8 +14,8 @@ public partial class ChapterBook : IFeatureLocale {
     [XmlAttribute] public int id;
     [XmlAttribute] public int prologue;
     [XmlAttribute] public int epilogue;
-    [XmlAttribute] public ChapterBookRewardType rewardType1;
+    [XmlAttribute] public QuestRewardType rewardType1;
     [M2dArray] public string[] rewardValue1 = Array.Empty<string>();
-    [XmlAttribute] public ChapterBookRewardType rewardType2;
+    [XmlAttribute] public QuestRewardType rewardType2;
     [M2dArray] public string[] rewardValue2 = Array.Empty<string>();
 }
