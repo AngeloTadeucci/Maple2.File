@@ -239,25 +239,5 @@ public class NifDocument {
 
         return true;
     }
-
-    void ParseNiPhysXProp(uint blockIndex) {
-
-    }
-
-    void ParseNiPhysXPropDesc(uint blockIndex) {
-
-    }
-
-    void ParseNiPhysXActorDesc(uint blockIndex) {
-
-    }
-
-    void ParseNiPhysXShapeDesc(uint blockIndex) {
-
-    }
-
-    void ParseNiPhysXMeshDesc(uint blockIndex) {
-
-    }
 }
 
