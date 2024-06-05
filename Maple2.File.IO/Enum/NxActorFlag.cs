@@ -1,5 +1,6 @@
-﻿namespace Maple2.File.Parser.Enum;
+﻿namespace Maple2.File.IO.Enum;
 
+[Flags]
 public enum NxActorFlag : uint {
     None,
     DisableCollision = 1 << 0,

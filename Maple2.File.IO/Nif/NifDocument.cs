@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Maple2.File.Parser.Nif;
+namespace Maple2.File.IO.Nif;
 
 public class NifDocument {
     private readonly byte[] fileData;
@@ -36,8 +36,9 @@ public class NifDocument {
 
         int versionStart = headerStringLength;
 
-        while (versionStart - 1 > 0 && (fileData[versionStart - 1] == '.' || (fileData[versionStart - 1] >= '0' && fileData[versionStart - 1] <= '9')))
+        while (versionStart - 1 > 0 && (fileData[versionStart - 1] == '.' || (fileData[versionStart - 1] >= '0' && fileData[versionStart - 1] <= '9'))) {
             --versionStart;
+        }
 
         for (int i = 0; i < 4; ++i) {
             int versionEnd = versionStart;
@@ -64,35 +65,16 @@ public class NifDocument {
             return blocks[index];
         }
 
-        NifBlock block;
         string blockType = header.BlockTypes[header.BlockTypeIndices[index]];
 
-        switch (blockType) {
-            case "NiPhysXProp":
-                block = new NiPhysXProp(index);
-
-                break;
-            case "NiPhysXPropDesc":
-                block = new NiPhysXPropDesc(index);
-
-                break;
-            case "NiPhysXActorDesc":
-                block = new NiPhysXActorDesc(index);
-
-                break;
-            case "NiPhysXShapeDesc":
-                block = new NiPhysXShapeDesc(index);
-
-                break;
-            case "NiPhysXMeshDesc":
-                block = new NiPhysXMeshDesc(index);
-
-                break;
-            default:
-                block = new NifBlock(blockType, false, index);
-
-                break;
-        }
+        NifBlock block = blockType switch {
+            "NiPhysXProp" => new NiPhysXProp(index),
+            "NiPhysXPropDesc" => new NiPhysXPropDesc(index),
+            "NiPhysXActorDesc" => new NiPhysXActorDesc(index),
+            "NiPhysXShapeDesc" => new NiPhysXShapeDesc(index),
+            "NiPhysXMeshDesc" => new NiPhysXMeshDesc(index),
+            _ => new NifBlock(blockType, false, index)
+        };
 
         blocks[index] = block;
 

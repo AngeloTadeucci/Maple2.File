@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Nif;
+﻿namespace Maple2.File.IO.Nif;
 
 public struct NifDocumentHeader {
     public string HeaderString;

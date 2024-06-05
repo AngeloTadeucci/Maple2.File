@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Nif;
+﻿namespace Maple2.File.IO.Nif;
 
 public class NiPhysXPropDesc : NifBlock {
     public class StateString {

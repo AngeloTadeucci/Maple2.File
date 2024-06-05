@@ -1,6 +1,4 @@
-﻿using Maple2.File.IO;
-
-namespace Maple2.File.Parser.Nif;
+﻿namespace Maple2.File.IO.Nif;
 
 public class NifM2dArchive {
     public string PathPrefix { get; init; }

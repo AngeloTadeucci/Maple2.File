@@ -1,5 +1,5 @@
 ﻿using Maple2.File.Parser;
-using Maple2.File.Parser.Nif;
+using Maple2.File.IO.Nif;
 using Maple2.File.Parser.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text;

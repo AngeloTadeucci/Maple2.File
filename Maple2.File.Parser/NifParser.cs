@@ -1,5 +1,5 @@
 ﻿using Maple2.File.IO.Crypto.Common;
-using Maple2.File.Parser.Nif;
+using Maple2.File.IO.Nif;
 using Maple2.File.Parser.Tools;
 
 namespace Maple2.File.Parser;

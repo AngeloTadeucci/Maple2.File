@@ -2,7 +2,8 @@
 using System.Numerics;
 using System.Text;
 
-namespace Maple2.File.Parser.Nif;
+namespace Maple2.File.IO.Nif;
+
 public class EndianReader {
     public bool Swap { get; init; }
     public byte[] Data { get; init; }

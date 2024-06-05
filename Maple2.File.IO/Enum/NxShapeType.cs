@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Enum;
+﻿namespace Maple2.File.IO.Enum;
 
 public enum NxShapeType : uint {
     Plane,

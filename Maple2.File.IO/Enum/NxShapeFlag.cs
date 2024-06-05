@@ -1,5 +1,6 @@
-﻿namespace Maple2.File.Parser.Enum;
+﻿namespace Maple2.File.IO.Enum;
 
+[Flags]
 public enum NxShapeFlag : uint {
     None,
     Visualization = 1 << 3,

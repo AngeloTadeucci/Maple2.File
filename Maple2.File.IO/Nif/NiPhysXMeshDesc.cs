@@ -1,6 +1,6 @@
-﻿using Maple2.File.Parser.Enum;
+﻿using Maple2.File.IO.Enum;
 
-namespace Maple2.File.Parser.Nif;
+namespace Maple2.File.IO.Nif;
 
 public class NiPhysXMeshDesc : NifBlock {
     public string MeshName;

@@ -1,7 +1,7 @@
-﻿using Maple2.File.Parser.Enum;
+﻿using Maple2.File.IO.Enum;
 using System.Numerics;
 
-namespace Maple2.File.Parser.Nif;
+namespace Maple2.File.IO.Nif;
 
 public class NiPhysXActorDesc : NifBlock {
     public string ActorName;

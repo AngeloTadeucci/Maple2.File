@@ -1,8 +1,8 @@
-﻿using Maple2.File.Parser.Enum;
+﻿using Maple2.File.IO.Enum;
 using System.Numerics;
 using System.Text;
 
-namespace Maple2.File.Parser.Nif;
+namespace Maple2.File.IO.Nif;
 
 public struct PhysXMeshFace {
     public byte Vert0;

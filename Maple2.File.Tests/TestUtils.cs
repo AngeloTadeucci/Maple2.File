@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using Maple2.File.IO;
 using Maple2.File.Parser.Flat.Convert;
-using Maple2.File.Parser.Nif;
+using Maple2.File.IO.Nif;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Tests.helpers;
 

@@ -1,5 +1,6 @@
-﻿namespace Maple2.File.Parser.Enum;
+﻿namespace Maple2.File.IO.Enum;
 
+[Flags]
 public enum PhysXMeshFlags : byte {
     None = 0,
     IsConvex = 0x1,

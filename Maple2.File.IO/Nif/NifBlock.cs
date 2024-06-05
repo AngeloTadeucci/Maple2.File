@@ -1,4 +1,4 @@
-﻿namespace Maple2.File.Parser.Nif;
+﻿namespace Maple2.File.IO.Nif;
 
 public class NifBlock {
     public string BlockType { get; init; }
