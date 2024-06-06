@@ -170,6 +170,7 @@ public class NifDocument {
         }
 
         for (uint i = 0; i < numBlocks; i++) {
+            // Bit masking here because bit 0x8000 is used to mark engine plugin/extension block types
             header.BlockTypeIndices[i] = (ushort) (0x7FFFU & Reader.ReadAdjustedUInt16());
         }
 
