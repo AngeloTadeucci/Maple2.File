@@ -7,48 +7,32 @@ namespace Maple2.File.IO.Nif;
 public class EndianReader : BinaryReader {
     public bool Swap { get; init; }
 
-    public EndianReader(Stream input, bool swap, int index = 0) : base(input) {
+    public EndianReader(Stream input, bool swap) : base(input) {
         Swap = swap;
     }
 
     public ushort ReadAdjustedUInt16() {
         ushort value = ReadUInt16();
 
-        if (Swap) {
-            return BinaryPrimitives.ReverseEndianness(value);
-        }
-
-        return value;
+        return Swap ? BinaryPrimitives.ReverseEndianness(value) : value;
     }
 
     public uint ReadAdjustedUInt32() {
         uint value = ReadUInt32();
 
-        if (Swap) {
-            return BinaryPrimitives.ReverseEndianness(value);
-        }
-
-        return value;
+        return Swap ? BinaryPrimitives.ReverseEndianness(value) : value;
     }
 
     public int ReadAdjustedInt32() {
         int value = ReadInt32();
 
-        if (Swap) {
-            return BinaryPrimitives.ReverseEndianness(value);
-        }
-
-        return value;
+        return Swap ? BinaryPrimitives.ReverseEndianness(value) : value;
     }
 
     public ulong ReadAdjustedUInt64() {
         ulong value = ReadUInt64();
 
-        if (Swap) {
-            return BinaryPrimitives.ReverseEndianness(value);
-        }
-
-        return value;
+        return Swap ? BinaryPrimitives.ReverseEndianness(value) : value;
     }
 
     public float ReadAdjustedFloat32() {

@@ -1,23 +1,9 @@
 ﻿namespace Maple2.File.IO.Nif;
 
+using State = List<NiPhysXPropDesc.StateString>;
+
 public class NiPhysXPropDesc : NifBlock {
-    public class StateString {
-        public string String;
-        public uint Value;
-
-        public StateString(string key, uint value) {
-            String = key;
-            Value = value;
-        }
-    }
-
-    public class State {
-        public List<StateString> Strings;
-
-        public State() {
-            Strings = new List<StateString>();
-        }
-    }
+    public record StateString(string String, uint Value);
 
     public List<NiPhysXActorDesc> Actors;
     public List<NifBlock> Joints; // NiPhysXJointDesc
@@ -61,13 +47,13 @@ public class NiPhysXPropDesc : NifBlock {
 
             int numStrings = document.Reader.ReadAdjustedInt32();
 
-            state.Strings.EnsureCapacity((int) numStrings);
+            state.EnsureCapacity((int) numStrings);
 
             for (int j = 0; j < numStrings; j++) {
                 string key = document.ReadString();
                 uint value = document.Reader.ReadAdjustedUInt32();
 
-                state.Strings.Add(new StateString(key, value));
+                state.Add(new StateString(key, value));
             }
 
             StateNames.Add(state);

@@ -8,7 +8,7 @@ public class NifDocument {
     private NifDocumentHeader header;
     public EndianReader Reader { get; private set; }
     public string RelPath { get; init; }
-    private NifBlock?[] blocks;
+    private NifBlock[] blocks;
     public NifBlock? ReadingBlock { get; private set; }
 
     public List<NiPhysXProp> PhysXProps { get; init; }
@@ -19,43 +19,22 @@ public class NifDocument {
         this.fileData = fileData;
 
         Reader = new EndianReader(new MemoryStream(), false);
-        blocks = Array.Empty<NifBlock?>();
+        blocks = Array.Empty<NifBlock>();
         header = new NifDocumentHeader();
         RelPath = relpath;
     }
 
     private int ReadHeaderString() {
-        int index = 0;
-        int headerStringLength = 0;
-
-        while (headerStringLength < fileData.Length && fileData[headerStringLength] != 0x0A) {
-            headerStringLength++;
-        }
+        int headerStringLength = Array.IndexOf(fileData, (byte) '\n');
 
         header.HeaderString = Encoding.UTF8.GetString(fileData, 0, headerStringLength);
 
-        index += headerStringLength + 1;
+        int versionStart = header.HeaderString.LastIndexOf(' ');
+        string versionNumbers = header.HeaderString.Substring(versionStart);
 
-        int versionStart = headerStringLength;
+        header.Version = Array.ConvertAll(versionNumbers.Split('.'), ushort.Parse);
 
-        while (versionStart - 1 > 0 && (fileData[versionStart - 1] == '.' || (fileData[versionStart - 1] >= '0' && fileData[versionStart - 1] <= '9'))) {
-            --versionStart;
-        }
-
-        for (int i = 0; i < 4; ++i) {
-            int versionEnd = versionStart;
-
-            while (versionEnd < headerStringLength && fileData[versionEnd] != '.')
-                ++versionEnd;
-
-            string versionText = Encoding.UTF8.GetString(fileData, versionStart, versionEnd - versionStart);
-
-            header.Version[i] = ushort.Parse(versionText);
-
-            versionStart = versionEnd + 1;
-        }
-
-        return index;
+        return headerStringLength + 1;
     }
 
     public NifBlock? GetBlock(int index) {
@@ -118,7 +97,7 @@ public class NifDocument {
             T? block = ReadBlockRef<T>();
 
             if (block is null) {
-                throw new InvalidCastException($"Null/invalid block handle in block list <{typeof(T).Name}> of size {count}");
+                throw new NullReferenceException($"Null/invalid block handle in block list <{typeof(T).Name}> of size {count}");
             }
 
             blocks.Add(block);
@@ -131,10 +110,6 @@ public class NifDocument {
         uint stringIndex = Reader.ReadAdjustedUInt32();
 
         return header.Strings[stringIndex];
-    }
-
-    public void Reading(NifBlock block) {
-        ReadingBlock = block;
     }
 
     public void Parse() {
@@ -153,7 +128,7 @@ public class NifDocument {
                 builder.AppendLine($" in block [{ReadingBlock.BlockIndex}] {ReadingBlock.BlockType} \"{ReadingBlock.Name}\"");
             }
 
-            throw new Exception(builder.ToString(), ex);
+            throw new InvalidOperationException(builder.ToString(), ex);
         }
     }
 
@@ -188,7 +163,7 @@ public class NifDocument {
         header.BlockTypes = new string[numBlockTypes];
         header.BlockTypeIndices = new ushort[numBlocks];
         header.BlockSizes = new int[numBlocks];
-        blocks = new NifBlock?[numBlocks];
+        blocks = new NifBlock[numBlocks];
 
         for (uint i = 0; i < numBlockTypes; i++) {
             header.BlockTypes[i] = Reader.ReadAdjustedStringLen32();
@@ -220,13 +195,17 @@ public class NifDocument {
         for (int i = 0; i < numBlocks; ++i) {
             string blockType = header.BlockTypes[header.BlockTypeIndices[i]];
             int blockSize = header.BlockSizes[i];
-
             long blockStart = Reader.BaseStream.Position;
-
 
             NifBlock? block = GetBlock(i);
 
-            block?.Parse(this);
+            if (block is null) {
+                throw new InvalidDataException($"Block {i} was null in the block initialization loop with {numBlocks} blocks, where it should never be null");
+            }
+
+            ReadingBlock = block;
+
+            block.Parse(this);
 
             long readBytes = Reader.BaseStream.Position - blockStart;
 
@@ -240,8 +219,6 @@ public class NifDocument {
                 Reader.Advance(blockSize);
             }
         }
-
-        return;
     }
 }
 

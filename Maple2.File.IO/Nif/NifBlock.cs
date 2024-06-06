@@ -17,7 +17,5 @@ public class NifBlock {
         if (HasName) {
             Name = document.ReadString();
         }
-
-        document.Reading(this);
     }
 }
