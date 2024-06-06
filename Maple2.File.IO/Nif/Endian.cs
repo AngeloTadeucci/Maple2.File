@@ -4,37 +4,15 @@ using System.Text;
 
 namespace Maple2.File.IO.Nif;
 
-public class EndianReader {
+public class EndianReader : BinaryReader {
     public bool Swap { get; init; }
-    public byte[] Data { get; init; }
-    public int Index { get; private set; }
 
-    public EndianReader(byte[] data, bool swap, int index = 0) {
+    public EndianReader(Stream input, bool swap, int index = 0) : base(input) {
         Swap = swap;
-        Data = data;
-        Index = index;
     }
 
-    public bool ReadBool() {
-        bool value = BitConverter.ToBoolean(Data, Index);
-
-        Index += 1;
-
-        return value;
-    }
-
-    public byte ReadByte() {
-        byte value = Data[Index];
-
-        Index += 1;
-
-        return value;
-    }
-
-    public ushort ReadUInt16() {
-        ushort value = BitConverter.ToUInt16(Data, Index);
-
-        Index += 2;
+    public ushort ReadAdjustedUInt16() {
+        ushort value = ReadUInt16();
 
         if (Swap) {
             return BinaryPrimitives.ReverseEndianness(value);
@@ -43,10 +21,8 @@ public class EndianReader {
         return value;
     }
 
-    public uint ReadUInt32() {
-        uint value = BitConverter.ToUInt32(Data, Index);
-
-        Index += 4;
+    public uint ReadAdjustedUInt32() {
+        uint value = ReadUInt32();
 
         if (Swap) {
             return BinaryPrimitives.ReverseEndianness(value);
@@ -55,10 +31,8 @@ public class EndianReader {
         return value;
     }
 
-    public int ReadInt32() {
-        int value = BitConverter.ToInt32(Data, Index);
-
-        Index += 4;
+    public int ReadAdjustedInt32() {
+        int value = ReadInt32();
 
         if (Swap) {
             return BinaryPrimitives.ReverseEndianness(value);
@@ -67,10 +41,8 @@ public class EndianReader {
         return value;
     }
 
-    public ulong ReadUInt64() {
-        ulong value = BitConverter.ToUInt64(Data, Index);
-
-        Index += 8;
+    public ulong ReadAdjustedUInt64() {
+        ulong value = ReadUInt64();
 
         if (Swap) {
             return BinaryPrimitives.ReverseEndianness(value);
@@ -79,68 +51,62 @@ public class EndianReader {
         return value;
     }
 
-    public float ReadFloat32() {
-        Span<byte> bytes = stackalloc byte[4] { Data[Index + 3], Data[Index + 2], Data[Index + 1], Data[Index] };
-
-        if (Swap) {
-            bytes.Reverse();
+    public float ReadAdjustedFloat32() {
+        if (!Swap) {
+            return ReadSingle();
         }
 
-        Index += 4;
+        byte[] bytes = ReadBytes(4);
+
+        bytes.Reverse();
 
         return BitConverter.ToSingle(bytes);
     }
 
-    public string ReadString(int length) {
-        string value = Encoding.UTF8.GetString(Data, Index, length);
-
-        Index += length;
-
-        return value;
-    }
-
-    public string ReadStringLen32() {
-        int length = ReadInt32();
+    public string ReadAdjustedStringLen32() {
+        int length = ReadAdjustedInt32();
 
         if (length == 0) {
             return string.Empty;
         }
 
-        string value = Encoding.UTF8.GetString(Data, Index, length);
+        string? value = Encoding.UTF8.GetString(ReadBytes(length));
 
-        Index += length;
+        if (value is null) {
+            return string.Empty;
+        }
 
         return value;
     }
 
     // explicitly using 4x4 for matrix multiplication compatibility
-    public Matrix4x4 ReadMatrix4x3() {
+    public Matrix4x4 ReadAdjustedMatrix4x3() {
         Matrix4x4 matrix = new Matrix4x4();
 
         for (int column = 0; column < 3; ++column) {
             for (int row = 0; row < 3; ++row) {
-                matrix[row, column] = ReadFloat32();
+                matrix[row, column] = ReadAdjustedFloat32();
             }
         }
 
         // Translation
-        matrix.M41 = ReadFloat32();
-        matrix.M42 = ReadFloat32();
-        matrix.M43 = ReadFloat32();
+        matrix.M41 = ReadAdjustedFloat32();
+        matrix.M42 = ReadAdjustedFloat32();
+        matrix.M43 = ReadAdjustedFloat32();
         matrix.M44 = 1;
 
         return matrix;
     }
 
-    public Vector3 ReadVector3() {
-        float x = ReadFloat32();
-        float y = ReadFloat32();
-        float z = ReadFloat32();
+    public Vector3 ReadAdjustedVector3() {
+        float x = ReadAdjustedFloat32();
+        float y = ReadAdjustedFloat32();
+        float z = ReadAdjustedFloat32();
 
         return new Vector3(x, y, z);
     }
 
     public void Advance(int distance) {
-        Index += distance;
+        this.BaseStream.Seek(distance, SeekOrigin.Current);
     }
 }

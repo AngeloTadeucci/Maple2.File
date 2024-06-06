@@ -1,11 +1,9 @@
 ﻿namespace Maple2.File.IO.Nif;
 
-public class NifM2dArchive {
+public class PrefixedM2dReader : M2dReader {
     public string PathPrefix { get; init; }
-    public M2dReader M2dReader { get; init; }
 
-    public NifM2dArchive(string pathPrefix, M2dReader m2dReader) {
+    public PrefixedM2dReader(string pathPrefix, string path) : base(path) {
         PathPrefix = pathPrefix;
-        M2dReader = m2dReader;
     }
 }

@@ -20,29 +20,30 @@ public class NiPhysXShapeDesc : NifBlock {
 
     public NiPhysXShapeDesc(int blockIndex) : base("NiPhysXShapeDesc", false, blockIndex) {
         CollisionBits = new uint[4];
+        ShapeName = string.Empty;
     }
 
     public override void Parse(NifDocument document) {
         base.Parse(document);
 
-        ShapeType = (NxShapeType) document.Reader.ReadUInt32();
-        Flags = (NxShapeFlag) document.Reader.ReadUInt32();
-        LocalPose = document.Reader.ReadMatrix4x3();
-        CollisionGroup = document.Reader.ReadUInt16();
-        MaterialIndex = document.Reader.ReadUInt16();
-        Density = document.Reader.ReadFloat32();
-        Mass = document.Reader.ReadFloat32();
-        SkinWidth = document.Reader.ReadFloat32();
+        ShapeType = (NxShapeType) document.Reader.ReadAdjustedUInt32();
+        Flags = (NxShapeFlag) document.Reader.ReadAdjustedUInt32();
+        LocalPose = document.Reader.ReadAdjustedMatrix4x3();
+        CollisionGroup = document.Reader.ReadAdjustedUInt16();
+        MaterialIndex = document.Reader.ReadAdjustedUInt16();
+        Density = document.Reader.ReadAdjustedFloat32();
+        Mass = document.Reader.ReadAdjustedFloat32();
+        SkinWidth = document.Reader.ReadAdjustedFloat32();
         ShapeName = document.ReadString();
-        NonInteractingCompartment = document.Reader.ReadUInt32();
+        NonInteractingCompartment = document.Reader.ReadAdjustedUInt32();
 
         for (int i = 0; i < 4; ++i) {
-            CollisionBits[i] = document.Reader.ReadUInt32();
+            CollisionBits[i] = document.Reader.ReadAdjustedUInt32();
         }
 
         switch (ShapeType) {
             case NxShapeType.Box:
-                BoxHalfExtents = document.Reader.ReadVector3();
+                BoxHalfExtents = document.Reader.ReadAdjustedVector3();
                 break;
             case NxShapeType.Mesh:
             case NxShapeType.Convex:

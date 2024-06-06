@@ -21,7 +21,21 @@ public class NifParserTest {
     public void TestNifParser() {
         var parser = new NifParser(TestUtils.ModelM2dReaders);
 
-        foreach ((uint llid, string relpath, List<NiPhysXProp> physXProps) in parser.Parse()) {
+        var a = parser.Parse();
+
+        foreach ((uint llid, string relpath, NifDocument document) in parser.Parse()) {
+            try {
+                document.Parse();
+            } catch (Exception ex) {
+                if (ex.InnerException is NifVersionNotSupportedException nifEx) {
+                    // Maybe print unsupported nif versions here if you're the user. Nexon left in some Gamebryo stock assets that are <v30
+                } else {
+                    throw;
+                }
+            }
+
+            List<NiPhysXProp> physXProps = document.PhysXProps;
+
             if (physXProps.Count == 0) {
                 continue;
             }

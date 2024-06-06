@@ -40,11 +40,16 @@ public class PhysXMesh {
             throw new InvalidDataException($"Invalid header found in PhysX mesh data: {Encoding.UTF8.GetString(data, 0, 8)}");
         }
 
+        MemoryStream stream = new MemoryStream(data);
+        EndianReader reader = new EndianReader(stream, !BitConverter.IsLittleEndian);
+
+        reader.Advance(8);
+
         switch (headerPiece2) {
             case "CVXM":
-                return ParseConvexMesh(data);
+                return ParseConvexMesh(reader);
             case "MESH":
-                return ParseTriangleMesh(data);
+                return ParseTriangleMesh(reader);
             case "CLTH":
                 throw new NotSupportedException($"Cloth mesh not supported! Found unsupported PhysX cloth mesh in mesh data");
             default:
@@ -52,63 +57,49 @@ public class PhysXMesh {
         }
     }
 
-    private NxsMeshType ParseConvexMesh(byte[] data) {
-        EndianReader reader = new EndianReader(data, !BitConverter.IsLittleEndian, 8);
+    private NxsMeshType ParseConvexMesh(EndianReader reader) {
 
-        uint unk1 = reader.ReadUInt32();
-        uint unk2 = reader.ReadUInt32();
+        uint unk1 = reader.ReadAdjustedUInt32();
+        uint unk2 = reader.ReadAdjustedUInt32();
 
-        bool unkDataSectionMatches = false;
+        byte[] unkDataSection1 = Encoding.UTF8.GetBytes("ICE\x0001CLHL");
+        byte[] unkDataSection2 = Encoding.UTF8.GetBytes("ICE\x0001");
 
-        unkDataSectionMatches |= data[reader.Index + 0] == 'I';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'C';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'E';
-        unkDataSectionMatches |= data[reader.Index + 0] == 1;
-        unkDataSectionMatches |= data[reader.Index + 0] == 'C';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'L';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'H';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'L';
+        byte[] unkSection1 = reader.ReadBytes(8);
 
-        if (!unkDataSectionMatches) {
+        // Sanity check to check a known piece of data for potential changes 
+        if (!unkSection1.SequenceEqual(unkDataSection1)) {
             throw new InvalidDataException("Unknown PhysX convex mesh data layout");
         }
 
-        reader.Advance(8);
+        uint unk3 = reader.ReadAdjustedUInt32();
 
-        uint unk3 = reader.ReadUInt32();
+        byte[] unkSection2 = reader.ReadBytes(4);
 
-        unkDataSectionMatches = false;
-
-        unkDataSectionMatches |= data[reader.Index + 0] == 'I';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'C';
-        unkDataSectionMatches |= data[reader.Index + 0] == 'E';
-        unkDataSectionMatches |= data[reader.Index + 0] == 1;
-
-        if (!unkDataSectionMatches) {
+        // Sanity check to check a known piece of data for potential changes 
+        if (!unkSection2.SequenceEqual(unkDataSection2)) {
             throw new InvalidDataException("Unknown PhysX convex mesh data layout");
         }
 
-        reader.Advance(4);
+        uint unk4 = reader.ReadAdjustedUInt32();
+        uint unk5 = reader.ReadAdjustedUInt32();
 
-        uint unk4 = reader.ReadUInt32();
-        uint unk5 = reader.ReadUInt32();
+        int vertexCount = reader.ReadAdjustedInt32();
+        int faceCount = reader.ReadAdjustedInt32();
 
-        int vertexCount = reader.ReadInt32();
-        int faceCount = reader.ReadInt32();
-
-        uint unk6 = reader.ReadUInt32();
-        uint unk7 = reader.ReadUInt32();
-        uint unk8 = reader.ReadUInt32();
-        uint unk9 = reader.ReadUInt32();
+        uint unk6 = reader.ReadAdjustedUInt32();
+        uint unk7 = reader.ReadAdjustedUInt32();
+        uint unk8 = reader.ReadAdjustedUInt32();
+        uint unk9 = reader.ReadAdjustedUInt32();
 
         Vertices.EnsureCapacity(vertexCount);
         Faces.EnsureCapacity(faceCount);
 
         for (int i = 0; i < vertexCount; ++i) {
-            Vertices.Add(reader.ReadVector3());
+            Vertices.Add(reader.ReadAdjustedVector3());
         }
 
-        uint unk10 = reader.ReadUInt32();
+        uint unk10 = reader.ReadAdjustedUInt32();
 
         for (int i = 0; i < faceCount; ++i) {
             PhysXMeshFace face = new PhysXMeshFace(
@@ -129,26 +120,24 @@ public class PhysXMesh {
         return NxsMeshType.Convex;
     }
 
-    private NxsMeshType ParseTriangleMesh(byte[] data) {
-        EndianReader reader = new EndianReader(data, !BitConverter.IsLittleEndian, 8);
-
-        uint unk1 = reader.ReadUInt32();
-        uint unk2 = reader.ReadUInt32();
-        float unk3 = reader.ReadFloat32();
-        ulong unk4 = reader.ReadUInt64();
+    private NxsMeshType ParseTriangleMesh(EndianReader reader) {
+        uint unk1 = reader.ReadAdjustedUInt32();
+        uint unk2 = reader.ReadAdjustedUInt32();
+        float unk3 = reader.ReadAdjustedFloat32();
+        ulong unk4 = reader.ReadAdjustedUInt64();
 
         if (unk4 != 0xFF || unk1 != 1) {
             throw new InvalidDataException("Unknown PhysX triangle mesh data format");
         }
 
-        int vertexCount = reader.ReadInt32();
-        int faceCount = reader.ReadInt32();
+        int vertexCount = reader.ReadAdjustedInt32();
+        int faceCount = reader.ReadAdjustedInt32();
 
         Vertices.EnsureCapacity(vertexCount);
         Faces.EnsureCapacity(faceCount);
 
         for (int i = 0; i < vertexCount; ++i) {
-            Vertices.Add(reader.ReadVector3());
+            Vertices.Add(reader.ReadAdjustedVector3());
         }
 
         for (int i = 0; i < faceCount; ++i) {

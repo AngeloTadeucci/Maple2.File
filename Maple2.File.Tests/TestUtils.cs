@@ -14,7 +14,7 @@ public static class TestUtils {
     public static readonly M2dReader ExportedReader;
     public static readonly M2dReader AssetMetadataReader;
     public static readonly AssetIndex AssetIndex;
-    public static readonly List<NifM2dArchive> ModelM2dReaders;
+    public static readonly List<PrefixedM2dReader> ModelM2dReaders;
 
     static TestUtils() {
         DotEnv.Load();
@@ -29,17 +29,17 @@ public static class TestUtils {
         ServerReader = new M2dReader(@$"{m2dPath}\Server.m2d");
         AssetMetadataReader = new M2dReader(@$"{m2dPath}\Resource\asset-web-metadata.m2d");
         AssetIndex = new AssetIndex(AssetMetadataReader);
-        ModelM2dReaders = new List<NifM2dArchive>() {
-            new NifM2dArchive("/library/", new M2dReader($@"{m2dPath}\Resource\Library.m2d")),
-            new NifM2dArchive("/model/map/", new M2dReader($@"{m2dPath}\Resource\Model\Map.m2d")),
-            new NifM2dArchive("/model/effect/", new M2dReader($@"{m2dPath}\Resource\Model\Effect.m2d")),
-            new NifM2dArchive("/model/camera/", new M2dReader($@"{m2dPath}\Resource\Model\Camera.m2d")),
-            new NifM2dArchive("/model/tool/", new M2dReader($@"{m2dPath}\Resource\Model\Tool.m2d")),
-            new NifM2dArchive("/model/item/", new M2dReader($@"{m2dPath}\Resource\Model\Item.m2d")),
-            new NifM2dArchive("/model/npc/", new M2dReader($@"{m2dPath}\Resource\Model\Npc.m2d")),
-            new NifM2dArchive("/model/path/", new M2dReader($@"{m2dPath}\Resource\Model\Path.m2d")),
-            new NifM2dArchive("/model/character/", new M2dReader($@"{m2dPath}\Resource\Model\Character.m2d")),
-            new NifM2dArchive("/model/textures/", new M2dReader($@"{m2dPath}\Resource\Model\Textures.m2d")),
+        ModelM2dReaders = new List<PrefixedM2dReader>() {
+            new PrefixedM2dReader("/library/", $@"{m2dPath}\Resource\Library.m2d"),
+            new PrefixedM2dReader("/model/map/", $@"{m2dPath}\Resource\Model\Map.m2d"),
+            new PrefixedM2dReader("/model/effect/", $@"{m2dPath}\Resource\Model\Effect.m2d"),
+            new PrefixedM2dReader("/model/camera/", $@"{m2dPath}\Resource\Model\Camera.m2d"),
+            new PrefixedM2dReader("/model/tool/", $@"{m2dPath}\Resource\Model\Tool.m2d"),
+            new PrefixedM2dReader("/model/item/", $@"{m2dPath}\Resource\Model\Item.m2d"),
+            new PrefixedM2dReader("/model/npc/", $@"{m2dPath}\Resource\Model\Npc.m2d"),
+            new PrefixedM2dReader("/model/path/", $@"{m2dPath}\Resource\Model\Path.m2d"),
+            new PrefixedM2dReader("/model/character/", $@"{m2dPath}\Resource\Model\Character.m2d"),
+            new PrefixedM2dReader("/model/textures/", $@"{m2dPath}\Resource\Model\Textures.m2d"),
         };
     }
 

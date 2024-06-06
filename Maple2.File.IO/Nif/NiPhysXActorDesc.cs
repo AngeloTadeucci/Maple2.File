@@ -18,29 +18,33 @@ public class NiPhysXActorDesc : NifBlock {
     public NifBlock? Source;
     public NifBlock? Destination;
 
-    public NiPhysXActorDesc(int blockIndex) : base("NiPhysXActorDesc", false, blockIndex) { }
+    public NiPhysXActorDesc(int blockIndex) : base("NiPhysXActorDesc", false, blockIndex) {
+        Poses = new List<Matrix4x4>();
+        ShapeDescriptions = new List<NiPhysXShapeDesc>();
+        ActorName = string.Empty;
+    }
 
     public override void Parse(NifDocument document) {
         base.Parse(document);
 
         ActorName = document.ReadString();
 
-        int numPoses = document.Reader.ReadInt32();
+        int numPoses = document.Reader.ReadAdjustedInt32();
 
         Poses = new List<Matrix4x4>();
         Poses.EnsureCapacity(numPoses);
 
         for (int i = 0; i < numPoses; ++i) {
-            Poses.Add(document.Reader.ReadMatrix4x3());
+            Poses.Add(document.Reader.ReadAdjustedMatrix4x3());
         }
 
         BodyDesc = document.ReadBlockRef<NifBlock>();
-        Density = document.Reader.ReadFloat32();
-        ActorFlags = (NxActorFlag) document.Reader.ReadUInt32();
-        ActorGroup = document.Reader.ReadUInt16();
-        DominanceGroup = document.Reader.ReadUInt16();
-        ContactReportFlags = document.Reader.ReadUInt32();
-        ForceFieldMaterial = document.Reader.ReadUInt16();
+        Density = document.Reader.ReadAdjustedFloat32();
+        ActorFlags = (NxActorFlag) document.Reader.ReadAdjustedUInt32();
+        ActorGroup = document.Reader.ReadAdjustedUInt16();
+        DominanceGroup = document.Reader.ReadAdjustedUInt16();
+        ContactReportFlags = document.Reader.ReadAdjustedUInt32();
+        ForceFieldMaterial = document.Reader.ReadAdjustedUInt16();
         ShapeDescriptions = document.ReadBlockRefList<NiPhysXShapeDesc>();
         ActorParent = document.ReadBlockRef<NiPhysXActorDesc>();
         Source = document.ReadBlockRef<NifBlock>();

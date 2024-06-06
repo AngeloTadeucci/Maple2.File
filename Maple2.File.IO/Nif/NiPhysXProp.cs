@@ -10,18 +10,23 @@ public class NiPhysXProp : NifBlock {
     public bool KeepMeshes = false;
     public NiPhysXPropDesc? Snapshot = null;
 
-    public NiPhysXProp(int blockIndex) : base("NiPhysXProp", true, blockIndex) { }
+    public NiPhysXProp(int blockIndex) : base("NiPhysXProp", true, blockIndex) {
+        ExtraData = new List<NifBlock>();
+        Sources = new List<NifBlock>();
+        Dests = new List<NifBlock>();
+        ModifiedMeshes = new List<NifBlock>();
+    }
 
     public override void Parse(NifDocument document) {
         base.Parse(document);
 
         ExtraData = document.ReadBlockRefList<NifBlock>();
         Controller = document.ReadBlockRef<NifBlock>();
-        PhysXToWorldScale = document.Reader.ReadFloat32();
+        PhysXToWorldScale = document.Reader.ReadAdjustedFloat32();
         Sources = document.ReadBlockRefList<NifBlock>();
         Dests = document.ReadBlockRefList<NifBlock>();
         ModifiedMeshes = document.ReadBlockRefList<NifBlock>();
-        KeepMeshes = document.Reader.ReadBool();
+        KeepMeshes = document.Reader.ReadBoolean();
         Snapshot = document.ReadBlockRef<NiPhysXPropDesc>();
 
         document.PhysXProps.Add(this);
