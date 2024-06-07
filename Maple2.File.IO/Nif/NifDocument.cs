@@ -37,11 +37,7 @@ public class NifDocument {
         return headerStringLength + 1;
     }
 
-    public NifBlock? GetBlock(int index) {
-        if (index == -1) {
-            return null;
-        }
-
+    public NifBlock GetBlock(int index) {
         if (blocks[index] is not null) {
             return blocks[index];
         }
@@ -62,12 +58,8 @@ public class NifDocument {
         return block;
     }
 
-    public T? GetBlock<T>(int index) {
-        if (index == -1) {
-            return default;
-        }
-
-        NifBlock? block = GetBlock(index);
+    public T GetBlock<T>(int index) {
+        NifBlock block = GetBlock(index);
 
         if (block is T nifBlock) {
             return nifBlock;
@@ -198,11 +190,7 @@ public class NifDocument {
             int blockSize = header.BlockSizes[i];
             long blockStart = Reader.BaseStream.Position;
 
-            NifBlock? block = GetBlock(i);
-
-            if (block is null) {
-                throw new InvalidDataException($"Block {i} was null in the block initialization loop with {numBlocks} blocks, where it should never be null");
-            }
+            NifBlock block = GetBlock(i);
 
             ReadingBlock = block;
 

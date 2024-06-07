@@ -54,11 +54,7 @@ public class EndianReader : BinaryReader {
             return string.Empty;
         }
 
-        string? value = Encoding.UTF8.GetString(ReadBytes(length));
-
-        if (value is null) {
-            return string.Empty;
-        }
+        string value = Encoding.UTF8.GetString(ReadBytes(length));
 
         return value;
     }
