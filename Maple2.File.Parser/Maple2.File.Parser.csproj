@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <PackageId>Maple2.File.Parser.Tadeucci</PackageId>
@@ -13,7 +13,7 @@
         <PackageTags>MapleStory2, File, Parser, m2d, xml</PackageTags>
         <!-- Use following lines to write the generated files to disk. -->
         <EmitCompilerGeneratedFiles Condition=" '$(Configuration)' == 'Debug' ">true</EmitCompilerGeneratedFiles>
-        <PackageVersion>2.1.15</PackageVersion>
+        <PackageVersion>2.1.17</PackageVersion>
         <TargetFramework>net8.0</TargetFramework>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <ImplicitUsings>enable</ImplicitUsings>
