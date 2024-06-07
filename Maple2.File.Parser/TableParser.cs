@@ -85,6 +85,7 @@ public class TableParser {
     private readonly XmlSerializer blackMarketSerializer;
     private readonly XmlSerializer changeJobSerializer;
     private readonly XmlSerializer fieldMissionSerializer;
+    private readonly XmlSerializer worldMapSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -162,6 +163,7 @@ public class TableParser {
         blackMarketSerializer = new XmlSerializer(typeof(BlackMarketRoot));
         changeJobSerializer = new XmlSerializer(typeof(ChangeJobRoot));
         fieldMissionSerializer = new XmlSerializer(typeof(FieldMissionRoot));
+        worldMapSerializer = new XmlSerializer(typeof(WorldMapRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1173,6 +1175,17 @@ public class TableParser {
 
         foreach (FieldMission entry in data.round) {
             yield return (entry.mission, entry);
+        }
+    }
+
+    public IEnumerable<(string Feature, IList<WorldMap.Map> Maps)> ParseWorldMap() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/na/newworldmap.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = worldMapSerializer.Deserialize(reader) as WorldMapRoot;
+        Debug.Assert(data != null);
+
+        foreach (WorldMap entry in data.environment) {
+            yield return (entry.Feature, entry.map);
         }
     }
 }

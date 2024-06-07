@@ -736,4 +736,13 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestWorldMap() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseWorldMap()) {
+            continue;
+        }
+    }
 }
