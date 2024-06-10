@@ -27,8 +27,8 @@ public class NiPhysXShapeDesc : NifBlock {
         base.Parse(document);
 
         ShapeType = (NxShapeType) document.Reader.ReadAdjustedUInt32();
-        Flags = (NxShapeFlag) document.Reader.ReadAdjustedUInt32();
         LocalPose = document.Reader.ReadAdjustedMatrix4x3();
+        Flags = (NxShapeFlag) document.Reader.ReadAdjustedUInt32();
         CollisionGroup = document.Reader.ReadAdjustedUInt16();
         MaterialIndex = document.Reader.ReadAdjustedUInt16();
         Density = document.Reader.ReadAdjustedFloat32();

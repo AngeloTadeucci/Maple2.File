@@ -22,8 +22,6 @@ public class NifParserTest {
     public void TestNifParser() {
         var parser = new NifParser(TestUtils.ModelM2dReaders);
 
-        var a = parser.Parse();
-
         foreach ((uint llid, string relpath, NifDocument document) in parser.Parse()) {
             try {
                 document.Parse();
