@@ -745,4 +745,13 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestMapleSurvivalSkinInfo() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseMapleSurvivalSkinInfo()) {
+            continue;
+        }
+    }
 }

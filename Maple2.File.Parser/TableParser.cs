@@ -86,6 +86,7 @@ public class TableParser {
     private readonly XmlSerializer changeJobSerializer;
     private readonly XmlSerializer fieldMissionSerializer;
     private readonly XmlSerializer worldMapSerializer;
+    private readonly XmlSerializer mapleSurvivalSkinInfoSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -164,6 +165,7 @@ public class TableParser {
         changeJobSerializer = new XmlSerializer(typeof(ChangeJobRoot));
         fieldMissionSerializer = new XmlSerializer(typeof(FieldMissionRoot));
         worldMapSerializer = new XmlSerializer(typeof(WorldMapRoot));
+        mapleSurvivalSkinInfoSerializer = new XmlSerializer(typeof(MapleSurvivalSkinInfoRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1186,6 +1188,17 @@ public class TableParser {
 
         foreach (WorldMap entry in data.environment) {
             yield return (entry.Feature, entry.map);
+        }
+    }
+
+    public IEnumerable<(int Id, MapleSurvivalSkinInfo Info)> ParseMapleSurvivalSkinInfo() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/maplesurvivalskininfo.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = mapleSurvivalSkinInfoSerializer.Deserialize(reader) as MapleSurvivalSkinInfoRoot;
+        Debug.Assert(data != null);
+
+        foreach (MapleSurvivalSkinInfo entry in data.skinInfo) {
+            yield return (entry.id, entry);
         }
     }
 }
