@@ -327,4 +327,14 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestTimeEventData() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        var timedEventData = parser.ParseTimeEventData();
+        foreach ((_, _) in parser.ParseTimeEventData()) {
+            continue;
+        }
+    }
 }

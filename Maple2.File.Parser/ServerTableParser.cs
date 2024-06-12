@@ -37,6 +37,7 @@ public class ServerTableParser {
     private readonly XmlSerializer fishBoxSerializer;
     private readonly XmlSerializer adventureIdExpTableSerializer;
     private readonly XmlSerializer adventureExpTableSerializer;
+    private readonly XmlSerializer timeEventDataSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -67,6 +68,7 @@ public class ServerTableParser {
         fishBoxSerializer = new XmlSerializer(typeof(FishBoxRoot));
         adventureIdExpTableSerializer = new XmlSerializer(typeof(AdventureIdExpTableRoot));
         adventureExpTableSerializer = new XmlSerializer(typeof(AdventureExpTableRoot));
+        timeEventDataSerializer = new XmlSerializer(typeof(TimeEventDataRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -525,6 +527,17 @@ public class ServerTableParser {
 
         foreach (AdventureExpTable exp in data.exp) {
             yield return (exp.type, exp);
+        }
+    }
+
+    public IEnumerable<(int Id, TimedventData Data)> ParseTimeEventData() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/timeEventData.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = timeEventDataSerializer.Deserialize(reader) as TimeEventDataRoot;
+        Debug.Assert(data != null);
+
+        foreach (TimedventData entry in data.@event) {
+            yield return (entry.id, entry);
         }
     }
 }

@@ -77,11 +77,16 @@ public class XmlFeatureLocaleGenerator : XmlGenerator {
             return string.Empty;
         }
 
+        string keywordName = propertyName;
+        if (keywordName == "event") {
+            keywordName = "@" + keywordName;
+        }
+
         string type = field.Type.ToDisplayString();
 
         return $@"
 private List<{type}> {field.Name}_;
-public {type} {propertyName} => {field.Name}_.ResolveFeatureLocale();
+public {type} {keywordName} => {field.Name}_.ResolveFeatureLocale();
 
 [XmlElement(""{propertyName}"")]
 public List<{type}> _{field.Name} {{
@@ -96,6 +101,11 @@ public List<{type}> _{field.Name} {{
         if (string.IsNullOrWhiteSpace(propertyName) || propertyName == field.Name) {
             context.ReportDiagnostic(Diagnostic.Create(nameError, Location.None, field.ToDisplayString()));
             return string.Empty;
+        }
+
+        string keywordName = propertyName;
+        if (keywordName == "event") {
+            keywordName = "@" + keywordName;
         }
 
         string type = field.Type.ToDisplayString();
@@ -117,7 +127,7 @@ public List<{type}> _{field.Name} {{
 
         return $@"
 private {concreteList} {field.Name}_;
-public {type} {propertyName} => {field.Name}_.{resolver}({groupBy.ToString()}).ToList();
+public {type} {keywordName} => {field.Name}_.{resolver}({groupBy.ToString()}).ToList();
 
 [XmlElement(""{propertyName}"")]
 public {concreteList} _{field.Name} {{

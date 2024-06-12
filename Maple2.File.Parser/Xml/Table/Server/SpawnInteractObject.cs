@@ -20,4 +20,5 @@ public partial class SpawnInteractObject : IFeatureLocale {
     [XmlAttribute] public string normal = string.Empty;
     [XmlAttribute] public string reactable = string.Empty;
     [XmlAttribute] public float scale;
+    [XmlAttribute] public bool isKeepAnimate;
 }
