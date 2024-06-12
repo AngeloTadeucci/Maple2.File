@@ -1,6 +1,6 @@
 ﻿namespace Maple2.File.Parser.Enum;
 
-public enum TimedEventType {
+public enum TimeEventType {
     Boss = 1,
     HiddenRealmPortal = 2,
     Unknown3 = 3,

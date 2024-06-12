@@ -12,7 +12,7 @@ public partial class TimeEventDataRoot {
 
 public partial class TimeEventData : IFeatureLocale {
     [XmlAttribute] public int id;
-    [M2dEnum] public TimedEventType type = TimedEventType.Boss;
+    [M2dEnum] public TimeEventType type = TimeEventType.Boss;
     [XmlAttribute] public int prob;
     [XmlAttribute] public string startTime = "2014-1-1-00-05-00";
     [XmlAttribute] public string endTime = "2099-12-31-12-00-00";
