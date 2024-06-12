@@ -4,13 +4,13 @@ using Maple2.File.Parser.Enum;
 
 namespace Maple2.File.Parser.Xml.Table.Server;
 
-// ./data/server/table/Server/timedEventData.xml
+// ./data/server/table/Server/timeEventData.xml
 [XmlRoot("ms2")]
 public partial class TimeEventDataRoot {
-    [M2dFeatureLocale(Selector = "id")] private IList<TimedventData> _event;
+    [M2dFeatureLocale(Selector = "id")] private IList<TimeEventData> _event;
 }
 
-public partial class TimedventData : IFeatureLocale {
+public partial class TimeEventData : IFeatureLocale {
     [XmlAttribute] public int id;
     [M2dEnum] public TimedEventType type = TimedEventType.Boss;
     [XmlAttribute] public int prob;

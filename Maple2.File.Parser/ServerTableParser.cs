@@ -530,13 +530,13 @@ public class ServerTableParser {
         }
     }
 
-    public IEnumerable<(int Id, TimedventData Data)> ParseTimeEventData() {
+    public IEnumerable<(int Id, TimeEventData Data)> ParseTimeEventData() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/timeEventData.xml")));
         var reader = XmlReader.Create(new StringReader(xml));
         var data = timeEventDataSerializer.Deserialize(reader) as TimeEventDataRoot;
         Debug.Assert(data != null);
 
-        foreach (TimedventData entry in data.@event) {
+        foreach (TimeEventData entry in data.@event) {
             yield return (entry.id, entry);
         }
     }
