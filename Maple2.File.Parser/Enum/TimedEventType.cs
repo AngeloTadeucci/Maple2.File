@@ -4,7 +4,7 @@ public enum TimedEventType {
     Boss = 1,
     HiddenRealmPortal = 2,
     Unknown3 = 3,
-    FieldEvent = 4, // balloons, etc.
+    FieldInteractObject = 4, // balloons, chest, etc.
     GlobalEvent = 5,
     KritiasChestPuzzle = 6,
     KritiasInvasion = 7,
