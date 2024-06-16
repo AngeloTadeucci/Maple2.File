@@ -5,11 +5,11 @@ using System.Text;
 namespace Maple2.File.Parser.Nif;
 
 public struct PhysXMeshFace {
-    public byte Vert0;
-    public byte Vert1;
-    public byte Vert2;
+    public uint Vert0;
+    public uint Vert1;
+    public uint Vert2;
 
-    public PhysXMeshFace(byte vert0 = 0, byte vert1 = 0, byte vert2 = 0) {
+    public PhysXMeshFace(uint vert0 = 0, uint vert1 = 0, uint vert2 = 0) {
         Vert0 = vert0;
         Vert1 = vert1;
         Vert2 = vert2;
@@ -111,11 +111,27 @@ public class PhysXMesh {
         uint unk10 = reader.ReadUInt32();
 
         for (int i = 0; i < faceCount; ++i) {
-            PhysXMeshFace face = new PhysXMeshFace(
-                reader.ReadByte(),
-                reader.ReadByte(),
-                reader.ReadByte()
-            );
+            PhysXMeshFace face;
+
+            if (vertexCount < 0x100) {
+                face = new PhysXMeshFace(
+                    reader.ReadByte(),
+                    reader.ReadByte(),
+                    reader.ReadByte()
+                );
+            } else if (vertexCount < 0x10000) {
+                face = new PhysXMeshFace(
+                    reader.ReadUInt16(),
+                    reader.ReadUInt16(),
+                    reader.ReadUInt16()
+                );
+            } else {
+                face = new PhysXMeshFace(
+                    reader.ReadUInt32(),
+                    reader.ReadUInt32(),
+                    reader.ReadUInt32()
+                );
+            }
 
             Faces.Add(face);
 
@@ -152,11 +168,27 @@ public class PhysXMesh {
         }
 
         for (int i = 0; i < faceCount; ++i) {
-            PhysXMeshFace face = new PhysXMeshFace(
-                reader.ReadByte(),
-                reader.ReadByte(),
-                reader.ReadByte()
-            );
+            PhysXMeshFace face;
+
+            if (vertexCount < 0x100) {
+                face = new PhysXMeshFace(
+                    reader.ReadByte(),
+                    reader.ReadByte(),
+                    reader.ReadByte()
+                );
+            } else if (vertexCount < 0x10000) {
+                face = new PhysXMeshFace(
+                    reader.ReadUInt16(),
+                    reader.ReadUInt16(),
+                    reader.ReadUInt16()
+                );
+            } else {
+                face = new PhysXMeshFace(
+                    reader.ReadUInt32(),
+                    reader.ReadUInt32(),
+                    reader.ReadUInt32()
+                );
+            }
 
             Faces.Add(face);
 
