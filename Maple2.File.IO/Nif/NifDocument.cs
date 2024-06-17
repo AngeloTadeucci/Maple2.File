@@ -8,7 +8,7 @@ public class NifDocument {
     private NifDocumentHeader header;
     public EndianReader Reader { get; private set; }
     public string RelPath { get; init; }
-    private NifBlock[] blocks;
+    public NifBlock[] Blocks { get; private set; }
     public NifBlock? ReadingBlock { get; private set; }
 
     public List<NiPhysXProp> PhysXProps { get; init; }
@@ -19,7 +19,7 @@ public class NifDocument {
         this.fileData = fileData;
 
         Reader = new EndianReader(new MemoryStream(), false);
-        blocks = Array.Empty<NifBlock>();
+        Blocks = Array.Empty<NifBlock>();
         header = new NifDocumentHeader();
         RelPath = relpath;
     }
@@ -38,8 +38,8 @@ public class NifDocument {
     }
 
     public NifBlock GetBlock(int index) {
-        if (blocks[index] is not null) {
-            return blocks[index];
+        if (Blocks[index] is not null) {
+            return Blocks[index];
         }
 
         string blockType = header.BlockTypes[header.BlockTypeIndices[index]];
@@ -53,7 +53,7 @@ public class NifDocument {
             _ => new NifBlock(blockType, false, index)
         };
 
-        blocks[index] = block;
+        Blocks[index] = block;
 
         return block;
     }
@@ -155,7 +155,7 @@ public class NifDocument {
         header.BlockTypes = new string[numBlockTypes];
         header.BlockTypeIndices = new ushort[numBlocks];
         header.BlockSizes = new int[numBlocks];
-        blocks = new NifBlock[numBlocks];
+        Blocks = new NifBlock[numBlocks];
 
         for (uint i = 0; i < numBlockTypes; i++) {
             header.BlockTypes[i] = Reader.ReadAdjustedStringLen32();
