@@ -332,8 +332,16 @@ public class ServerTableParserTest {
     public void TestTimeEventData() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        var timedEventData = parser.ParseTimeEventData();
         foreach ((_, _) in parser.ParseTimeEventData()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestOxQuiz() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseOxQuiz()) {
             continue;
         }
     }
