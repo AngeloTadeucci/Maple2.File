@@ -39,6 +39,7 @@ public class ServerTableParser {
     private readonly XmlSerializer adventureExpTableSerializer;
     private readonly XmlSerializer timeEventDataSerializer;
     private readonly XmlSerializer oxQuizSerializer;
+    private readonly XmlSerializer gameEventSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -71,6 +72,7 @@ public class ServerTableParser {
         adventureExpTableSerializer = new XmlSerializer(typeof(AdventureExpTableRoot));
         timeEventDataSerializer = new XmlSerializer(typeof(TimeEventDataRoot));
         oxQuizSerializer = new XmlSerializer(typeof(OxQuizRoot));
+        gameEventSerializer = new XmlSerializer(typeof(GameEventRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -551,6 +553,16 @@ public class ServerTableParser {
 
         foreach (OxQuiz entry in data.OxQuiz) {
             yield return (entry.quizID, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, GameEvent GameEvent)> ParseGameEvent() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/NA/GameEvent.xml"));
+        var data = gameEventSerializer.Deserialize(reader) as GameEventRoot;
+        Debug.Assert(data != null);
+
+        foreach (GameEvent entry in data.gameEvent) {
+            yield return (entry.gameEventID, entry);
         }
     }
 }

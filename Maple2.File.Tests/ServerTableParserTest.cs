@@ -345,4 +345,13 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestGameEvent() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseGameEvent()) {
+            continue;
+        }
+    }
 }
