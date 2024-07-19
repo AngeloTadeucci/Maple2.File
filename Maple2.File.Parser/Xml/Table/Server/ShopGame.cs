@@ -1,6 +1,7 @@
 ﻿using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.Parser.Enum;
+using DayOfWeek = Maple2.File.Parser.Enum.DayOfWeek;
 
 namespace Maple2.File.Parser.Xml.Table.Server;
 
@@ -12,7 +13,7 @@ public partial class ShopGameRoot {
 
 public partial class ShopGame {
     [XmlAttribute] public int shopID;
-    [M2dFeatureLocale(Selector = "sn")] private IList<ShopGame.Item> _item;
+    [M2dFeatureLocale(Selector = "sn")] private IList<Item> _item;
 
     public partial class Item : IFeatureLocale {
         [XmlAttribute] public int sn;
@@ -36,7 +37,12 @@ public partial class ShopGame {
         [XmlAttribute] public string requireAchieve = string.Empty;
         [XmlAttribute] public string requireAlliance = string.Empty;
         [XmlAttribute] public byte requireAllianceGrade;
+        [XmlAttribute] public int requireGuildTrophy;
         [M2dArray] public int[] requireChampionshipInfo = Array.Empty<int>();
         [M2dArray] public string[] requireGuildNpc = Array.Empty<string>();
+        [XmlAttribute] public bool checkGameEvent;
+        [M2dEnum] public DayOfWeek DayOfWeek;
+        [XmlAttribute] public string partTime = string.Empty;
+        [XmlAttribute] public bool onlyVisibleInPeriod;
     }
 }
