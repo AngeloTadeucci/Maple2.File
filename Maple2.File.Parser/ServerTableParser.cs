@@ -40,6 +40,7 @@ public class ServerTableParser {
     private readonly XmlSerializer timeEventDataSerializer;
     private readonly XmlSerializer oxQuizSerializer;
     private readonly XmlSerializer gameEventSerializer;
+    private readonly XmlSerializer unlimitedEnchantOptionSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -73,6 +74,7 @@ public class ServerTableParser {
         timeEventDataSerializer = new XmlSerializer(typeof(TimeEventDataRoot));
         oxQuizSerializer = new XmlSerializer(typeof(OxQuizRoot));
         gameEventSerializer = new XmlSerializer(typeof(GameEventRoot));
+        unlimitedEnchantOptionSerializer = new XmlSerializer(typeof(UnlimitedEnchantOptionRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -563,6 +565,17 @@ public class ServerTableParser {
 
         foreach (GameEvent entry in data.gameEvent) {
             yield return (entry.gameEventID, entry);
+        }
+    }
+
+    public IEnumerable<(int Slot, IDictionary<int[], UnlimitedEnchantOption> EnchantOptions)> ParseUnlimitedEnchantOption() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/UnlimitedEnchantOption.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = unlimitedEnchantOptionSerializer.Deserialize(reader) as UnlimitedEnchantOptionRoot;
+        Debug.Assert(data != null);
+
+        foreach (IGrouping<int, UnlimitedEnchantOption> group in data.option.GroupBy(option => option.slot)) {
+            yield return (group.Key, group.ToDictionary(option => option.grade));
         }
     }
 }

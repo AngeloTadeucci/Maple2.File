@@ -41,8 +41,8 @@ public partial class ShopGame {
         [M2dArray] public int[] requireChampionshipInfo = Array.Empty<int>();
         [M2dArray] public string[] requireGuildNpc = Array.Empty<string>();
         [XmlAttribute] public bool checkGameEvent;
-        [M2dEnum] public DayOfWeek DayOfWeek;
-        [XmlAttribute] public string partTime = string.Empty;
+        [M2dArray] public DayOfWeek[] dayOfWeek = Array.Empty<DayOfWeek>();
+        [M2dArray] public string[] partTime = Array.Empty<string>();
         [XmlAttribute] public bool onlyVisibleInPeriod;
     }
 }
