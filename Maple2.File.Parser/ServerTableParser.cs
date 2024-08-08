@@ -41,6 +41,7 @@ public class ServerTableParser {
     private readonly XmlSerializer oxQuizSerializer;
     private readonly XmlSerializer gameEventSerializer;
     private readonly XmlSerializer unlimitedEnchantOptionSerializer;
+    private readonly XmlSerializer itemMergeOptionSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -75,6 +76,7 @@ public class ServerTableParser {
         oxQuizSerializer = new XmlSerializer(typeof(OxQuizRoot));
         gameEventSerializer = new XmlSerializer(typeof(GameEventRoot));
         unlimitedEnchantOptionSerializer = new XmlSerializer(typeof(UnlimitedEnchantOptionRoot));
+        itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -576,6 +578,16 @@ public class ServerTableParser {
 
         foreach (IGrouping<int, UnlimitedEnchantOption> group in data.option.GroupBy(option => option.slot)) {
             yield return (group.Key, group.ToDictionary(option => option.grade));
+        }
+    }
+
+    public IEnumerable<(int Id, MergeOption MergeOption)> ParseItemMergeOption() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/itemMergeOptionBase.xml"));
+        var data = itemMergeOptionSerializer.Deserialize(reader) as ItemMergeOptionRoot;
+        Debug.Assert(data != null);
+
+        foreach (MergeOption entry in data.mergeOption) {
+            yield return (entry.id, entry);
         }
     }
 }
