@@ -368,7 +368,6 @@ public class ServerTableParserTest {
     public void TestItemMergeOption() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        var itemMergeOption = parser.ParseItemMergeOption();
         foreach ((_, _) in parser.ParseItemMergeOption()) {
             continue;
         }
