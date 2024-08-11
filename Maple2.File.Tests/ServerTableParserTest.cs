@@ -372,4 +372,13 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestEnchantOption() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseEnchantOption()) {
+            continue;
+        }
+    }
 }

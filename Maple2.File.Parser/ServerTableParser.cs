@@ -42,6 +42,7 @@ public class ServerTableParser {
     private readonly XmlSerializer gameEventSerializer;
     private readonly XmlSerializer unlimitedEnchantOptionSerializer;
     private readonly XmlSerializer itemMergeOptionSerializer;
+    private readonly XmlSerializer enchantOptionSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -77,6 +78,7 @@ public class ServerTableParser {
         gameEventSerializer = new XmlSerializer(typeof(GameEventRoot));
         unlimitedEnchantOptionSerializer = new XmlSerializer(typeof(UnlimitedEnchantOptionRoot));
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
+        enchantOptionSerializer = new XmlSerializer(typeof(EnchantOptionRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -587,6 +589,16 @@ public class ServerTableParser {
         Debug.Assert(data != null);
 
         foreach (MergeOption entry in data.mergeOption) {
+            yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, EnchantOption EnchantOption)> ParseEnchantOption() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/enchantOptionTable.xml"));
+        var data = enchantOptionSerializer.Deserialize(reader) as EnchantOptionRoot;
+        Debug.Assert(data != null);
+
+        foreach (EnchantOption entry in data.option) {
             yield return (entry.id, entry);
         }
     }
