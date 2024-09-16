@@ -88,6 +88,10 @@ public class TableParser {
     private readonly XmlSerializer fieldMissionSerializer;
     private readonly XmlSerializer worldMapSerializer;
     private readonly XmlSerializer mapleSurvivalSkinInfoSerializer;
+    private readonly XmlSerializer weddingExpSerializer;
+    private readonly XmlSerializer weddingPackageSerializer;
+    private readonly XmlSerializer weddingRewardSerializer;
+    private readonly XmlSerializer weddingSkillSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -168,6 +172,10 @@ public class TableParser {
         fieldMissionSerializer = new XmlSerializer(typeof(FieldMissionRoot));
         worldMapSerializer = new XmlSerializer(typeof(WorldMapRoot));
         mapleSurvivalSkinInfoSerializer = new XmlSerializer(typeof(MapleSurvivalSkinInfoRoot));
+        weddingExpSerializer = new XmlSerializer(typeof(WeddingExpRoot));
+        weddingPackageSerializer = new XmlSerializer(typeof(WeddingPackageRoot));
+        weddingRewardSerializer = new XmlSerializer(typeof(WeddingRewardRoot));
+        weddingSkillSerializer = new XmlSerializer(typeof(WeddingSkillRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1222,6 +1230,50 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (MapleSurvivalSkinInfo entry in data.skinInfo) {
+            yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(int Grade, WeddingExp Exp)> ParseWeddingExp() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/weddingexp.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = weddingExpSerializer.Deserialize(reader) as WeddingExpRoot;
+        Debug.Assert(data != null);
+
+        foreach (WeddingExp entry in data.v) {
+            yield return (entry.grade, entry);
+        }
+    }
+
+    public IEnumerable<(int Grade, WeddingPackage Package)> ParseWeddingPackage() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/weddingpackage.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = weddingPackageSerializer.Deserialize(reader) as WeddingPackageRoot;
+        Debug.Assert(data != null);
+
+        foreach (WeddingPackage entry in data.package) {
+            yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(WeddingRewardType Type, WeddingReward Reward)> ParseWeddingReward() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/weddingreward.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = weddingRewardSerializer.Deserialize(reader) as WeddingRewardRoot;
+        Debug.Assert(data != null);
+
+        foreach (WeddingReward entry in data.v) {
+            yield return (entry.type, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, WeddingSkill Reward)> ParseWeddingSkill() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/weddingskill.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = weddingSkillSerializer.Deserialize(reader) as WeddingSkillRoot;
+        Debug.Assert(data != null);
+
+        foreach (WeddingSkill entry in data.v) {
             yield return (entry.id, entry);
         }
     }

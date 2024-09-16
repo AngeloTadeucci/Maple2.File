@@ -772,4 +772,40 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestWeddingExp() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseWeddingExp()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestWeddingPackage() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseWeddingPackage()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestWeddingSkill() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseWeddingSkill()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestWeddingReward() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseWeddingReward()) {
+            continue;
+        }
+    }
 }
