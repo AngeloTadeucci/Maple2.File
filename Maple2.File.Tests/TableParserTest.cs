@@ -516,6 +516,24 @@ public class TableParserTest {
     }
 
     [TestMethod]
+    public void TestShopFurnishingUgcAll() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseFurnishingShopUgcAll()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestShopFurnishingMaid() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseFurnishingShopMaid()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
     public void TestMeretMarketCategory() {
         var parser = new TableParser(TestUtils.XmlReader);
 

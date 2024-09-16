@@ -62,6 +62,7 @@ public class TableParser {
     private readonly XmlSerializer individualItemDropSerializer;
     private readonly XmlSerializer gachaInfoSerializer;
     private readonly XmlSerializer shopBeautyCouponSerializer;
+    private readonly XmlSerializer shopFurnishingSerializer;
     private readonly XmlSerializer meretmarketCategorySerializer;
     private readonly XmlSerializer expBaseSerializer;
     private readonly XmlSerializer nextExpSerializer;
@@ -141,6 +142,7 @@ public class TableParser {
         individualItemDropSerializer = new XmlSerializer(typeof(IndividualItemDropRoot));
         gachaInfoSerializer = new XmlSerializer(typeof(GachaInfoRoot));
         shopBeautyCouponSerializer = new XmlSerializer(typeof(ShopBeautyCouponRoot));
+        shopFurnishingSerializer = new XmlSerializer(typeof(ShopFurnishingRoot));
         meretmarketCategorySerializer = new XmlSerializer(typeof(MeretMarketCategoryRoot));
         expBaseSerializer = new XmlSerializer(typeof(ExpBaseRoot));
         nextExpSerializer = new XmlSerializer(typeof(NextExpRoot));
@@ -882,6 +884,28 @@ public class TableParser {
 
         foreach (ShopBeautyCoupon coupon in data.shop) {
             yield return (coupon.shopID, coupon);
+        }
+    }
+
+    public IEnumerable<(int ItemId, ShopFurnishing UgcItem)> ParseFurnishingShopUgcAll() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/na/shop_ugcall.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = shopFurnishingSerializer.Deserialize(reader) as ShopFurnishingRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopFurnishing shop in data.key) {
+            yield return (shop.id, shop);
+        }
+    }
+
+    public IEnumerable<(int ItemId, ShopFurnishing UgcItem)> ParseFurnishingShopMaid() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/na/shop_maid.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = shopFurnishingSerializer.Deserialize(reader) as ShopFurnishingRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopFurnishing shop in data.key) {
+            yield return (shop.id, shop);
         }
     }
 
