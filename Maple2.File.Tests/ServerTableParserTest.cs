@@ -145,6 +145,15 @@ public class ServerTableParserTest {
     }
 
     [TestMethod]
+    public void TestShopUgc() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopUgc()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
     public void TestShopBeauty() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
@@ -378,6 +387,15 @@ public class ServerTableParserTest {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
         foreach ((_, _) in parser.ParseEnchantOption()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestMeretShop() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopMeret()) {
             continue;
         }
     }

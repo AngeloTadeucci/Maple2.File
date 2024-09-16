@@ -43,6 +43,7 @@ public class ServerTableParser {
     private readonly XmlSerializer unlimitedEnchantOptionSerializer;
     private readonly XmlSerializer itemMergeOptionSerializer;
     private readonly XmlSerializer enchantOptionSerializer;
+    private readonly XmlSerializer shopMeretSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -79,6 +80,7 @@ public class ServerTableParser {
         unlimitedEnchantOptionSerializer = new XmlSerializer(typeof(UnlimitedEnchantOptionRoot));
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
         enchantOptionSerializer = new XmlSerializer(typeof(EnchantOptionRoot));
+        shopMeretSerializer = new XmlSerializer(typeof(ShopMeretRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -311,6 +313,18 @@ public class ServerTableParser {
 
     public IEnumerable<(int ShopId, ShopGame ShopGame)> ParseShopGame() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/shop_game.xml"));
+        var data = shopGameSerializer.Deserialize(reader) as ShopGameRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopGame shopGame in data.shop) {
+            yield return (shopGame.shopID, shopGame);
+        }
+    }
+
+    public IEnumerable<(int ShopId, ShopGame ShopGame)> ParseShopUgc() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/shop_UGC.xml")));
+        xml = Sanitizer.RemoveSpaces(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
         var data = shopGameSerializer.Deserialize(reader) as ShopGameRoot;
         Debug.Assert(data != null);
 
@@ -600,6 +614,17 @@ public class ServerTableParser {
 
         foreach (EnchantOption entry in data.option) {
             yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(int Sn, ShopMeret ShopMeret)> ParseShopMeret() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/shop_merat.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = shopMeretSerializer.Deserialize(reader) as ShopMeretRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopMeret shopMeret in data.item) {
+            yield return (shopMeret.sn, shopMeret);
         }
     }
 }

@@ -86,6 +86,10 @@ public static class Sanitizer {
         return Regex.Replace(xml, "\\w+=\"\"", string.Empty);
     }
 
+    public static string RemoveSpaces(string xml) {
+        return Regex.Replace(xml, "(\\w+)=\"([^\"]*?)\\s+\"", "$1=\"$2\"");
+    }
+
     // Floats using ',' are converted to '.' (1,2 -> 1.2)
     private static string FixCommaFloats(string xml, params string[] attributes) {
         string pattern = $"({string.Join('|', attributes)})=\"(-?\\d+)(?:,(\\d+))\"";
