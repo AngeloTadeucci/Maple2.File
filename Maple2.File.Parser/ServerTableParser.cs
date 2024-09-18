@@ -44,6 +44,7 @@ public class ServerTableParser {
     private readonly XmlSerializer itemMergeOptionSerializer;
     private readonly XmlSerializer enchantOptionSerializer;
     private readonly XmlSerializer shopMeretSerializer;
+    private readonly XmlSerializer shopMeretCustomSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -81,6 +82,7 @@ public class ServerTableParser {
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
         enchantOptionSerializer = new XmlSerializer(typeof(EnchantOptionRoot));
         shopMeretSerializer = new XmlSerializer(typeof(ShopMeretRoot));
+        shopMeretCustomSerializer = new XmlSerializer(typeof(ShopMeretCustomRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -625,6 +627,17 @@ public class ServerTableParser {
 
         foreach (ShopMeret shopMeret in data.item) {
             yield return (shopMeret.sn, shopMeret);
+        }
+    }
+
+    public IEnumerable<(int Id, ShopMeretCustom ShopMeret)> ParseShopMeretCustom() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/shop_merat_custom.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = shopMeretCustomSerializer.Deserialize(reader) as ShopMeretCustomRoot;
+        Debug.Assert(data != null);
+
+        foreach (ShopMeretCustom shopMeret in data.item) {
+            yield return (shopMeret.id, shopMeret);
         }
     }
 }

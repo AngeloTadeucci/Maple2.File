@@ -399,4 +399,13 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestMeretShopCustom() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseShopMeretCustom()) {
+            continue;
+        }
+    }
 }
