@@ -45,6 +45,9 @@ public class ServerTableParser {
     private readonly XmlSerializer enchantOptionSerializer;
     private readonly XmlSerializer shopMeretSerializer;
     private readonly XmlSerializer shopMeretCustomSerializer;
+    private readonly XmlSerializer itemOptionProbabilitySerializer;
+    private readonly XmlSerializer itemOptionVariationSerializer;
+    private readonly XmlSerializer itemOptionRandomSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -83,6 +86,9 @@ public class ServerTableParser {
         enchantOptionSerializer = new XmlSerializer(typeof(EnchantOptionRoot));
         shopMeretSerializer = new XmlSerializer(typeof(ShopMeretRoot));
         shopMeretCustomSerializer = new XmlSerializer(typeof(ShopMeretCustomRoot));
+        itemOptionProbabilitySerializer = new XmlSerializer(typeof(ItemOptionProbabilityRoot));
+        itemOptionVariationSerializer = new XmlSerializer(typeof(ItemOptionVariationRoot));
+        itemOptionRandomSerializer = new XmlSerializer(typeof(ItemOptionRandomRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -638,6 +644,39 @@ public class ServerTableParser {
 
         foreach (ShopMeretCustom shopMeret in data.item) {
             yield return (shopMeret.id, shopMeret);
+        }
+    }
+
+    public IEnumerable<(string Name, ItemOptionProbability Option)> ParseItemOptionProbability() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/itemOptionProbability.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = itemOptionProbabilitySerializer.Deserialize(reader) as ItemOptionProbabilityRoot;
+        Debug.Assert(data != null);
+
+        foreach (ItemOptionProbability option in data.option) {
+            yield return (option.name, option);
+        }
+    }
+
+    public IEnumerable<(int Id, ItemOptionVariation Option)> ParseItemOptionVariation() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/itemOptionVariation.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = itemOptionVariationSerializer.Deserialize(reader) as ItemOptionVariationRoot;
+        Debug.Assert(data != null);
+
+        foreach (ItemOptionVariation option in data.option) {
+            yield return (option.id, option);
+        }
+    }
+
+    public IEnumerable<(int Id, ItemOptionRandom Option)> ParseItemOptionRandom() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/ItemOptionRandom.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = itemOptionRandomSerializer.Deserialize(reader) as ItemOptionRandomRoot;
+        Debug.Assert(data != null);
+
+        foreach (ItemOptionRandom option in data.option) {
+            yield return (option.code, option);
         }
     }
 }

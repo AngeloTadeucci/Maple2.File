@@ -408,4 +408,31 @@ public class ServerTableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestItemOptionProbability() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseItemOptionProbability()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestItemOptionVariation() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseItemOptionVariation()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestItemOptionRandom() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        foreach ((_, _) in parser.ParseItemOptionRandom()) {
+            continue;
+        }
+    }
 }
