@@ -23,6 +23,6 @@ public partial class Basic {
     [M2dEnum] public AllianceRank rank = AllianceRank.Unknown;
     [XmlAttribute] public bool usePostbox;
     [XmlAttribute] public bool useReEntryHiddenMap;
-    [M2dEnum] public Enum.DayOfWeek usePeriod = Enum.DayOfWeek.unknown;
+    [XmlAttribute] public string usePeriod = string.Empty;
     [M2dArray] public QuestPropertyType[] property;
 }
