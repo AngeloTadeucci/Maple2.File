@@ -6,7 +6,7 @@ namespace Maple2.File.Parser.Xml.Table;
 // ./data/xml/table/itemoptionvariation.xml
 [XmlRoot("ms2")]
 public partial class ItemOptionVariation {
-    [M2dFeatureLocale(Selector = "OptionName")] private IList<Option> _option;
+    [M2dFeatureLocale(Selector = "OptionName|OptionRateMin|OptionValueMin")] private IList<Option> _option;
 
     public partial class Option : IFeatureLocale {
         [XmlAttribute] public string OptionName = string.Empty;
