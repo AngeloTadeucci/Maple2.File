@@ -1008,7 +1008,7 @@ public class TableParser {
         }
     }
 
-    public IEnumerable<(int Id,  MasteryUgcHousing)> ParseMasteryUgcHousing() {
+    public IEnumerable<(int Id, MasteryUgcHousing)> ParseMasteryUgcHousing() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/masteryugchousing.xml")));
         var reader = XmlReader.Create(new StringReader(xml));
         var data = masteryUgcHousingSerializer.Deserialize(reader) as MasteryUgcHousingRoot;
