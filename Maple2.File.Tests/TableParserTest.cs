@@ -607,6 +607,15 @@ public class TableParserTest {
     }
 
     [TestMethod]
+    public void TestUgcHousingPointReward() {
+        var parser = new TableParser(TestUtils.XmlReader);
+
+        foreach ((_, _) in parser.ParseUgcHousingPointReward()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
     public void TestBanner() {
         var parser = new TableParser(TestUtils.XmlReader);
 

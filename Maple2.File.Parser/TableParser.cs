@@ -71,6 +71,7 @@ public class TableParser {
     private readonly XmlSerializer adventureLevelRewardSerializer;
     private readonly XmlSerializer ugcDesignSerializer;
     private readonly XmlSerializer masteryUgcHousingSerializer;
+    private readonly XmlSerializer ugcHousingPointRewardSerializer;
     private readonly XmlSerializer bannerSerializer;
     private readonly XmlSerializer nameTagSymbolSerializer;
     private readonly XmlSerializer commonExpSerializer;
@@ -156,6 +157,7 @@ public class TableParser {
         adventureLevelRewardSerializer = new XmlSerializer(typeof(AdventureLevelRewardRoot));
         ugcDesignSerializer = new XmlSerializer(typeof(UgcDesignRoot));
         masteryUgcHousingSerializer = new XmlSerializer(typeof(MasteryUgcHousingRoot));
+        ugcHousingPointRewardSerializer = new XmlSerializer(typeof(UgcHousingPointRewardRoot));
         bannerSerializer = new XmlSerializer(typeof(BannerRoot));
         nameTagSymbolSerializer = new XmlSerializer(typeof(NameTagSymbolRoot));
         commonExpSerializer = new XmlSerializer(typeof(CommonExpRoot));
@@ -1016,6 +1018,17 @@ public class TableParser {
 
         foreach (MasteryUgcHousing entry in data.MasteryUgcHousing.Entries) {
             yield return (entry.grade, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, UgcHousingPointReward)> ParseUgcHousingPointReward() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/ugchousingpointreward.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = ugcHousingPointRewardSerializer.Deserialize(reader) as UgcHousingPointRewardRoot;
+        Debug.Assert(data != null);
+
+        foreach (UgcHousingPointReward entry in data.Entries) {
+            yield return (entry.housingPoint, entry);
         }
     }
 
