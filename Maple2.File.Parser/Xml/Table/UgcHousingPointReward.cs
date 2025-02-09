@@ -11,4 +11,6 @@ public partial class UgcHousingPointRewardRoot {
 public partial class UgcHousingPointReward {
     [XmlAttribute] public int housingPoint;
     [XmlAttribute] public int individualDropBoxId;
+    [XmlAttribute] public string icon;
+    [XmlAttribute] public string stringKey;
 }
