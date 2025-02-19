@@ -8,6 +8,7 @@ namespace Maple2.File.Parser.Xml.Object;
 [XmlRoot("ms2")]
 public class FunctionCubeRoot {
     [XmlElement] public FunctionCube FunctionCube;
+    [XmlElement] public ConfigurableCube ConfigurableCube;
 }
 
 public partial class FunctionCube {
@@ -50,4 +51,9 @@ public partial class FunctionCube {
     [XmlElement] public OpenWeb openWeb;
     [XmlElement] public NoticePopup noticePopup;
     [XmlElement] public Nurturing nurturing;
+}
+
+public partial class ConfigurableCube {
+    [XmlAttribute] public bool enabled;
+    [M2dEnum] public ConfigurableCubeType id;
 }

@@ -13,7 +13,7 @@ public class FunctionCubeParserTest {
         // parser.FunctionCubeSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.FunctionCubeSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
 
-        foreach ((int id, FunctionCube data) in parser.Parse()) {
+        foreach ((int id, FunctionCubeRoot data) in parser.Parse()) {
             Assert.IsTrue(id >= 0);
             Assert.IsNotNull(data);
         }

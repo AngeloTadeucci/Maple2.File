@@ -17,7 +17,7 @@ public class FunctionCubeParser {
         FunctionCubeSerializer = new XmlSerializer(typeof(FunctionCubeRoot));
     }
 
-    public IEnumerable<(int Id, FunctionCube Data)> Parse() {
+    public IEnumerable<(int Id, FunctionCubeRoot Data)> Parse() {
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("object/"))) {
             var reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeFunctionCube(xmlReader.GetString(entry))));
             var data = FunctionCubeSerializer.Deserialize(reader) as FunctionCubeRoot;
@@ -26,7 +26,7 @@ public class FunctionCubeParser {
             if (data.FunctionCube == null) continue;
 
             if (int.TryParse(Path.GetFileNameWithoutExtension(entry.Name), out int id)) {
-                yield return (id, data.FunctionCube);
+                yield return (id, data);
             }
         }
     }
