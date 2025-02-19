@@ -8,7 +8,7 @@ namespace Maple2.File.Parser.Xml.Object;
 [XmlRoot("ms2")]
 public class FunctionCubeRoot {
     [XmlElement] public FunctionCube FunctionCube;
-    [XmlElement] public ConfigurableCube ConfigurableCube;
+    [XmlElement] public ConfigurableCube? ConfigurableCube;
 }
 
 public partial class FunctionCube {
