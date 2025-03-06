@@ -94,6 +94,7 @@ public class TableParser {
     private readonly XmlSerializer weddingPackageSerializer;
     private readonly XmlSerializer weddingRewardSerializer;
     private readonly XmlSerializer weddingSkillSerializer;
+    private readonly XmlSerializer smartPushSerializer;
 
     public TableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -180,6 +181,7 @@ public class TableParser {
         weddingPackageSerializer = new XmlSerializer(typeof(WeddingPackageRoot));
         weddingRewardSerializer = new XmlSerializer(typeof(WeddingRewardRoot));
         weddingSkillSerializer = new XmlSerializer(typeof(WeddingSkillRoot));
+        smartPushSerializer = new XmlSerializer(typeof(SmartPushRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -1300,6 +1302,17 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (WeddingSkill entry in data.v) {
+            yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, SmartPush Button)> ParseSmartPush() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/na/smartpush.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = smartPushSerializer.Deserialize(reader) as SmartPushRoot;
+        Debug.Assert(data != null);
+
+        foreach (SmartPush entry in data.push) {
             yield return (entry.id, entry);
         }
     }
