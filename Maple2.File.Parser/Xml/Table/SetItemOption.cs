@@ -27,3 +27,29 @@ public partial class SetItemOption : IFeatureLocale {
         [XmlAttribute] public int sgi_boss_target;
     }
 }
+
+// ./data/xml/table/setiteminfo.xml
+[XmlRoot("ms2")]
+public partial class SetItemOptionRootKR {
+    [XmlElement("set")] public List<SetItemOptionKR> option;
+}
+
+public partial class SetItemOptionKR : IFeatureLocale {
+    [XmlAttribute] public int id;
+    [XmlAttribute] public int optionID;
+    [M2dArray] public int[] itemIDs = [];
+
+    [XmlElement("part")] public List<Part> part;
+
+    public partial class Part : ItemOptionKR, IFeatureLocale {
+        [XmlAttribute] public int count;
+        [M2dArray] public int[] additionalEffectID;
+        [M2dArray] public short[] additionalEffectLevel;
+        [XmlAttribute] public string animationPrefix;
+        [XmlAttribute] public string setEffect;
+        [XmlAttribute] public string groundAttribute;
+
+        [XmlAttribute] public int sgi_target;
+        [XmlAttribute] public int sgi_boss_target;
+    }
+}

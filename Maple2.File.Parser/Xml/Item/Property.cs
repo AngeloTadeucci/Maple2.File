@@ -42,7 +42,7 @@ public partial class Property {
     [M2dArray] public int[] globalRePackingScrollID;
     [XmlAttribute] public int socketDataId;
     [XmlAttribute] public string functionTags = string.Empty;
-    [XmlAttribute] public int moveDisable;
+    [XmlAttribute] public bool moveDisable;
     [XmlAttribute] public bool disableDrop;
 
     [XmlElement] public Sell sell;

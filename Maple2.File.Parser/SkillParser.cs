@@ -17,10 +17,40 @@ public class SkillParser {
     public SkillParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         nameSerializer = new XmlSerializer(typeof(StringMapping));
-        skillSerializer = new XmlSerializer(typeof(SkillData));
+        Type type = FeatureLocaleFilter.Locale is "KR" ? typeof(SkillDataKR) : typeof(SkillData);
+        skillSerializer = new XmlSerializer(type);
     }
 
     public IEnumerable<(int Id, string Name, SkillData Data)> Parse() {
+        Dictionary<int, string> skillNames = LoadSkillNames();
+
+        foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("skill/"))) {
+            var data = skillSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as SkillData;
+            Debug.Assert(data != null);
+
+            if (data.FeatureLocale() == null) continue;
+
+            int skillId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
+            yield return (skillId, skillNames.GetValueOrDefault(skillId) ?? string.Empty, data);
+        }
+    }
+
+    public IEnumerable<(int Id, string Name, SkillKR Data)> ParseKR() {
+        Dictionary<int, string> skillNames = LoadSkillNames();
+
+        foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("skilldata/"))) {
+            var data = skillSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as SkillDataKR;
+            Debug.Assert(data != null);
+
+            if (data.FeatureLocale() == null) continue;
+
+            foreach (SkillKR skill in data.Skills) {
+                yield return (skill.id, skillNames.GetValueOrDefault(skill.id) ?? string.Empty, skill);
+            }
+        }
+    }
+
+    public Dictionary<int, string> LoadSkillNames() {
         Dictionary<int, string> skillNames = new();
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("string/en/skillname"))) {
             XmlReader reader = xmlReader.GetXmlReader(entry);
@@ -32,14 +62,6 @@ public class SkillParser {
             }
         }
 
-        foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("skill/"))) {
-            var data = skillSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as SkillData;
-            Debug.Assert(data != null);
-
-            if (data.FeatureLocale() == null) continue;
-
-            int skillId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (skillId, skillNames.GetValueOrDefault(skillId), data);
-        }
+        return skillNames;
     }
 }

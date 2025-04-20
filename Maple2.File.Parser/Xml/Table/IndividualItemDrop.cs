@@ -63,3 +63,36 @@ public partial class IndividualItemDrop : IFeatureLocale {
     [M2dArray] public int[] dropCount = Array.Empty<int>();
     [M2dArray] public int[] dropCountProbability = Array.Empty<int>();
 }
+
+// ./data/xml/table/individualitemdrop_final.xml
+[XmlRoot("ms2")]
+public partial class IndividualItemDropRootKR {
+    [XmlElement("dropBox")] public List<IndividualItemDropBox> DropBoxes = [];
+}
+
+public partial class IndividualItemDropBox : IFeatureLocale {
+    [XmlAttribute("dropBoxID")] public int DropBoxID;
+
+    [XmlElement("group")] public List<IndividualItemDropGroup> Groups = [];
+}
+
+public partial class IndividualItemDropGroup : IFeatureLocale {
+    [XmlAttribute("dropGroupID")] public int DropGroupID;
+
+    [XmlElement("v")] public List<IndividualItemDropItem> Items = [];
+}
+
+public partial class IndividualItemDropItem : IFeatureLocale {
+    [XmlAttribute] public int enchantLevel;
+    [XmlAttribute] public int itemID;
+    [XmlAttribute] public int itemID2;
+    [XmlAttribute] public int itemLifeType;
+    [XmlAttribute] public int itemLifeValue;
+    [XmlAttribute] public float maxCount;
+    [XmlAttribute] public float minCount;
+    [XmlAttribute] public bool showIconOnGachaUI;
+    [XmlAttribute] public byte showTooltip;
+    [XmlAttribute] public int socketDataID;
+    [XmlAttribute] public bool tradableCountDeduction;
+    [XmlAttribute] public int uiItemRank;
+}

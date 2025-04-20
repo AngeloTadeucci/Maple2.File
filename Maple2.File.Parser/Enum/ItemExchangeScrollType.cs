@@ -5,4 +5,5 @@ public enum ItemExchangeScrollType {
     exchange = 1,
     updated = 2,
     trading = 3,
+    upgrade = 4,
 }

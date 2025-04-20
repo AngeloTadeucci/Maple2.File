@@ -9,19 +9,36 @@ namespace Maple2.File.Tests;
 
 [TestClass]
 public class XBlockParserTest {
-    [TestMethod]
-    public void TestConversion() {
-        // var flatConverter = new FlatToModel(TestUtils.ExportedReader, TestUtils.AssetMetadataReader);
-        // flatConverter.Convert();
+    // [TestMethod]
+    // public void TestConversion() {
+    // var flatConverter = new FlatToModel(TestUtils.ExportedReader, TestUtils.AssetMetadataReader);
+    // flatConverter.Convert();
 
-        // var xblockConverter = new XBlockToBlock(TestUtils.ExportedReader);
-        // xblockConverter.Convert();
-    }
+    // var xblockConverter = new XBlockToBlock(TestUtils.ExportedReader);
+    // xblockConverter.Convert();
+    // }
 
     [TestMethod]
     public void TestXBlockParser() {
         var index = new FlatTypeIndex(TestUtils.ExportedReader);
         var parser = new XBlockParser(TestUtils.ExportedReader, index);
+        // Console.WriteLine(index.GetType("Portal_entrance").GetProperty("frontOffset"));
+
+        parser.ParseMap("02000070_in", entities => {
+            foreach (IMapEntity? entity in entities) {
+                if (entity is IPortal portal) {
+                    Console.WriteLine(entity.EntityName);
+                    Console.WriteLine(portal.ModelName);
+                    Console.WriteLine(portal.frontOffset);
+                }
+            }
+        });
+    }
+
+    [TestMethod]
+    public void TestXBlockParserKR() {
+        var index = new FlatTypeIndex(TestUtilsKR.ExportedReader);
+        var parser = new XBlockParser(TestUtilsKR.ExportedReader, index);
         // Console.WriteLine(index.GetType("Portal_entrance").GetProperty("frontOffset"));
 
         parser.ParseMap("02000070_in", entities => {
@@ -59,3 +76,4 @@ public class XBlockParserTest {
         }
     }
 }
+

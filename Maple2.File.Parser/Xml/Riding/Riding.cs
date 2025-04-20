@@ -18,3 +18,14 @@ public partial class Riding : IFeatureLocale {
     [XmlElement] public StatValue stat;
     [XmlElement] public FaceCamera faceCamera;
 }
+
+// KMS2: ./data/xml/riding/%08d.xml
+[XmlRoot("ms2")]
+public class RidingKRRoot {
+    [XmlElement("riding")] public RidingKR riding;
+}
+
+public class RidingKR : Riding {
+    [XmlElement("passengers")] public List<PassengerRiding> passengers;
+}
+

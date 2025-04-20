@@ -50,7 +50,10 @@ public class ItemOptionParser {
 
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer itemOptionConstantSerializer;
+    private readonly XmlSerializer itemOptionConstantKRSerializer;
     private readonly XmlSerializer itemOptionSerializer;
+    private readonly XmlSerializer itemOptionKRSerializer;
+    private readonly XmlSerializer itemMergeOptionKRSerializer;
     private readonly XmlSerializer itemMergeOptionSerializer;
     private readonly XmlSerializer itemOptionPickSerializer;
     private readonly XmlSerializer itemVariationSerializer;
@@ -59,7 +62,10 @@ public class ItemOptionParser {
     public ItemOptionParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         itemOptionConstantSerializer = new XmlSerializer(typeof(ItemOptionConstantRoot));
+        itemOptionConstantKRSerializer = new XmlSerializer(typeof(ItemOptionConstantRootKR));
         itemOptionSerializer = new XmlSerializer(typeof(ItemOptionRoot));
+        itemOptionKRSerializer = new XmlSerializer(typeof(ItemOptionRandomRootKR));
+        itemMergeOptionKRSerializer = new XmlSerializer(typeof(ItemMergeOptionRootKR));
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
         itemOptionPickSerializer = new XmlSerializer(typeof(ItemOptionPickRoot));
         itemVariationSerializer = new XmlSerializer(typeof(ItemOptionVariation));
@@ -75,6 +81,23 @@ public class ItemOptionParser {
             Debug.Assert(root != null);
 
             foreach (ItemOptionConstantData option in root.option) {
+                if (option.code > 0) {
+                    yield return option;
+                }
+            }
+        }
+    }
+
+    public IEnumerable<ItemOptionConstant> ParseConstantKR() {
+        foreach (string suffix in constantSuffix) {
+            string filename = "table/itemoptionconstant.xml";
+            string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry(filename)));
+            xml = Sanitizer.RemoveUtf8Bom(xml);
+            var reader = XmlReader.Create(new StringReader(xml));
+            var root = itemOptionConstantKRSerializer.Deserialize(reader) as ItemOptionConstantRootKR;
+            Debug.Assert(root != null);
+
+            foreach (ItemOptionConstant option in root.options) {
                 if (option.code > 0) {
                     yield return option;
                 }
@@ -98,6 +121,23 @@ public class ItemOptionParser {
         }
     }
 
+    public IEnumerable<ItemOptionRandomKR> ParseRandomKR() {
+        foreach (string suffix in randomSuffix) {
+            string filename = "table/itemoptionrandom.xml";
+            string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry(filename)));
+            xml = Sanitizer.RemoveUtf8Bom(xml);
+            var reader = XmlReader.Create(new StringReader(xml));
+            var root = itemOptionKRSerializer.Deserialize(reader) as ItemOptionRandomRootKR;
+            Debug.Assert(root != null);
+
+            foreach (ItemOptionRandomKR option in root.options) {
+                if (option.code > 0) {
+                    yield return option;
+                }
+            }
+        }
+    }
+
     public IEnumerable<ItemOptionData> ParseStatic() {
         foreach (string suffix in staticSuffix) {
             string filename = $"itemoption/option/static/itemoptionstatic_{suffix}.xml";
@@ -111,6 +151,18 @@ public class ItemOptionParser {
                     yield return option;
                 }
             }
+        }
+    }
+
+    public IEnumerable<MergeOptionKR> ParseMergeOptionBaseKR() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemmergeoptionbase.xml")));
+        xml = Sanitizer.RemoveUtf8Bom(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
+        var root = itemMergeOptionKRSerializer.Deserialize(reader) as ItemMergeOptionRootKR;
+        Debug.Assert(root != null);
+
+        foreach (MergeOptionKR option in root.mergeOption) {
+            yield return option;
         }
     }
 

@@ -13,4 +13,5 @@ public enum NameTagSymbolConditionType {
     adventure_level,
     Burning,
     survivallevel,
+    return_user,
 }

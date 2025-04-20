@@ -35,6 +35,7 @@ public enum ConditionType {
     exp_rate = 43,
     adventure_level = 44,
     adventure_level_up = 45,
+    level_max = 46,
 
     // group 8
     item_pickup = 2,

@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Xml.Serialization;
+using M2dXmlGenerator;
 using Maple2.File.IO;
 using Maple2.File.IO.Crypto.Common;
 using Maple2.File.Parser.Xml.Script;
@@ -15,7 +16,7 @@ public class ScriptParser {
 
     public ScriptParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
-        npcScriptSerializer = new XmlSerializer(typeof(NpcScript));
+        npcScriptSerializer = new XmlSerializer(FeatureLocaleFilter.Locale == "KR" ? typeof(NpcScriptListKR) : typeof(NpcScript));
         questScriptSerializer = new XmlSerializer(typeof(QuestScriptRoot));
         scriptStringSerializer = new XmlSerializer(typeof(StringMapping));
     }
@@ -30,6 +31,17 @@ public class ScriptParser {
         }
     }
 
+    public IEnumerable<(int Id, NpcScriptKR Script)> ParseNpcKR() {
+        var entry = xmlReader.GetEntry("npcscript_final.xml");
+        Debug.Assert(entry != null);
+        var root = npcScriptSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as NpcScriptListKR;
+        Debug.Assert(root != null);
+
+        foreach (NpcScriptKR npc in root.npcs) {
+            yield return (npc.id, npc);
+        }
+    }
+
     public IEnumerable<(int Id, QuestScript Script)> ParseQuest() {
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("script/quest"))) {
             var root = questScriptSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as QuestScriptRoot;
@@ -38,6 +50,17 @@ public class ScriptParser {
             foreach (QuestScript quest in root.quest) {
                 yield return (quest.id, quest);
             }
+        }
+    }
+
+    public IEnumerable<(int Id, QuestScript Script)> ParseQuestKR() {
+        var entry = xmlReader.GetEntry("questscript_final.xml");
+        Debug.Assert(entry != null);
+        var root = questScriptSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as QuestScriptRoot;
+        Debug.Assert(root != null);
+
+        foreach (QuestScript quest in root.quest) {
+            yield return (quest.id, quest);
         }
     }
 

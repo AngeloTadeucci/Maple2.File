@@ -15,7 +15,7 @@ public partial class DungeonRoom : IFeatureLocale {
     [XmlAttribute] public int dungeonRoomID;
     [XmlAttribute] public short dungeonLevel;
     [XmlAttribute] public DungeonPlayType playType;
-    [XmlAttribute] public DungeonGroupType groupType;
+    [M2dEnum] public DungeonGroupType groupType;
     [XmlAttribute] public int clearValue;
     [XmlAttribute] public DungeonCooldownType cooldownType;
     [XmlAttribute] public int cooldownValue;

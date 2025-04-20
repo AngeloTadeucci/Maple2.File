@@ -1,6 +1,8 @@
 ﻿using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.Parser.Xml.Skill.Property;
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
 
 namespace Maple2.File.Parser.Xml.Skill;
 
@@ -133,4 +135,43 @@ public partial class SkillAttackData {
 
     // Ignored by client.
     [XmlAttribute] public string compulsionHit = string.Empty;
+}
+
+
+// KR version: ./data/xml/skilldata/%04d.xml
+[XmlRoot("ms2")]
+public partial class SkillDataKR : IFeatureLocale {
+    [XmlElement("skill")]
+    public List<SkillKR> Skills;
+}
+
+public class SkillKR {
+    [XmlAttribute]
+    public int id;
+
+    [XmlAttribute]
+    public int originId = 0;
+
+    [XmlAttribute]
+    public string comment = string.Empty;
+
+    [XmlElement("basic")]
+    public BasicKR basic;
+
+    [XmlElement("level")]
+    public List<SkillLevelKR> levels;
+}
+
+public class SkillLevelKR : SkillLevelData {
+    [XmlAttribute]
+    public int sp = 0;
+
+    [XmlAttribute]
+    public int ep = 0;
+
+    [XmlAttribute]
+    public int cooldown = 0;
+
+    [XmlAttribute]
+    public string stringParam = string.Empty;
 }

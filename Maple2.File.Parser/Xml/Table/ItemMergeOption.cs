@@ -65,3 +65,39 @@ public partial class MergeStep {
         };
     }
 }
+
+
+// ./data/xml/table/itemmergeoptionbase.xml
+[XmlRoot("ms2")]
+public class ItemMergeOptionRootKR {
+    [XmlElement] public List<MergeOptionKR> mergeOption = [];
+}
+
+public partial class MergeOptionKR : IFeatureLocale {
+    [XmlAttribute] public int id;
+
+    [XmlElement] public List<Slot> slot = [];
+}
+
+public partial class Slot {
+    [XmlAttribute] public int part = 1;
+    [M2dArray] public int[] partLimit = [];
+
+    [XmlElement] public List<OptionKR> option = [];
+}
+
+public partial class OptionKR {
+    [XmlAttribute] public string optionName = string.Empty;
+    [XmlAttribute] public int min;
+
+    [XmlAttribute] public float idx0_max;
+    [XmlAttribute] public float idx1_max;
+    [XmlAttribute] public float idx2_max;
+    [XmlAttribute] public float idx3_max;
+    [XmlAttribute] public float idx4_max;
+    [XmlAttribute] public float idx5_max;
+    [XmlAttribute] public float idx6_max;
+    [XmlAttribute] public float idx7_max;
+    [XmlAttribute] public float idx8_max;
+    [XmlAttribute] public float idx9_max;
+}

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Xml;
 using System.Xml.Serialization;
+using M2dXmlGenerator;
 using Maple2.File.IO;
 using Maple2.File.IO.Crypto.Common;
 using Maple2.File.Parser.Tools;
@@ -17,7 +18,8 @@ public class MapParser {
     public MapParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         NameSerializer = new XmlSerializer(typeof(StringMapping));
-        MapSerializer = new XmlSerializer(typeof(MapDataRoot));
+        Type type = FeatureLocaleFilter.Locale == "KR" ? typeof(MapDataRootKR) : typeof(MapDataRoot);
+        MapSerializer = new XmlSerializer(type);
     }
 
     public IEnumerable<(int Id, string Name, MapData Data)> Parse() {
@@ -27,8 +29,26 @@ public class MapParser {
 
         Dictionary<int, string> mapNames = mapping.key.ToDictionary(key => int.Parse(key.id), key => key.name);
 
-        foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("map/"))) {
+        IEnumerable<PackFileEntry> entries;
+        if (FeatureLocaleFilter.Locale == "KR") {
+            entries = [xmlReader.GetEntry("table/fielddata.xml")];
+        } else {
+            entries = xmlReader.Files.Where(entry => entry.Name.StartsWith("map/"));
+        }
+
+        foreach (PackFileEntry entry in entries) {
             reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeMap(xmlReader.GetString(entry))));
+            if (FeatureLocaleFilter.Locale == "KR") {
+                var rootKr = MapSerializer.Deserialize(reader) as MapDataRootKR;
+                Debug.Assert(rootKr != null);
+                foreach (MapDataRootKR item in rootKr.fieldData) {
+                    if (item.environment == null) continue;
+                    MapData dataKr = item.environment;
+                    yield return (item.id, mapNames.GetValueOrDefault(item.id) ?? string.Empty, dataKr);
+                }
+                continue;
+            }
+
             var root = MapSerializer.Deserialize(reader) as MapDataRoot;
             Debug.Assert(root != null);
 
@@ -36,7 +56,7 @@ public class MapParser {
             if (data == null) continue;
 
             int mapId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (mapId, mapNames.GetValueOrDefault(mapId), data);
+            yield return (mapId, mapNames.GetValueOrDefault(mapId) ?? string.Empty, data);
         }
     }
 }

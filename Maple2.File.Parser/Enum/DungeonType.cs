@@ -39,6 +39,7 @@ public enum DungeonTimerType {
 public enum DungeonBossRankingType {
     None = 0,
     Kill = 1,
+    kill = Kill,
     Damage = 2,
     KillRumble = 3,
     MultiKill = 4,

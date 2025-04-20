@@ -8,3 +8,9 @@ public partial class Basic : IFeatureLocale {
     [XmlElement] public Kinds kinds;
     [XmlElement] public StateAttribute stateAttr;
 }
+
+public partial class BasicKR : IFeatureLocale {
+    [XmlElement] public UI ui;
+    [XmlElement] public KindsKR kinds;
+    [XmlElement] public StateAttribute stateAttr;
+}

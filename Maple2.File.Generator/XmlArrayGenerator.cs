@@ -66,7 +66,7 @@ public string _{xmlAttributeName} {{
 
     private void AddSerializer(StringBuilder source, IFieldSymbol field, char delimiter) {
         string fieldName = $"this.{field.FieldName()}";
-        source.Append($"return {fieldName} != null ? string.Join('{delimiter}', {fieldName}) : null;");
+        source.Append(@$"       return {fieldName} != null ? string.Join('{delimiter}', {fieldName}) : string.Empty;");
     }
 
     private void AddDeserializer(GeneratorExecutionContext context, StringBuilder source, IFieldSymbol field, char delimiter, bool keepEmpty) {

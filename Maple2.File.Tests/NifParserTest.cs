@@ -21,7 +21,16 @@ public class NifParserTest {
     [TestMethod]
     public void TestNifParser() {
         var parser = new NifParser(TestUtils.ModelM2dReaders);
+        ValidateNifMeshData(parser);
+    }
 
+    [TestMethod]
+    public void TestNifParserKR() {
+        var parser = new NifParser(TestUtilsKR.ModelM2dReaders);
+        ValidateNifMeshData(parser);
+    }
+
+    private static void ValidateNifMeshData(NifParser parser) {
         foreach ((uint llid, string relpath, NifDocument document) in parser.Parse()) {
             try {
                 document.Parse();
@@ -172,3 +181,4 @@ public class NifParserTest {
             new Vector3(0, 0, 1));
     }
 }
+

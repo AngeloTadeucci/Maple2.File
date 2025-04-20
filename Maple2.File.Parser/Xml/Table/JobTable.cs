@@ -66,3 +66,41 @@ public partial class Learn {
         [M2dArray] public int[] sub = Array.Empty<int>();
     }
 }
+
+
+[XmlRoot("ms2")]
+public partial class JobRootKR {
+    [M2dFeatureLocale(Selector = "jobGroupID")] private IList<JobTableKR> _job;
+}
+
+public partial class JobTableKR : IFeatureLocale {
+    [XmlAttribute] public int jobGroupID = 1;
+    [XmlAttribute] public int subJob1 = 1;
+    [XmlAttribute] public int subJob2 = 1;
+    [XmlAttribute] public int characterBGM;
+    [XmlAttribute] public int defaultWeaponSlot;
+    [XmlAttribute] public int startField; // default = 524289?
+    [XmlAttribute] public string characterVoice = string.Empty;
+
+    [M2dArray] public int[] startItems = Array.Empty<int>();
+
+    [XmlElement("skills")] public SkillsKR skills;
+}
+
+public partial class SkillsKR {
+    [XmlElement("v")] public List<Skill> skills;
+
+    public partial class Skill : IFeatureLocale {
+        [XmlAttribute] public int skillID;
+        [M2dArray] public int[] subSkillIDs = Array.Empty<int>();
+        [XmlAttribute] public int jobLevel;
+        [XmlAttribute] public short maxLevel = 1;
+        [XmlAttribute] public int quickSlotPriority;
+        [M2dArray] public int[] uiPosition = Array.Empty<int>();
+        [XmlAttribute] public bool uiHighlight;
+        [M2dArray] public int[] requireLevel = Array.Empty<int>();
+        [M2dArray] public int[] requireSkillIDs = Array.Empty<int>();
+        [M2dArray] public int[] requireSkillLevels = Array.Empty<int>();
+        [XmlAttribute] public int requireQuestID;
+    }
+}

@@ -52,3 +52,13 @@ public partial class QuestData {
         [XmlAttribute] public int fieldID;
     }
 }
+
+
+[XmlRoot("ms2")]
+public partial class QuestDataRootKR {
+    [XmlElement("quest")] public List<QuestDataKR> quests;
+}
+
+public partial class QuestDataKR : QuestData, IFeatureLocale {
+    [XmlAttribute] public int id;
+}

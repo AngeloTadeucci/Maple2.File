@@ -26,3 +26,15 @@ public partial class MapData : IFeatureLocale {
     [XmlElement] public Optimize optimize;
     [XmlElement] public WorldMap worldmap; // Ignored by client.
 }
+
+// .data/xml/table/fielddata.xml
+[XmlRoot("ms2")]
+public partial class MapDataRootKR {
+    // list of fieldData with ID as mapId, then inside its environment as MapDataRoot
+    [XmlElement("fieldData")] public List<MapDataRootKR> fieldData;
+}
+
+public partial class MapDataRootKR {
+    [XmlAttribute] public int id;
+    [M2dFeatureLocale] private MapData _environment;
+}

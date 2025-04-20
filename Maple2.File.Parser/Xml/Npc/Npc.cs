@@ -38,3 +38,17 @@ public partial class NpcData : IFeatureLocale {
     [XmlElement] public Corpse corpse;
     [XmlElement] public Ride ride; // Ignored by client.
 }
+
+[XmlRoot("ms2")]
+public partial class NpcDataListKR {
+    [XmlElement("npc")] public List<NpcDataRootKR> npcs;
+}
+
+public partial class NpcDataRootKR {
+    [XmlAttribute] public int id;
+    [XmlElement] public NpcDataKR environment;
+}
+
+public partial class NpcDataKR : NpcData {
+    [XmlElement] public List<EffectDummy> effectdummy;
+}
