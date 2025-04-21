@@ -468,8 +468,6 @@ public class TableParserTest {
 
     [TestMethod]
     public void TestAdventureLevelAbility() {
-        var results = _parser.ParseAdventureLevelAbility();
-
         foreach ((_, _) in _parser.ParseAdventureLevelAbility()) {
             continue;
         }

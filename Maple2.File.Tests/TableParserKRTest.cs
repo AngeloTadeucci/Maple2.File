@@ -161,9 +161,9 @@ public class TableParserKrTest {
         }
     }
 
-    [TestMethod]
+    [Ignore] // Removed from KMS2?
     public void TestGuildExpKr() {
-        foreach ((_, _) in _parser.ParseGuildEvent()) {
+        foreach ((_, _) in _parser.ParseGuildExp()) {
             continue;
         }
     }
@@ -443,8 +443,6 @@ public class TableParserKrTest {
 
     [TestMethod]
     public void TestAdventureLevelAbilityKr() {
-        var results = _parser.ParseAdventureLevelAbility();
-
         foreach ((_, _) in _parser.ParseAdventureLevelAbility()) {
             continue;
         }
