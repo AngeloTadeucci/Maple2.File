@@ -59,23 +59,23 @@ public class ItemOptionParserTest {
     }
 
     [TestMethod]
-    public void TestItemOptionParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ItemOptionParser(TestUtilsKR.XmlReader);
+    public void TestItemOptionParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ItemOptionParser(TestUtilsKr.XmlReader);
 
         int count = 0;
-        foreach (var data in parser.ParseConstantKR()) {
+        foreach (var data in parser.ParseConstantKr()) {
             Assert.IsNotNull(data);
             count++;
         }
-        Assert.AreEqual(36117, count);
+        Assert.AreEqual(4013, count);
 
         count = 0;
-        foreach (var data in parser.ParseRandomKR()) {
+        foreach (var data in parser.ParseRandomKr()) {
             Assert.IsNotNull(data);
             count++;
         }
-        Assert.AreEqual(15000, count);
+        Assert.AreEqual(500, count);
 
         // doesnt exist in kms2?
         // foreach (var data in parser.ParseStatic()) {
@@ -84,12 +84,12 @@ public class ItemOptionParserTest {
     }
 
     [TestMethod]
-    public void TestItemMergeOptionParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ItemOptionParser(TestUtilsKR.XmlReader);
+    public void TestItemMergeOptionParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ItemOptionParser(TestUtilsKr.XmlReader);
 
         int count = 0;
-        foreach (var data in parser.ParseMergeOptionBaseKR()) {
+        foreach (var data in parser.ParseMergeOptionBaseKr()) {
             Assert.IsNotNull(data);
             count++;
         }
@@ -106,9 +106,9 @@ public class ItemOptionParserTest {
     // }
 
     [TestMethod]
-    public void TestItemOptionVariationParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ItemOptionParser(TestUtilsKR.XmlReader);
+    public void TestItemOptionVariationParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ItemOptionParser(TestUtilsKr.XmlReader);
 
         foreach (var data in parser.ParseVariation()) {
             Assert.IsNotNull(data);

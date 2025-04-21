@@ -28,9 +28,9 @@ public class QuestParserTest {
     }
 
     [TestMethod]
-    public void TestQuestParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new QuestParser(TestUtilsKR.XmlReader);
+    public void TestQuestParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new QuestParser(TestUtilsKr.XmlReader);
 
         // parser.NameSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.NameSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -38,7 +38,7 @@ public class QuestParserTest {
         // parser.QuestSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
 
         int count = 0;
-        foreach ((int id, string name, QuestDataKR data) in parser.ParseKR()) {
+        foreach ((int id, string name, QuestDataKR data) in parser.ParseKr()) {
             // Debug.WriteLine($"Parsing Quest: {id} ({name})");
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(data);
@@ -63,9 +63,9 @@ public class QuestParserTest {
     }
 
     [TestMethod]
-    public void TestQuestDescriptionParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new QuestParser(TestUtilsKR.XmlReader);
+    public void TestQuestDescriptionParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new QuestParser(TestUtilsKr.XmlReader);
 
         int count = 0;
         foreach ((int id, string name) in parser.ParseQuestDescriptions()) {

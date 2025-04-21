@@ -39,7 +39,7 @@ public class QuestParser {
         }
     }
 
-    public IEnumerable<(int Id, string Name, QuestDataKR Data)> ParseKR() {
+    public IEnumerable<(int Id, string Name, QuestDataKR Data)> ParseKr() {
         Dictionary<int, string> questNames = ParseQuestDescriptions();
 
         PackFileEntry? entry = xmlReader.GetEntry("questdata.xml");

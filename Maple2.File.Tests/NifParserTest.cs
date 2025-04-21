@@ -25,8 +25,8 @@ public class NifParserTest {
     }
 
     [TestMethod]
-    public void TestNifParserKR() {
-        var parser = new NifParser(TestUtilsKR.ModelM2dReaders);
+    public void TestNifParserKr() {
+        var parser = new NifParser(TestUtilsKr.ModelM2dReaders);
         ValidateNifMeshData(parser);
     }
 

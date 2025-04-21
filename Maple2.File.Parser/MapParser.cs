@@ -23,11 +23,7 @@ public class MapParser {
     }
 
     public IEnumerable<(int Id, string Name, MapData Data)> Parse() {
-        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("en/mapname.xml"));
-        var mapping = NameSerializer.Deserialize(reader) as StringMapping;
-        Debug.Assert(mapping != null);
-
-        Dictionary<int, string> mapNames = mapping.key.ToDictionary(key => int.Parse(key.id), key => key.name);
+        Dictionary<int, string> mapNames = ParseMapNames();
 
         IEnumerable<PackFileEntry> entries;
         if (FeatureLocaleFilter.Locale == "KR") {
@@ -37,7 +33,7 @@ public class MapParser {
         }
 
         foreach (PackFileEntry entry in entries) {
-            reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeMap(xmlReader.GetString(entry))));
+            XmlReader reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeMap(xmlReader.GetString(entry))));
             if (FeatureLocaleFilter.Locale == "KR") {
                 var rootKr = MapSerializer.Deserialize(reader) as MapDataRootKR;
                 Debug.Assert(rootKr != null);
@@ -58,5 +54,13 @@ public class MapParser {
             int mapId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
             yield return (mapId, mapNames.GetValueOrDefault(mapId) ?? string.Empty, data);
         }
+    }
+
+    public Dictionary<int, string> ParseMapNames() {
+        var reader = xmlReader.GetXmlReader(xmlReader.GetEntry("en/mapname.xml"));
+        var mapping = NameSerializer.Deserialize(reader) as StringMapping;
+        Debug.Assert(mapping != null);
+
+        return mapping.key.ToDictionary(key => int.Parse(key.id), key => key.name);
     }
 }

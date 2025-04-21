@@ -35,7 +35,7 @@ public class SkillParser {
         }
     }
 
-    public IEnumerable<(int Id, string Name, SkillKR Data)> ParseKR() {
+    public IEnumerable<(int Id, string Name, SkillKR Data)> ParseKr() {
         Dictionary<int, string> skillNames = LoadSkillNames();
 
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("skilldata/"))) {

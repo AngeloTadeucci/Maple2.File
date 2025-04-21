@@ -31,7 +31,7 @@ public partial class MapData : IFeatureLocale {
 [XmlRoot("ms2")]
 public partial class MapDataRootKR {
     // list of fieldData with ID as mapId, then inside its environment as MapDataRoot
-    [XmlElement("fieldData")] public List<MapDataRootKR> fieldData;
+    [XmlElement("fieldData")] public List<MapDataRootKR> fieldData = [];
 }
 
 public partial class MapDataRootKR {

@@ -6,17 +6,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Maple2.File.Tests;
 
 [TestClass]
-public class TableParserKRTest {
+public class TableParserKrTest {
     private static TableParser _parser = null!;
 
     [ClassInitialize]
     public static void ClassInit(TestContext context) {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        _parser = new TableParser(TestUtilsKR.XmlReader);
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        _parser = new TableParser(TestUtilsKr.XmlReader);
     }
 
     [TestMethod]
-    public void TestColorPaletteParserKR() {
+    public void TestColorPaletteParserKr() {
         foreach ((_, _) in _parser.ParseColorPalette()) {
             continue;
         }
@@ -27,7 +27,7 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestParseScrollKR() {
+    public void TestParseScrollKr() {
         foreach ((_, _) in _parser.ParseEnchantScroll()) {
             continue;
         }
@@ -43,168 +43,168 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestBankTypeKR() {
+    public void TestBankTypeKr() {
         foreach ((_, _) in _parser.ParseBankType()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestChatStickerKR() {
+    public void TestChatStickerKr() {
         foreach ((_, _) in _parser.ParseChatSticker()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseDefaultItemsKR() {
+    public void TestParseDefaultItemsKr() {
         foreach ((_, _, _) in _parser.ParseDefaultItems()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseDungeonRoomKR() {
+    public void TestParseDungeonRoomKr() {
         foreach ((_, _) in _parser.ParseDungeonRoom()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestDungeonRoundDataKR() {
+    public void TestDungeonRoundDataKr() {
         foreach ((_, _) in _parser.ParseDungeonRoundData()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestDungeonRankRewardKR() {
+    public void TestDungeonRankRewardKr() {
         foreach ((_, _) in _parser.ParseDungeonRankReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestDungeonMissionKR() {
+    public void TestDungeonMissionKr() {
         foreach ((_, _) in _parser.ParseDungeonMission()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestDungeonConfigKR() {
+    public void TestDungeonConfigKr() {
         foreach (var _ in _parser.ParseDungeonConfig()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestReverseRaidConfigKR() {
+    public void TestReverseRaidConfigKr() {
         foreach (var _ in _parser.ParseReverseRaidConfig()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestUnitedWeeklyRewardKR() {
+    public void TestUnitedWeeklyRewardKr() {
         foreach (var _ in _parser.ParseUnitedWeeklyReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestFishKR() {
+    public void TestFishKr() {
         foreach ((_, _, _) in _parser.ParseFish()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestFishHabitatKR() {
+    public void TestFishHabitatKr() {
         foreach ((_, _) in _parser.ParseFishHabitat()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestFishingRodKR() {
+    public void TestFishingRodKr() {
         foreach ((_, _) in _parser.ParseFishingRod()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestFishingSpotKR() {
+    public void TestFishingSpotKr() {
         foreach ((_, _) in _parser.ParseFishingSpot()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildBuffKR() {
+    public void TestGuildBuffKr() {
         foreach ((_, _) in _parser.ParseGuildBuff()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildContributionKR() {
+    public void TestGuildContributionKr() {
         foreach ((_, _) in _parser.ParseGuildContribution()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildEventKR() {
+    public void TestGuildEventKr() {
         foreach ((_, _) in _parser.ParseGuildEvent()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildExpKR() {
+    public void TestGuildExpKr() {
         foreach ((_, _) in _parser.ParseGuildEvent()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildHouseKR() {
+    public void TestGuildHouseKr() {
         foreach ((_, _) in _parser.ParseGuildHouse()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildNpcKR() {
+    public void TestGuildNpcKr() {
         foreach ((_, _) in _parser.ParseGuildNpc()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestGuildPropertyKR() {
+    public void TestGuildPropertyKr() {
         foreach ((_, _) in _parser.ParseGuildProperty()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseInstrumentCategoryInfoKR() {
+    public void TestParseInstrumentCategoryInfoKr() {
         foreach ((_, _) in _parser.ParseInstrumentCategoryInfo()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseInstrumentInfoKR() {
+    public void TestParseInstrumentInfoKr() {
         foreach ((_, _) in _parser.ParseInstrumentInfo()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseInteractObjectInfoKR() {
+    public void TestParseInteractObjectInfoKr() {
         foreach ((_, _, _) in _parser.ParseInteractObject()) {
             continue;
         }
@@ -214,49 +214,49 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestParseItemBreakIngredientKR() {
+    public void TestParseItemBreakIngredientKr() {
         foreach ((_, _) in _parser.ParseItemBreakIngredient()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseItemExchangeScrollKR() {
+    public void TestParseItemExchangeScrollKr() {
         foreach ((_, _) in _parser.ParseItemExchangeScroll()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestItemExtractionKR() {
+    public void TestItemExtractionKr() {
         foreach ((_, _) in _parser.ParseItemExtraction()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseItemGemstoneUpgradeKR() {
+    public void TestParseItemGemstoneUpgradeKr() {
         foreach ((_, _) in _parser.ParseItemGemstoneUpgrade()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseItemLapenshardUpgradeKR() {
+    public void TestParseItemLapenshardUpgradeKr() {
         foreach ((_, _) in _parser.ParseItemLapenshardUpgrade()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseItemSocketKR() {
+    public void TestParseItemSocketKr() {
         foreach ((_, _) in _parser.ParseItemSocket()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseJobTableKR() {
+    public void TestParseJobTableKr() {
         Dictionary<int, List<JobTableKR>> results = _parser.ParseJobTableKR()
             .GroupBy(result => result.jobGroupID)
             .ToDictionary(group => group.Key, group => group.ToList());
@@ -291,35 +291,35 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestParseMagicPathKR() {
+    public void TestParseMagicPathKr() {
         foreach ((_, _) in _parser.ParseMagicPath()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseMapSpawnTagKR() {
+    public void TestParseMapSpawnTagKr() {
         foreach ((_, _) in _parser.ParseMapSpawnTag()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestMasteryRecipeKR() {
+    public void TestMasteryRecipeKr() {
         foreach ((_, _) in _parser.ParseMasteryRecipe()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestMasteryRewardKR() {
+    public void TestMasteryRewardKr() {
         foreach ((_, _) in _parser.ParseMasteryReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParsePetTableKR() {
+    public void TestParsePetTableKr() {
         foreach ((_, _) in _parser.ParsePetExp()) {
             continue;
         }
@@ -332,44 +332,44 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestParsePremiumClubEffectKR() {
+    public void TestParsePremiumClubEffectKr() {
         foreach ((_, _) in _parser.ParsePremiumClubEffect()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParsePremiumClubItemKR() {
+    public void TestParsePremiumClubItemKr() {
         foreach ((_, _) in _parser.ParsePremiumClubItem()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParsePremiumClubPackageKR() {
+    public void TestParsePremiumClubPackageKr() {
         foreach ((_, _) in _parser.ParsePremiumClubPackage()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseSetItemInfoKR() {
+    public void TestParseSetItemInfoKr() {
         foreach ((_, _, _) in _parser.ParseSetItemInfo()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestParseSetItemOptionKR() {
+    public void TestParseSetItemOptionKr() {
         int count = 0;
-        foreach (var (Id, Option) in _parser.ParseSetItemOptionKR()) {
+        foreach (var (Id, option) in _parser.ParseSetItemOptionKR()) {
             if (Id == 15123101) {
-                Assert.AreEqual(2, Option.part[0].count);
-                Assert.AreEqual(9, Option.part[0].str_value_base);
-                Assert.AreEqual(4, Option.part[1].count);
-                Assert.AreEqual(6, Option.part[1].pap_value_base);
-                Assert.AreEqual(5, Option.part[2].count);
-                Assert.AreEqual(20, Option.part[2].pen_rate_base);
+                Assert.AreEqual(2, option.part[0].count);
+                Assert.AreEqual(9, option.part[0].str_value_base);
+                Assert.AreEqual(4, option.part[1].count);
+                Assert.AreEqual(6, option.part[1].pap_value_base);
+                Assert.AreEqual(5, option.part[2].count);
+                Assert.AreEqual(20, option.part[2].pen_rate_base);
             }
             count++;
         }
@@ -377,14 +377,14 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestParseTitleTagKR() {
+    public void TestParseTitleTagKr() {
         foreach ((_, _, _) in _parser.ParseTitleTag()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestIndividualItemDropKR() {
+    public void TestIndividualItemDropKr() {
         int count = 0;
         foreach ((_, _) in _parser.ParseIndividualItemDropKR()) {
             count++;
@@ -393,56 +393,56 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestGachaInfoKR() {
+    public void TestGachaInfoKr() {
         foreach ((_, _) in _parser.ParseGachaInfo()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestShopBeautyCouponKR() {
+    public void TestShopBeautyCouponKr() {
         foreach ((_, _) in _parser.ParseShopBeautyCoupon()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestShopFurnishingUgcAllKR() {
+    public void TestShopFurnishingUgcAllKr() {
         foreach ((_, _) in _parser.ParseFurnishingShopUgcAll()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestShopFurnishingMaidKR() {
+    public void TestShopFurnishingMaidKr() {
         foreach ((_, _) in _parser.ParseFurnishingShopMaid()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestMeretMarketCategoryKR() {
+    public void TestMeretMarketCategoryKr() {
         foreach ((_, _) in _parser.ParseMeretMarketCategory()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestExpBaseTableKR() {
+    public void TestExpBaseTableKr() {
         foreach ((_, _) in _parser.ParseExpBaseTable()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestNextExpKR() {
+    public void TestNextExpKr() {
         foreach ((_, _) in _parser.ParseNextExp()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestAdventureLevelAbilityKR() {
+    public void TestAdventureLevelAbilityKr() {
         var results = _parser.ParseAdventureLevelAbility();
 
         foreach ((_, _) in _parser.ParseAdventureLevelAbility()) {
@@ -451,206 +451,206 @@ public class TableParserKRTest {
     }
 
     [TestMethod]
-    public void TestAdventureLevelMissionKR() {
+    public void TestAdventureLevelMissionKr() {
         foreach ((_, _) in _parser.ParseAdventureLevelMission()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestAdventureLevelRewardKR() {
+    public void TestAdventureLevelRewardKr() {
         foreach ((_, _) in _parser.ParseAdventureLevelReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestUgcDesignKR() {
+    public void TestUgcDesignKr() {
         foreach ((_, _) in _parser.ParseUgcDesign()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestMasteryUgcHousingKR() {
+    public void TestMasteryUgcHousingKr() {
         foreach ((_, _) in _parser.ParseMasteryUgcHousing()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestUgcHousingPointRewardKR() {
+    public void TestUgcHousingPointRewardKr() {
         foreach ((_, _) in _parser.ParseUgcHousingPointReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestBannerKR() {
+    public void TestBannerKr() {
         foreach ((_, _) in _parser.ParseBanner()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestNameTagSymbolKR() {
+    public void TestNameTagSymbolKr() {
         foreach ((_, _) in _parser.ParseNameTagSymbol()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestCommonExpKR() {
+    public void TestCommonExpKr() {
         foreach ((_, _) in _parser.ParseCommonExp()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestChapterBookKR() {
+    public void TestChapterBookKr() {
         foreach ((_, _) in _parser.ParseChapterBook()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestLearningQuestKR() {
+    public void TestLearningQuestKr() {
         foreach ((_, _) in _parser.ParseLearningQuest()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestMasteryDifferentialFactorKR() {
+    public void TestMasteryDifferentialFactorKr() {
         foreach ((_, _) in _parser.ParseMasteryDifferentialFactor()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestRewardContentKR() {
+    public void TestRewardContentKr() {
         foreach ((_, _) in _parser.ParseRewardContent()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestRewardContentItemKR() {
+    public void TestRewardContentItemKr() {
         foreach ((_, _) in _parser.ParseRewardContentItem()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestRewardContentExpStaticKR() {
+    public void TestRewardContentExpStaticKr() {
         foreach ((_, _) in _parser.ParseRewardContentExpStatic()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestRewardContentMesoKR() {
+    public void TestRewardContentMesoKr() {
         foreach ((_, _) in _parser.ParseRewardContentMeso()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestRewardContentMesoStaticKR() {
+    public void TestRewardContentMesoStaticKr() {
         foreach ((_, _) in _parser.ParseRewardContentMesoStatic()) {
             continue;
         }
     }
 
     [Ignore] // Removed from KMS2
-    public void TestSurvivalLevelKR() {
+    public void TestSurvivalLevelKr() {
         foreach ((_, _) in _parser.ParseSurvivalLevel()) {
             continue;
         }
     }
 
     [Ignore] // Removed from KMS2
-    public void TestSurvivalLevelRewardKR() {
+    public void TestSurvivalLevelRewardKr() {
         foreach ((_, _) in _parser.ParseSurvivalLevelReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestBlackMarketStatTableKR() {
+    public void TestBlackMarketStatTableKr() {
         foreach ((_, _) in _parser.ParseBlackMarketStatTable()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestBlackMarketOptionKR() {
+    public void TestBlackMarketOptionKr() {
         (_, _) = _parser.ParseBlackMarketOption();
     }
 
     [TestMethod]
-    public void TestBlackMarketCategoryKR() {
+    public void TestBlackMarketCategoryKr() {
         (_, _) = _parser.ParseBlackMarketCategory();
     }
 
     [TestMethod]
-    public void TestChangeJobKR() {
+    public void TestChangeJobKr() {
         foreach ((_, _) in _parser.ParseChangeJob()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestFieldMissionKR() {
+    public void TestFieldMissionKr() {
         foreach ((_, _) in _parser.ParseFieldMission()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestWorldMapKR() {
+    public void TestWorldMapKr() {
         foreach ((_, _) in _parser.ParseWorldMap()) {
             continue;
         }
     }
 
     [Ignore] // Removed from KMS2
-    public void TestMapleSurvivalSkinInfoKR() {
+    public void TestMapleSurvivalSkinInfoKr() {
         foreach ((_, _) in _parser.ParseMapleSurvivalSkinInfo()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestWeddingExpKR() {
+    public void TestWeddingExpKr() {
         foreach ((_, _) in _parser.ParseWeddingExp()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestWeddingPackageKR() {
+    public void TestWeddingPackageKr() {
         foreach ((_, _) in _parser.ParseWeddingPackage()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestWeddingSkillKR() {
+    public void TestWeddingSkillKr() {
         foreach ((_, _) in _parser.ParseWeddingSkill()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestWeddingRewardKR() {
+    public void TestWeddingRewardKr() {
         foreach ((_, _) in _parser.ParseWeddingReward()) {
             continue;
         }
     }
 
     [TestMethod]
-    public void TestSmartPushKR() {
+    public void TestSmartPushKr() {
         foreach ((_, _) in _parser.ParseSmartPush()) {
             continue;
         }

@@ -20,27 +20,66 @@ public class ItemOptionParser {
         "mergematerial",
         "skin",
     ];
-    private readonly string[] randomSuffix = {
-        "12", "13", "14", "15", "16", "17", "18", "19",
-        "20", "21", "22",
-        "30", "31", "32", "33", "34",
-        "40", "41",
-        "50", "51", "52", "53", "54", "54_pvp", "55", "56",
+    private readonly string[] randomSuffix = [
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "40",
+        "41",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
+        "54_pvp",
+        "55",
+        "56",
         "accmanual",
         "armormanual",
         "pet_60",
         "weaponmanual",
-    };
-    private readonly string[] staticSuffix = {
-        "12", "13", "14", "15", "16", "17", "18", "19",
-        "20", "21", "22",
-        "30", "31", "32", "33", "34",
-        "40", "41",
-        "50", "51", "52", "53", "54",
+    ];
+    private readonly string[] staticSuffix = [
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "21",
+        "22",
+        "30",
+        "31",
+        "32",
+        "33",
+        "34",
+        "40",
+        "41",
+        "50",
+        "51",
+        "52",
+        "53",
+        "54",
         "armormanual",
         "mergematerial",
         "petequipment",
-    };
+    ];
     private readonly string[] variationSuffix = [
         "acc",
         "armor",
@@ -50,10 +89,10 @@ public class ItemOptionParser {
 
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer itemOptionConstantSerializer;
-    private readonly XmlSerializer itemOptionConstantKRSerializer;
+    private readonly XmlSerializer itemOptionConstantKrSerializer;
     private readonly XmlSerializer itemOptionSerializer;
-    private readonly XmlSerializer itemOptionKRSerializer;
-    private readonly XmlSerializer itemMergeOptionKRSerializer;
+    private readonly XmlSerializer itemOptionKrSerializer;
+    private readonly XmlSerializer itemMergeOptionKrSerializer;
     private readonly XmlSerializer itemMergeOptionSerializer;
     private readonly XmlSerializer itemOptionPickSerializer;
     private readonly XmlSerializer itemVariationSerializer;
@@ -62,10 +101,10 @@ public class ItemOptionParser {
     public ItemOptionParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         itemOptionConstantSerializer = new XmlSerializer(typeof(ItemOptionConstantRoot));
-        itemOptionConstantKRSerializer = new XmlSerializer(typeof(ItemOptionConstantRootKR));
+        itemOptionConstantKrSerializer = new XmlSerializer(typeof(ItemOptionConstantRootKR));
         itemOptionSerializer = new XmlSerializer(typeof(ItemOptionRoot));
-        itemOptionKRSerializer = new XmlSerializer(typeof(ItemOptionRandomRootKR));
-        itemMergeOptionKRSerializer = new XmlSerializer(typeof(ItemMergeOptionRootKR));
+        itemOptionKrSerializer = new XmlSerializer(typeof(ItemOptionRandomRootKR));
+        itemMergeOptionKrSerializer = new XmlSerializer(typeof(ItemMergeOptionRootKR));
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
         itemOptionPickSerializer = new XmlSerializer(typeof(ItemOptionPickRoot));
         itemVariationSerializer = new XmlSerializer(typeof(ItemOptionVariation));
@@ -88,19 +127,16 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<ItemOptionConstant> ParseConstantKR() {
-        foreach (string suffix in constantSuffix) {
-            string filename = "table/itemoptionconstant.xml";
-            string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry(filename)));
-            xml = Sanitizer.RemoveUtf8Bom(xml);
-            var reader = XmlReader.Create(new StringReader(xml));
-            var root = itemOptionConstantKRSerializer.Deserialize(reader) as ItemOptionConstantRootKR;
-            Debug.Assert(root != null);
+    public IEnumerable<ItemOptionConstant> ParseConstantKr() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemoptionconstant.xml")));
+        xml = Sanitizer.RemoveUtf8Bom(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
+        var root = itemOptionConstantKrSerializer.Deserialize(reader) as ItemOptionConstantRootKR;
+        Debug.Assert(root != null);
 
-            foreach (ItemOptionConstant option in root.options) {
-                if (option.code > 0) {
-                    yield return option;
-                }
+        foreach (ItemOptionConstant option in root.options) {
+            if (option.code > 0) {
+                yield return option;
             }
         }
     }
@@ -121,21 +157,19 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<ItemOptionRandomKR> ParseRandomKR() {
-        foreach (string suffix in randomSuffix) {
-            string filename = "table/itemoptionrandom.xml";
-            string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry(filename)));
-            xml = Sanitizer.RemoveUtf8Bom(xml);
-            var reader = XmlReader.Create(new StringReader(xml));
-            var root = itemOptionKRSerializer.Deserialize(reader) as ItemOptionRandomRootKR;
-            Debug.Assert(root != null);
+    public IEnumerable<ItemOptionRandomKR> ParseRandomKr() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemoptionrandom.xml")));
+        xml = Sanitizer.RemoveUtf8Bom(xml);
+        var reader = XmlReader.Create(new StringReader(xml));
+        var root = itemOptionKrSerializer.Deserialize(reader) as ItemOptionRandomRootKR;
+        Debug.Assert(root != null);
 
-            foreach (ItemOptionRandomKR option in root.options) {
-                if (option.code > 0) {
-                    yield return option;
-                }
+        foreach (ItemOptionRandomKR option in root.options) {
+            if (option.code > 0) {
+                yield return option;
             }
         }
+
     }
 
     public IEnumerable<ItemOptionData> ParseStatic() {
@@ -154,11 +188,11 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<MergeOptionKR> ParseMergeOptionBaseKR() {
+    public IEnumerable<MergeOptionKR> ParseMergeOptionBaseKr() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemmergeoptionbase.xml")));
         xml = Sanitizer.RemoveUtf8Bom(xml);
         var reader = XmlReader.Create(new StringReader(xml));
-        var root = itemMergeOptionKRSerializer.Deserialize(reader) as ItemMergeOptionRootKR;
+        var root = itemMergeOptionKrSerializer.Deserialize(reader) as ItemMergeOptionRootKR;
         Debug.Assert(root != null);
 
         foreach (MergeOptionKR option in root.mergeOption) {

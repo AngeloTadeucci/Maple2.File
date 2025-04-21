@@ -22,9 +22,9 @@ public class AdditionalEffectParserTest {
     }
 
     [TestMethod]
-    public void TestAdditionalEffectParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new AdditionalEffectParser(TestUtilsKR.XmlReader);
+    public void TestAdditionalEffectParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new AdditionalEffectParser(TestUtilsKr.XmlReader);
 
         int count = 0;
         foreach ((int id, IList<AdditionalEffectData> data) in parser.Parse()) {

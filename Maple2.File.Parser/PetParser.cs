@@ -37,7 +37,7 @@ public class PetParser {
             if (data == null) continue;
 
             int petId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (petId, petNames.GetValueOrDefault(petId), data);
+            yield return (petId, petNames.GetValueOrDefault(petId) ?? string.Empty, data);
         }
     }
 

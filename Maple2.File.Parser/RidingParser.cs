@@ -51,7 +51,7 @@ public class RidingParser {
         }
     }
 
-    public IEnumerable<(int Id, RidingKR Data)> ParseKR() {
+    public IEnumerable<(int Id, RidingKR Data)> ParseKr() {
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("riding/"))) {
 
             var reader = XmlReader.Create(new StringReader(Sanitizer.RemoveEmpty(xmlReader.GetString(entry))));

@@ -29,9 +29,9 @@ public class ItemParserTest {
     }
 
     [TestMethod]
-    public void TestItemParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ItemParser(TestUtilsKR.XmlReader);
+    public void TestItemParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ItemParser(TestUtilsKr.XmlReader);
 
         // parser.NameSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.NameSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -46,6 +46,24 @@ public class ItemParserTest {
             count++;
         }
         Assert.AreEqual(35970, count);
+    }
+
+    [TestMethod]
+    public void TestItemNames() {
+        Filter.Load(TestUtils.XmlReader, "NA", "Live");
+        var parser = new ItemParser(TestUtils.XmlReader);
+        var itemNames = parser.ItemNames();
+
+        Assert.AreEqual(34038, itemNames.Count);
+    }
+
+    [TestMethod]
+    public void TestItemNamesKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ItemParser(TestUtilsKr.XmlReader);
+        var itemNames = parser.ItemNames();
+
+        Assert.AreEqual(34273, itemNames.Count);
     }
 }
 

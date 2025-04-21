@@ -28,9 +28,9 @@ public class NpcParserTest {
     }
 
     [TestMethod]
-    public void TestNpcParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new NpcParser(TestUtilsKR.XmlReader);
+    public void TestNpcParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new NpcParser(TestUtilsKr.XmlReader);
 
         // parser.NameSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.NameSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -38,7 +38,7 @@ public class NpcParserTest {
         // parser.NpcSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
 
         int count = 0;
-        foreach ((int id, string name, NpcDataKR data, List<EffectDummy> dummy) in parser.ParseKR()) {
+        foreach ((int id, string name, NpcDataKR data, List<EffectDummy> dummy) in parser.ParseKr()) {
             // Debug.WriteLine($"Parsing Npc: {id} ({name})");
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(data);
@@ -63,9 +63,9 @@ public class NpcParserTest {
     }
 
     [TestMethod]
-    public void TestNpcNameParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new NpcParser(TestUtilsKR.XmlReader);
+    public void TestNpcNameParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new NpcParser(TestUtilsKr.XmlReader);
 
         int count = 0;
         foreach ((int id, string name) in parser.ParseNpcNames()) {

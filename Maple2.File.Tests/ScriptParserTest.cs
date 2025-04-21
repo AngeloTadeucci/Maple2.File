@@ -66,12 +66,12 @@ public class ScriptParserTest {
 
 
     [TestMethod]
-    public void TestNpcScriptParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ScriptParser(TestUtilsKR.XmlReader);
+    public void TestNpcScriptParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ScriptParser(TestUtilsKr.XmlReader);
 
         int count = 0;
-        foreach ((int id, NpcScriptKR script) in parser.ParseNpcKR()) {
+        foreach ((int id, NpcScriptKR script) in parser.ParseNpcKr()) {
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(script);
             count++;
@@ -80,12 +80,12 @@ public class ScriptParserTest {
     }
 
     [TestMethod]
-    public void TestQuestScriptParserKR() {
-        Filter.Load(TestUtilsKR.XmlReader, "KR", "Live");
-        var parser = new ScriptParser(TestUtilsKR.XmlReader);
+    public void TestQuestScriptParserKr() {
+        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
+        var parser = new ScriptParser(TestUtilsKr.XmlReader);
 
         int count = 0;
-        foreach ((int id, QuestScript script) in parser.ParseQuestKR()) {
+        foreach ((int id, QuestScript script) in parser.ParseQuestKr()) {
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(script);
             count++;

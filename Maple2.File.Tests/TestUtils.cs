@@ -52,7 +52,7 @@ public static class TestUtils {
 }
 
 // We still want to load all files from the KR version, not only Xml.m2d
-public static class TestUtilsKR {
+public static class TestUtilsKr {
     public static readonly M2dReader XmlReader;
     public static readonly M2dReader ServerReader;
     public static readonly M2dReader ExportedReader;
@@ -60,7 +60,7 @@ public static class TestUtilsKR {
     public static readonly AssetIndex AssetIndex;
     public static readonly List<PrefixedM2dReader> ModelM2dReaders;
 
-    static TestUtilsKR() {
+    static TestUtilsKr() {
         DotEnv.Load();
         string? m2dPath = Environment.GetEnvironmentVariable("KMS2_DATA_FOLDER");
         if (string.IsNullOrEmpty(m2dPath)) {

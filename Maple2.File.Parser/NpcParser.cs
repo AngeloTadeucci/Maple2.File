@@ -12,19 +12,20 @@ namespace Maple2.File.Parser;
 
 public class NpcParser {
     private readonly M2dReader xmlReader;
-    public readonly XmlSerializer NameSerializer;
-    public readonly XmlSerializer NpcSerializer;
+    private readonly XmlSerializer nameSerializer;
+    private readonly XmlSerializer npcSerializer;
+    private readonly XmlSerializer npcKrSerializer;
 
     public NpcParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
-        NameSerializer = new XmlSerializer(typeof(StringMapping));
-        Type type = FeatureLocaleFilter.Locale == "KR" ? typeof(NpcDataListKR) : typeof(NpcDataRoot);
-        NpcSerializer = new XmlSerializer(type);
+        nameSerializer = new XmlSerializer(typeof(StringMapping));
+        npcSerializer = new XmlSerializer(typeof(NpcDataRoot));
+        npcKrSerializer = new XmlSerializer(typeof(NpcDataListKR));
     }
 
     public Dictionary<int, string> ParseNpcNames() {
         XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("en/npcname.xml"));
-        var npcNames = NameSerializer.Deserialize(reader) as StringMapping;
+        var npcNames = nameSerializer.Deserialize(reader) as StringMapping;
         Debug.Assert(npcNames != null);
         return npcNames.key.ToDictionary(key => int.Parse(key.id), key => key.name);
     }
@@ -33,7 +34,7 @@ public class NpcParser {
         var npcNames = ParseNpcNames();
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("npc/"))) {
             var reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeNpc(xmlReader.GetString(entry))));
-            var root = NpcSerializer.Deserialize(reader) as NpcDataRoot;
+            var root = npcSerializer.Deserialize(reader) as NpcDataRoot;
             Debug.Assert(root != null);
 
             NpcData data = root.environment;
@@ -44,11 +45,11 @@ public class NpcParser {
         }
     }
 
-    public IEnumerable<(int Id, string Name, NpcDataKR Data, List<EffectDummy> Dummy)> ParseKR() {
+    public IEnumerable<(int Id, string Name, NpcDataKR Data, List<EffectDummy> Dummy)> ParseKr() {
         var npcNames = ParseNpcNames();
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("npcdata/"))) {
             var reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeNpc(xmlReader.GetString(entry))));
-            var rootKr = NpcSerializer.Deserialize(reader) as NpcDataListKR;
+            var rootKr = npcKrSerializer.Deserialize(reader) as NpcDataListKR;
             Debug.Assert(rootKr != null);
 
             foreach (NpcDataRootKR item in rootKr.npcs) {
