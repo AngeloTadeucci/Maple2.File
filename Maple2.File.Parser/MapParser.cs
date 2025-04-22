@@ -40,7 +40,7 @@ public class MapParser {
                 foreach (MapDataRootKR item in rootKr.fieldData) {
                     if (item.environment == null) continue;
                     MapData dataKr = item.environment;
-                    yield return (item.id, mapNames.GetValueOrDefault(item.id) ?? string.Empty, dataKr);
+                    yield return (item.id, mapNames.GetValueOrDefault(item.id, string.Empty), dataKr);
                 }
                 continue;
             }
@@ -52,7 +52,7 @@ public class MapParser {
             if (data == null) continue;
 
             int mapId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (mapId, mapNames.GetValueOrDefault(mapId) ?? string.Empty, data);
+            yield return (mapId, mapNames.GetValueOrDefault(mapId, string.Empty), data);
         }
     }
 

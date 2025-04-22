@@ -33,12 +33,12 @@ public class ItemParser {
             switch (xml) {
                 case ItemDataRoot root when root.environment != null:
                     int itemId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-                    yield return (itemId, itemNames.GetValueOrDefault(itemId) ?? string.Empty, root.environment);
+                    yield return (itemId, itemNames.GetValueOrDefault(itemId, string.Empty), root.environment);
                     break;
                 case ItemDataKR rootKr:
                     foreach (var dataRoot in rootKr.items) {
                         if (dataRoot.environment == null) continue;
-                        yield return (dataRoot.id, itemNames.GetValueOrDefault(dataRoot.id) ?? string.Empty, dataRoot.environment);
+                        yield return (dataRoot.id, itemNames.GetValueOrDefault(dataRoot.id, string.Empty), dataRoot.environment);
                     }
                     break;
             }

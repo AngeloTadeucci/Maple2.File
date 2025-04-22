@@ -31,7 +31,7 @@ public class SkillParser {
             if (data.FeatureLocale() == null) continue;
 
             int skillId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (skillId, skillNames.GetValueOrDefault(skillId) ?? string.Empty, data);
+            yield return (skillId, skillNames.GetValueOrDefault(skillId, string.Empty), data);
         }
     }
 
@@ -45,7 +45,7 @@ public class SkillParser {
             if (data.FeatureLocale() == null) continue;
 
             foreach (SkillKR skill in data.Skills) {
-                yield return (skill.id, skillNames.GetValueOrDefault(skill.id) ?? string.Empty, skill);
+                yield return (skill.id, skillNames.GetValueOrDefault(skill.id, string.Empty), skill);
             }
         }
     }

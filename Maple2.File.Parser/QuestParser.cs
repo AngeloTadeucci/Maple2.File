@@ -35,7 +35,7 @@ public class QuestParser {
             if (data == null) continue;
 
             int questId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (questId, questNames.GetValueOrDefault(questId) ?? string.Empty, data);
+            yield return (questId, questNames.GetValueOrDefault(questId, string.Empty), data);
         }
     }
 
@@ -50,7 +50,7 @@ public class QuestParser {
         Debug.Assert(root != null);
 
         foreach (QuestDataKR data in root.quests) {
-            yield return (data.id, questNames.GetValueOrDefault(data.id) ?? string.Empty, data);
+            yield return (data.id, questNames.GetValueOrDefault(data.id, string.Empty), data);
         }
     }
 

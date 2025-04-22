@@ -41,7 +41,7 @@ public class NpcParser {
             if (data == null) continue;
 
             int npcId = int.Parse(Path.GetFileNameWithoutExtension(entry.Name));
-            yield return (npcId, npcNames.GetValueOrDefault(npcId) ?? string.Empty, data, root.effectdummy);
+            yield return (npcId, npcNames.GetValueOrDefault(npcId, string.Empty), data, root.effectdummy);
         }
     }
 
@@ -56,7 +56,7 @@ public class NpcParser {
                 NpcDataKR dataKr = item.environment;
                 if (dataKr == null) continue;
 
-                yield return (item.id, npcNames.GetValueOrDefault(item.id) ?? string.Empty, dataKr, dataKr.effectdummy);
+                yield return (item.id, npcNames.GetValueOrDefault(item.id, string.Empty), dataKr, dataKr.effectdummy);
             }
         }
     }

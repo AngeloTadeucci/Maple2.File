@@ -351,7 +351,7 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (Fish fish in data.fish) {
-            yield return (fish.id, fishNames.GetValueOrDefault(fish.id) ?? string.Empty, fish);
+            yield return (fish.id, fishNames.GetValueOrDefault(fish.id, string.Empty), fish);
         }
     }
 
@@ -490,7 +490,7 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (InteractObject interact in data.interact) {
-            yield return (interact.id, interactNames.GetValueOrDefault(interact.id) ?? string.Empty, interact);
+            yield return (interact.id, interactNames.GetValueOrDefault(interact.id, string.Empty), interact);
         }
     }
 
@@ -738,7 +738,7 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (SetItemInfo info in data.set) {
-            yield return (info.id, setNames.GetValueOrDefault(info.id) ?? string.Empty, info);
+            yield return (info.id, setNames.GetValueOrDefault(info.id, string.Empty), info);
         }
     }
 
@@ -776,7 +776,7 @@ public class TableParser {
         Debug.Assert(data != null);
 
         foreach (TitleTag title in data.key) {
-            yield return (title.id, titleNames.GetValueOrDefault(title.id) ?? string.Empty, title);
+            yield return (title.id, titleNames.GetValueOrDefault(title.id, string.Empty), title);
         }
     }
 
@@ -786,11 +786,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(individualItemDrop => new { individualItemDrop.individualDropBoxID, individualItemDrop.dropGroup })
+        var groups = data.individualDropBox.GroupBy(individualItemDrop => new {
+                individualItemDrop.individualDropBoxID,
+                individualItemDrop.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -818,11 +820,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -832,11 +836,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -846,11 +852,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -860,11 +868,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -874,11 +884,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -888,11 +900,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -902,11 +916,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -916,11 +932,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -930,11 +948,13 @@ public class TableParser {
         var reader = XmlReader.Create(new StringReader(xml));
         var data = individualItemDropSerializer.Deserialize(reader) as IndividualItemDropRoot;
         Debug.Assert(data != null);
-        var groups = data.individualDropBox.GroupBy(dropbox => new { dropbox.individualDropBoxID, dropbox.dropGroup })
+        var groups = data.individualDropBox.GroupBy(dropbox => new {
+                dropbox.individualDropBoxID,
+                dropbox.dropGroup
+            })
             .ToDictionary(group => group.Key, group => group.ToList());
         foreach (var group in groups) {
-            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).
-                ToDictionary(drop => drop.Key, drop => drop.ToList()));
+            yield return (group.Key.individualDropBoxID, group.Value.GroupBy(drop => drop.dropGroup).ToDictionary(drop => drop.Key, drop => drop.ToList()));
         }
     }
 
@@ -960,7 +980,6 @@ public class TableParser {
             yield return (coupon.shopID, coupon);
         }
     }
-
 
 
     public IEnumerable<(int ItemId, ShopFurnishing UgcItem)> ParseFurnishingShopUgcAll() {
