@@ -234,11 +234,7 @@ public class TableParser {
     }
 
     public IEnumerable<(int Id, ColorPalette Palette)> ParseColorPaletteAchieve() {
-        string filename = "table/na/colorpalette_achieve.xml";
-        if (locale == "kr") {
-            filename = "table/colorpalette.xml";
-        }
-        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry(filename));
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/na/colorpalette_achieve.xml"));
         var data = paletteSerializer.Deserialize(reader) as ColorPaletteRoot;
         Debug.Assert(data != null);
 

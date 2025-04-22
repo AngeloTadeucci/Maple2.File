@@ -20,10 +20,6 @@ public class TableParserKrTest {
         foreach ((_, _) in _parser.ParseColorPalette()) {
             continue;
         }
-
-        foreach ((_, _) in _parser.ParseColorPaletteAchieve()) {
-            continue;
-        }
     }
 
     [TestMethod]
