@@ -89,10 +89,10 @@ public class ItemOptionParser {
 
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer itemOptionConstantSerializer;
-    private readonly XmlSerializer itemOptionConstantKrSerializer;
+    private readonly XmlSerializer itemOptionConstantNewSerializer;
     private readonly XmlSerializer itemOptionSerializer;
-    private readonly XmlSerializer itemOptionKrSerializer;
-    private readonly XmlSerializer itemMergeOptionKrSerializer;
+    private readonly XmlSerializer itemOptionNewSerializer;
+    private readonly XmlSerializer itemMergeOptionNewSerializer;
     private readonly XmlSerializer itemMergeOptionSerializer;
     private readonly XmlSerializer itemOptionPickSerializer;
     private readonly XmlSerializer itemVariationSerializer;
@@ -101,10 +101,10 @@ public class ItemOptionParser {
     public ItemOptionParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         itemOptionConstantSerializer = new XmlSerializer(typeof(ItemOptionConstantRoot));
-        itemOptionConstantKrSerializer = new XmlSerializer(typeof(ItemOptionConstantRootKR));
+        itemOptionConstantNewSerializer = new XmlSerializer(typeof(ItemOptionConstantRootKR));
         itemOptionSerializer = new XmlSerializer(typeof(ItemOptionRoot));
-        itemOptionKrSerializer = new XmlSerializer(typeof(ItemOptionRandomRootKR));
-        itemMergeOptionKrSerializer = new XmlSerializer(typeof(ItemMergeOptionRootKR));
+        itemOptionNewSerializer = new XmlSerializer(typeof(ItemOptionRandomRootKR));
+        itemMergeOptionNewSerializer = new XmlSerializer(typeof(ItemMergeOptionRootNew));
         itemMergeOptionSerializer = new XmlSerializer(typeof(ItemMergeOptionRoot));
         itemOptionPickSerializer = new XmlSerializer(typeof(ItemOptionPickRoot));
         itemVariationSerializer = new XmlSerializer(typeof(ItemOptionVariation));
@@ -127,11 +127,11 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<ItemOptionConstant> ParseConstantKr() {
+    public IEnumerable<ItemOptionConstant> ParseConstantNew() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemoptionconstant.xml")));
         xml = Sanitizer.RemoveUtf8Bom(xml);
         var reader = XmlReader.Create(new StringReader(xml));
-        var root = itemOptionConstantKrSerializer.Deserialize(reader) as ItemOptionConstantRootKR;
+        var root = itemOptionConstantNewSerializer.Deserialize(reader) as ItemOptionConstantRootKR;
         Debug.Assert(root != null);
 
         foreach (ItemOptionConstant option in root.options) {
@@ -157,11 +157,11 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<ItemOptionRandomKR> ParseRandomKr() {
+    public IEnumerable<ItemOptionRandomKR> ParseRandomNew() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemoptionrandom.xml")));
         xml = Sanitizer.RemoveUtf8Bom(xml);
         var reader = XmlReader.Create(new StringReader(xml));
-        var root = itemOptionKrSerializer.Deserialize(reader) as ItemOptionRandomRootKR;
+        var root = itemOptionNewSerializer.Deserialize(reader) as ItemOptionRandomRootKR;
         Debug.Assert(root != null);
 
         foreach (ItemOptionRandomKR option in root.options) {
@@ -188,14 +188,14 @@ public class ItemOptionParser {
         }
     }
 
-    public IEnumerable<MergeOptionKR> ParseMergeOptionBaseKr() {
+    public IEnumerable<MergeOptionNew> ParseMergeOptionBaseNew() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/itemmergeoptionbase.xml")));
         xml = Sanitizer.RemoveUtf8Bom(xml);
         var reader = XmlReader.Create(new StringReader(xml));
-        var root = itemMergeOptionKrSerializer.Deserialize(reader) as ItemMergeOptionRootKR;
+        var root = itemMergeOptionNewSerializer.Deserialize(reader) as ItemMergeOptionRootNew;
         Debug.Assert(root != null);
 
-        foreach (MergeOptionKR option in root.mergeOption) {
+        foreach (MergeOptionNew option in root.mergeOption) {
             yield return option;
         }
     }

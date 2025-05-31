@@ -1,4 +1,5 @@
 ﻿using Maple2.File.Parser;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Table;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -11,8 +12,8 @@ public class TableParserTest {
 
     [ClassInitialize]
     public static void ClassInit(TestContext context) {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
-        _parser = new TableParser(TestUtils.XmlReader);
+        Filter.Load(TestUtils.XmlReader, Locale.NA.ToString(), "Live");
+        _parser = new TableParser(TestUtils.XmlReader, Language.en);
     }
 
 

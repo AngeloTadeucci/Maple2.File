@@ -30,18 +30,18 @@ public partial class SetItemOption : IFeatureLocale {
 
 // ./data/xml/table/setiteminfo.xml
 [XmlRoot("ms2")]
-public partial class SetItemOptionRootKR {
-    [XmlElement("set")] public List<SetItemOptionKR> option;
+public partial class SetItemOptionRootNew {
+    [XmlElement("set")] public List<SetItemOptionNew> option;
 }
 
-public partial class SetItemOptionKR : IFeatureLocale {
+public partial class SetItemOptionNew : IFeatureLocale {
     [XmlAttribute] public int id;
     [XmlAttribute] public int optionID;
     [M2dArray] public int[] itemIDs = [];
 
     [XmlElement("part")] public List<Part> part;
 
-    public partial class Part : ItemOptionKR, IFeatureLocale {
+    public partial class Part : ItemOptionNew, IFeatureLocale {
         [XmlAttribute] public int count;
         [M2dArray] public int[] additionalEffectID;
         [M2dArray] public short[] additionalEffectLevel;

@@ -66,7 +66,7 @@ public partial class IndividualItemDrop : IFeatureLocale {
 
 // ./data/xml/table/individualitemdrop_final.xml
 [XmlRoot("ms2")]
-public partial class IndividualItemDropRootKR {
+public partial class IndividualItemDropRootNew {
     [XmlElement("dropBox")] public List<IndividualItemDropBox> DropBoxes = [];
 }
 

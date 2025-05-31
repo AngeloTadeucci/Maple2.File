@@ -13,10 +13,10 @@ public partial class NpcScript {
 }
 
 [XmlRoot("ms2")]
-public partial class NpcScriptListKr {
-    [XmlElement("npc")] public List<NpcScriptKR> npcs;
+public partial class NpcScriptListNew {
+    [XmlElement("npc")] public List<NpcScriptNew> npcs;
 }
 
-public partial class NpcScriptKR : NpcScript {
+public partial class NpcScriptNew : NpcScript {
     [XmlAttribute("id")] public int id;
 }

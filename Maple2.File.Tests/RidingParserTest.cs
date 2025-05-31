@@ -1,4 +1,5 @@
 ﻿using Maple2.File.Parser;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Riding;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,7 +10,8 @@ namespace Maple2.File.Tests;
 public class RidingParserTest {
     [TestMethod]
     public void TestRidingParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
+        var locale = Locale.NA;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
         var parser = new RidingParser(TestUtils.XmlReader);
 
         int count = 0;
@@ -24,7 +26,8 @@ public class RidingParserTest {
 
     [TestMethod]
     public void TestRidingPassengerParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
+        var locale = Locale.NA;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
         var parser = new RidingParser(TestUtils.XmlReader);
 
         int count = 0;
@@ -39,11 +42,12 @@ public class RidingParserTest {
 
     [TestMethod]
     public void TestRidingParserKr() {
-        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
-        var parser = new RidingParser(TestUtilsKr.XmlReader);
+        var locale = Locale.KR;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new RidingParser(TestUtils.XmlReader);
 
         int count = 0;
-        foreach ((int id, RidingKR data) in parser.ParseKr()) {
+        foreach ((int id, RidingNew data) in parser.ParseNew()) {
             // Debug.WriteLine($"Parsing Riding: {id}");
             Assert.IsTrue(id >= 0);
             Assert.IsNotNull(data);

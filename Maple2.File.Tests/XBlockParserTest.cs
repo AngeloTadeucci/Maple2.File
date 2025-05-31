@@ -35,23 +35,6 @@ public class XBlockParserTest {
         });
     }
 
-    [TestMethod]
-    public void TestXBlockParserKr() {
-        var index = new FlatTypeIndex(TestUtilsKr.ExportedReader);
-        var parser = new XBlockParser(TestUtilsKr.ExportedReader, index);
-        // Console.WriteLine(index.GetType("Portal_entrance").GetProperty("frontOffset"));
-
-        parser.ParseMap("02000070_in", entities => {
-            foreach (IMapEntity? entity in entities) {
-                if (entity is IPortal portal) {
-                    Console.WriteLine(entity.EntityName);
-                    Console.WriteLine(portal.ModelName);
-                    Console.WriteLine(portal.frontOffset);
-                }
-            }
-        });
-    }
-
     [Ignore]
     public void TestXBlockParserAll() {
         var sw = new Stopwatch();

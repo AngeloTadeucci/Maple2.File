@@ -43,16 +43,16 @@ public partial class ItemData : IFeatureLocale {
 
 // ./data/xml/itemdata/%03d.xml
 [XmlRoot("ms2")]
-public partial class ItemDataKR {
-    [XmlElement("item")] public List<ItemDataRootKR> items;
+public partial class ItemDataNew {
+    [XmlElement] public List<ItemDataRootNew> item;
 }
 
-public partial class ItemDataRootKR {
+public partial class ItemDataRootNew {
     [XmlAttribute] public int id;
     [M2dFeatureLocale] private ItemData _environment;
 }
 
-public partial class ItemDataKR : IFeatureLocale {
+public partial class ItemDataNew : IFeatureLocale {
     [XmlElement] public Basic basic;
     [XmlElement] public Slots slots;
     [XmlElement] public Customize customize;

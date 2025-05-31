@@ -1,4 +1,5 @@
 ﻿using Maple2.File.Parser;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Object;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,7 +10,8 @@ namespace Maple2.File.Tests;
 public class FunctionCubeParserTest {
     [TestMethod]
     public void TestFunctionCubeParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
+        var locale = Locale.NA;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
         var parser = new FunctionCubeParser(TestUtils.XmlReader);
 
         // parser.FunctionCubeSerializer.UnknownElement += TestUtils.UnknownElementHandler;
@@ -21,21 +23,15 @@ public class FunctionCubeParserTest {
             Assert.IsNotNull(data);
             count++;
         }
-        Assert.AreEqual(427, count);
-    }
 
-    [TestMethod]
-    public void TestFunctionCubeParserKr() {
-        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
-        var parser = new FunctionCubeParser(TestUtilsKr.XmlReader);
-
-        int count = 0;
-        foreach ((int id, FunctionCubeRoot data) in parser.Parse()) {
-            Assert.IsTrue(id >= 0);
-            Assert.IsNotNull(data);
-            count++;
+        switch (locale) {
+            case Locale.NA:
+                Assert.AreEqual(427, count);
+                break;
+            case Locale.KR:
+                Assert.AreEqual(433, count);
+                break;
         }
-        Assert.AreEqual(433, count);
     }
 }
 

@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.IO;
 using Maple2.File.IO.Crypto.Common;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Xml.Script;
 using Maple2.File.Parser.Xml.String;
 
@@ -11,12 +12,16 @@ namespace Maple2.File.Parser;
 public class ScriptParser {
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer npcScriptSerializer;
+    private readonly XmlSerializer npcScriptNewSerializer;
     private readonly XmlSerializer questScriptSerializer;
     private readonly XmlSerializer scriptStringSerializer;
+    private readonly Language language;
 
-    public ScriptParser(M2dReader xmlReader) {
+    public ScriptParser(M2dReader xmlReader, Language language) {
         this.xmlReader = xmlReader;
-        npcScriptSerializer = new XmlSerializer(FeatureLocaleFilter.Locale == "KR" ? typeof(NpcScriptListKr) : typeof(NpcScript));
+        this.language = language;
+        npcScriptSerializer = new XmlSerializer(typeof(NpcScript));
+        npcScriptNewSerializer = new XmlSerializer(typeof(NpcScriptListNew));
         questScriptSerializer = new XmlSerializer(typeof(QuestScriptRoot));
         scriptStringSerializer = new XmlSerializer(typeof(StringMapping));
     }
@@ -31,13 +36,13 @@ public class ScriptParser {
         }
     }
 
-    public IEnumerable<(int Id, NpcScriptKR Script)> ParseNpcKr() {
+    public IEnumerable<(int Id, NpcScriptNew Script)> ParseNpcNew() {
         var entry = xmlReader.GetEntry("npcscript_final.xml");
         Debug.Assert(entry != null);
-        var root = npcScriptSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as NpcScriptListKr;
+        var root = npcScriptNewSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as NpcScriptListNew;
         Debug.Assert(root != null);
 
-        foreach (NpcScriptKR npc in root.npcs) {
+        foreach (NpcScriptNew npc in root.npcs) {
             yield return (npc.id, npc);
         }
     }
@@ -53,7 +58,7 @@ public class ScriptParser {
         }
     }
 
-    public IEnumerable<(int Id, QuestScript Script)> ParseQuestKr() {
+    public IEnumerable<(int Id, QuestScript Script)> ParseQuestNew() {
         var entry = xmlReader.GetEntry("questscript_final.xml");
         Debug.Assert(entry != null);
         var root = questScriptSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as QuestScriptRoot;
@@ -64,9 +69,9 @@ public class ScriptParser {
         }
     }
 
-    public IDictionary<string, string> ParseStrings(string language = "en") {
+    public IDictionary<string, string> ParseStrings() {
         var result = new Dictionary<string, string>();
-        string prefix = $"string/{language}/scriptnpc";
+        string prefix = $"string/{language.ToString()}/scriptnpc";
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith(prefix))) {
             var mapping = scriptStringSerializer.Deserialize(xmlReader.GetXmlReader(entry)) as StringMapping;
             Debug.Assert(mapping != null);

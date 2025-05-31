@@ -12,13 +12,13 @@ public class RidingParser {
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer ridingSerializer;
     private readonly XmlSerializer passengerRidingSerializer;
-    private readonly XmlSerializer ridingKRSerializer;
+    private readonly XmlSerializer ridingNewSerializer;
 
     public RidingParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
         ridingSerializer = new XmlSerializer(typeof(RidingRoot));
         passengerRidingSerializer = new XmlSerializer(typeof(PassengerRidingRoot));
-        ridingKRSerializer = new XmlSerializer(typeof(RidingKRRoot));
+        ridingNewSerializer = new XmlSerializer(typeof(RidingNewRoot));
     }
 
     public IEnumerable<(int Id, Riding Data)> Parse() {
@@ -51,14 +51,14 @@ public class RidingParser {
         }
     }
 
-    public IEnumerable<(int Id, RidingKR Data)> ParseKr() {
+    public IEnumerable<(int Id, RidingNew Data)> ParseNew() {
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("riding/"))) {
 
             var reader = XmlReader.Create(new StringReader(Sanitizer.RemoveEmpty(xmlReader.GetString(entry))));
-            var root = ridingKRSerializer.Deserialize(reader) as RidingKRRoot;
+            var root = ridingNewSerializer.Deserialize(reader) as RidingNewRoot;
             Debug.Assert(root != null);
 
-            RidingKR data = root.riding;
+            RidingNew data = root.riding;
             if (data == null || data.basic == null) continue;
 
             yield return (data.basic.id, data);

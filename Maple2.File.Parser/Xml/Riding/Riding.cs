@@ -21,11 +21,11 @@ public partial class Riding : IFeatureLocale {
 
 // KMS2: ./data/xml/riding/%08d.xml
 [XmlRoot("ms2")]
-public class RidingKRRoot {
-    [XmlElement("riding")] public RidingKR riding;
+public class RidingNewRoot {
+    [XmlElement("riding")] public RidingNew riding;
 }
 
-public class RidingKR : Riding {
+public class RidingNew : Riding {
     [XmlElement("passengers")] public List<PassengerRiding> passengers;
 }
 

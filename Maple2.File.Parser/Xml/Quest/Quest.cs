@@ -55,10 +55,10 @@ public partial class QuestData {
 
 
 [XmlRoot("ms2")]
-public partial class QuestDataRootKR {
-    [XmlElement("quest")] public List<QuestDataKR> quests;
+public partial class QuestDataRootNew {
+    [XmlElement("quest")] public List<QuestDataNew> quests;
 }
 
-public partial class QuestDataKR : QuestData, IFeatureLocale {
+public partial class QuestDataNew : QuestData, IFeatureLocale {
     [XmlAttribute] public int id;
 }

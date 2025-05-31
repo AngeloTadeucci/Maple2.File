@@ -8,12 +8,12 @@ public partial class BasicProperty {
     [XmlAttribute] public int accountEffect; // 0
     [XmlAttribute] public int group;
     [XmlAttribute] public int buffType = 1; // 1,2,3
-    [XmlAttribute] public int buffSubType; // 0,1,2,4,6,8,16,32,64,128,256,512,1024
+    [XmlAttribute] public int buffSubType = 0; // 0,1,2,4,6,8,16,32,64,128,256,512,1024
     [XmlAttribute] public int buffCategory; // 0,1,2,4,6,7,8,9,99,1007,2001
     [XmlAttribute] public int eventBuffType; // 0,1,2,3,4
     [XmlAttribute] public bool useInGameTime;
-    [XmlAttribute] public int durationTick;
-    [XmlAttribute] public int intervalTick;
+    [XmlAttribute] public int durationTick = 0;
+    [XmlAttribute] public int intervalTick = 0;
     [XmlAttribute] public int delayTick;
     [XmlAttribute] public int keepCondition; // 0,1,5,99
     [XmlAttribute] public int resetCondition; // 0,1,2,3
@@ -39,13 +39,16 @@ public partial class BasicProperty {
     [XmlAttribute] public int statSetID; // 0,10000006,10000007,10000008,10000009
     [XmlAttribute] public bool disableRevivalHere;
     [XmlAttribute] public int attackPossibleEffectID; // 0,90000874
-    [XmlAttribute] public int skillGroupType; // 0,1,2
+    [XmlAttribute] public int skillGroupType = 0; // 0,1,2
     [M2dArray] public int[] attackPossibleSkillIDs = Array.Empty<int>();
     [M2dArray] public int[] attackPossibleDotEffectIDs = Array.Empty<int>();
     [M2dArray] public int[] groupIDs = Array.Empty<int>();
-    [XmlAttribute] public bool immediateActiveRequireSkill;
+    [XmlAttribute] public bool immediateActiveRequireSkill = false;
     [M2dArray] public int[] itemSlotDisable = Array.Empty<int>();
-    [XmlAttribute] public int tailEffect; // 0,1001,1002
+    [XmlAttribute] public int tailEffect = 0; // 0,1001,1002
     [M2dArray] public int[] upgradeSkillLevelID = Array.Empty<int>();
     [M2dArray] public int[] upgradeSkillLevelValue = Array.Empty<int>();
+
+    // only on new xml
+    [XmlAttribute] public int attackPossibleIndividualEffectID;
 }

@@ -24,12 +24,6 @@ public class NifParserTest {
         ValidateNifMeshData(parser);
     }
 
-    [TestMethod]
-    public void TestNifParserKr() {
-        var parser = new NifParser(TestUtilsKr.ModelM2dReaders);
-        ValidateNifMeshData(parser);
-    }
-
     private static void ValidateNifMeshData(NifParser parser) {
         foreach ((uint llid, string relpath, NifDocument document) in parser.Parse()) {
             try {

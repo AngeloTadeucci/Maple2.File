@@ -1,4 +1,5 @@
 ﻿using Maple2.File.Parser;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Script;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,8 +10,10 @@ namespace Maple2.File.Tests;
 public class ScriptParserTest {
     [TestMethod]
     public void TestNpcScriptParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
-        var parser = new ScriptParser(TestUtils.XmlReader);
+        var locale = Locale.NA;
+        var language = Language.en;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new ScriptParser(TestUtils.XmlReader, language);
 
         // parser.scriptStringSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.scriptStringSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -28,8 +31,10 @@ public class ScriptParserTest {
 
     [TestMethod]
     public void TestQuestScriptParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
-        var parser = new ScriptParser(TestUtils.XmlReader);
+        var locale = Locale.NA;
+        var language = Language.en;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new ScriptParser(TestUtils.XmlReader, language);
 
         // parser.scriptStringSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.scriptStringSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -47,8 +52,10 @@ public class ScriptParserTest {
 
     [TestMethod]
     public void TestStringsParser() {
-        Filter.Load(TestUtils.XmlReader, "NA", "Live");
-        var parser = new ScriptParser(TestUtils.XmlReader);
+        var locale = Locale.NA;
+        var language = Language.en;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new ScriptParser(TestUtils.XmlReader, language);
 
         // parser.NameSerializer.UnknownElement += TestUtils.UnknownElementHandler;
         // parser.NameSerializer.UnknownAttribute += TestUtils.UnknownAttributeHandler;
@@ -66,12 +73,14 @@ public class ScriptParserTest {
 
 
     [TestMethod]
-    public void TestNpcScriptParserKr() {
-        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
-        var parser = new ScriptParser(TestUtilsKr.XmlReader);
+    public void TestNpcScriptParserNew() {
+        var locale = Locale.KR;
+        var language = Language.kr;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new ScriptParser(TestUtils.XmlReader, language);
 
         int count = 0;
-        foreach ((int id, NpcScriptKR script) in parser.ParseNpcKr()) {
+        foreach ((int id, NpcScriptNew script) in parser.ParseNpcNew()) {
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(script);
             count++;
@@ -80,12 +89,14 @@ public class ScriptParserTest {
     }
 
     [TestMethod]
-    public void TestQuestScriptParserKr() {
-        Filter.Load(TestUtilsKr.XmlReader, "KR", "Live");
-        var parser = new ScriptParser(TestUtilsKr.XmlReader);
+    public void TestQuestScriptParserNew() {
+        var locale = Locale.KR;
+        var language = Language.kr;
+        Filter.Load(TestUtils.XmlReader, locale.ToString(), "Live");
+        var parser = new ScriptParser(TestUtils.XmlReader, language);
 
         int count = 0;
-        foreach ((int id, QuestScript script) in parser.ParseQuestKr()) {
+        foreach ((int id, QuestScript script) in parser.ParseQuestNew()) {
             Assert.IsTrue(id > 0);
             Assert.IsNotNull(script);
             count++;

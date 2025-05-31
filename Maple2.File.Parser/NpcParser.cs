@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 using M2dXmlGenerator;
 using Maple2.File.IO;
 using Maple2.File.IO.Crypto.Common;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Tools;
 using Maple2.File.Parser.Xml.Npc;
 using Maple2.File.Parser.Xml.String;
@@ -14,17 +15,19 @@ public class NpcParser {
     private readonly M2dReader xmlReader;
     private readonly XmlSerializer nameSerializer;
     private readonly XmlSerializer npcSerializer;
-    private readonly XmlSerializer npcKrSerializer;
+    private readonly XmlSerializer npcNewSerializer;
+    private readonly Language language;
 
-    public NpcParser(M2dReader xmlReader) {
+    public NpcParser(M2dReader xmlReader, Language language) {
         this.xmlReader = xmlReader;
+        this.language = language;
         nameSerializer = new XmlSerializer(typeof(StringMapping));
         npcSerializer = new XmlSerializer(typeof(NpcDataRoot));
-        npcKrSerializer = new XmlSerializer(typeof(NpcDataListKR));
+        npcNewSerializer = new XmlSerializer(typeof(NpcDataListNew));
     }
 
     public Dictionary<int, string> ParseNpcNames() {
-        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("en/npcname.xml"));
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry($"{language.ToString()}/npcname.xml"));
         var npcNames = nameSerializer.Deserialize(reader) as StringMapping;
         Debug.Assert(npcNames != null);
         return npcNames.key.ToDictionary(key => int.Parse(key.id), key => key.name);
@@ -45,18 +48,18 @@ public class NpcParser {
         }
     }
 
-    public IEnumerable<(int Id, string Name, NpcDataKR Data, List<EffectDummy> Dummy)> ParseKr() {
+    public IEnumerable<(int Id, string Name, NpcDataNew Data, List<EffectDummy> Dummy)> ParseNew() {
         var npcNames = ParseNpcNames();
         foreach (PackFileEntry entry in xmlReader.Files.Where(entry => entry.Name.StartsWith("npcdata/"))) {
             var reader = XmlReader.Create(new StringReader(Sanitizer.SanitizeNpc(xmlReader.GetString(entry))));
-            var rootKr = npcKrSerializer.Deserialize(reader) as NpcDataListKR;
+            var rootKr = npcNewSerializer.Deserialize(reader) as NpcDataListNew;
             Debug.Assert(rootKr != null);
 
-            foreach (NpcDataRootKR item in rootKr.npcs) {
-                NpcDataKR dataKr = item.environment;
-                if (dataKr == null) continue;
+            foreach (NpcDataRootNew item in rootKr.npcs) {
+                NpcDataNew dataNew = item.environment;
+                if (dataNew == null) continue;
 
-                yield return (item.id, npcNames.GetValueOrDefault(item.id, string.Empty), dataKr, dataKr.effectdummy);
+                yield return (item.id, npcNames.GetValueOrDefault(item.id, string.Empty), dataNew, dataNew.effectdummy);
             }
         }
     }

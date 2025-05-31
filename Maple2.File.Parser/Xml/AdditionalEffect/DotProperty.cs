@@ -5,7 +5,7 @@ namespace Maple2.File.Parser.Xml.AdditionalEffect;
 public class DotDamageProperty {
     [XmlAttribute] public int type; // 0,1,2,3,6
     [XmlAttribute] public bool useGrade;
-    [XmlAttribute] public int value;
+    [XmlAttribute] public long value;
     [XmlAttribute] public float rate;
     [XmlAttribute] public int spValue;
     [XmlAttribute] public int epValue;

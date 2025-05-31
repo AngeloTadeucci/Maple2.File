@@ -5,6 +5,7 @@ namespace Maple2.File.Parser.Xml.Item;
 
 public partial class Property {
     [XmlAttribute] public bool skin;
+    [XmlAttribute] public short rank = 1;
     [XmlAttribute] public int skinType;
     [XmlAttribute] public int slotMax = 1; // if > 99999, set to 99999
     [XmlAttribute] public int type;

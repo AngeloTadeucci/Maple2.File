@@ -69,11 +69,11 @@ public partial class MergeStep {
 
 // ./data/xml/table/itemmergeoptionbase.xml
 [XmlRoot("ms2")]
-public class ItemMergeOptionRootKR {
-    [XmlElement] public List<MergeOptionKR> mergeOption = [];
+public class ItemMergeOptionRootNew {
+    [XmlElement] public List<MergeOptionNew> mergeOption = [];
 }
 
-public partial class MergeOptionKR : IFeatureLocale {
+public partial class MergeOptionNew : IFeatureLocale {
     [XmlAttribute] public int id;
 
     [XmlElement] public List<Slot> slot = [];
@@ -83,10 +83,10 @@ public partial class Slot {
     [XmlAttribute] public int part = 1;
     [M2dArray] public int[] partLimit = [];
 
-    [XmlElement] public List<OptionKR> option = [];
+    [XmlElement] public List<OptionNew> option = [];
 }
 
-public partial class OptionKR {
+public partial class OptionNew {
     [XmlAttribute] public string optionName = string.Empty;
     [XmlAttribute] public int min;
 

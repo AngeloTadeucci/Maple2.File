@@ -40,15 +40,15 @@ public partial class NpcData : IFeatureLocale {
 }
 
 [XmlRoot("ms2")]
-public partial class NpcDataListKR {
-    [XmlElement("npc")] public List<NpcDataRootKR> npcs;
+public partial class NpcDataListNew {
+    [XmlElement("npc")] public List<NpcDataRootNew> npcs;
 }
 
-public partial class NpcDataRootKR {
+public partial class NpcDataRootNew {
     [XmlAttribute] public int id;
-    [XmlElement] public NpcDataKR environment;
+    [XmlElement] public NpcDataNew environment;
 }
 
-public partial class NpcDataKR : NpcData {
+public partial class NpcDataNew : NpcData {
     [XmlElement] public List<EffectDummy> effectdummy;
 }

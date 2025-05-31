@@ -3,7 +3,7 @@
 namespace Maple2.File.Parser.Xml.Common;
 
 [XmlType(Namespace = "Common")]
-public class ItemOptionKR {
+public class ItemOptionNew {
     #region StatValue
     [XmlAttribute("str")] public int str_value_base;
     [XmlAttribute("dex")] public int dex_value_base;

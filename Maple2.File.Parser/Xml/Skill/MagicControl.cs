@@ -8,3 +8,10 @@ public class MagicControl {
     [XmlAttribute] public float duration;
     [XmlAttribute] public float maxDistance;
 }
+
+public class MagicControlNew {
+    [XmlAttribute] public int enable;
+    [XmlAttribute] public float moveSpeed; // * 0.0099999998
+    [XmlAttribute] public float duration;
+    [XmlAttribute] public float maxDistance;
+}

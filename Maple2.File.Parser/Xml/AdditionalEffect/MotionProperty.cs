@@ -36,8 +36,26 @@ public partial class MotionProperty {
     [XmlAttribute] public float fixedZRotation;
     [M2dArray] public int[] skillUseDisableIDs = Array.Empty<int>();
 
+    // only on New Xml
+    [XmlElement] public OverlapKeepEffectProperty OverlapKeepEffectProperty;
+
     // Ignored by client.
     // [XmlAttribute] public int confusion; // 0
     // [XmlAttribute] public int chaosMode; // 0
     // [XmlAttribute] public string materialEffect = string.Empty;
+}
+
+public class OverlapKeepEffectProperty {
+    [XmlElement] public OverlapData start;
+    [XmlElement] public OverlapData keep;
+    [XmlElement] public OverlapData end;
+}
+
+public class OverlapData {
+    [XmlElement] public List<Overlap> overlap = [];
+}
+
+public class Overlap {
+    [XmlAttribute] public int count;
+    [XmlAttribute] public string effect = string.Empty;
 }

@@ -33,3 +33,14 @@ public partial class SubConditionTarget {
 
     [XmlElement] public List<CompareRange> compareStat;
 }
+
+public partial class SubConditionTargetNew {
+    [M2dArray] public int[] hasBuffID = Array.Empty<int>();
+    [M2dArray] public bool[] hasBuffOwner = Array.Empty<bool>();
+    [M2dArray] public int[] hasBuffCount = Array.Empty<int>(); // csv map?
+    [M2dArray] public int[] hasNotBuffID = Array.Empty<int>();
+    [M2dArray] public bool[] hasNotBuffOwner = Array.Empty<bool>();
+
+    [XmlElement] public List<CompareRange> compareStat;
+
+}

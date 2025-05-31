@@ -25,7 +25,7 @@ public partial class StatusProperty {
     [XmlAttribute] public float resEvpR;
     [XmlAttribute] public float resPenR;
     [XmlAttribute] public float resAspR;
-    [XmlAttribute] public long deathResistanceHP;
+    [XmlAttribute] public bool deathResistanceHP;
 
     [M2dArray] public int[] compulsionEventTypes = Array.Empty<int>();
     [M2dArray] public float[] compulsionEventRate = Array.Empty<float>();
@@ -39,6 +39,50 @@ public partial class StatusProperty {
     [XmlAttribute] public string saRate = string.Empty;
     [XmlAttribute] public string value = string.Empty;
     [XmlAttribute] public string rate = string.Empty;
+}
+
+public partial class StatusPropertyNew {
+    [XmlAttribute] public int statChangeBase;
+    [XmlAttribute] public int statChangeResult;
+    [XmlAttribute] public float statChangeRate;
+    [XmlAttribute] public long finalCapV;
+    [XmlAttribute] public float finalCapR;
+    [XmlAttribute] public long finalAbpV;
+    [XmlAttribute] public float finalAbpR;
+    [XmlAttribute] public long finalAtpV;
+    [XmlAttribute] public float finalAtpR;
+    [XmlAttribute] public long finalEvpV;
+    [XmlAttribute] public float finalEvpR;
+    [XmlAttribute] public float itemCriticalRecoveryRate;
+    [XmlAttribute] public float itemRecoveryHPRate;
+    [XmlAttribute] public float healRecoveryHPRate;
+    [XmlAttribute] public float resWapR;
+    [XmlAttribute] public float resBapR;
+    [XmlAttribute] public float resCadR;
+    [XmlAttribute] public float resAtpR;
+    [XmlAttribute] public float resEvpR;
+    [XmlAttribute] public float resPenR;
+    [XmlAttribute] public float resAspR;
+    [XmlAttribute] public bool deathResistanceHP;
+
+    [M2dArray] public int[] compulsionEventTypes = Array.Empty<int>();
+    [M2dArray] public float[] compulsionEventRate = Array.Empty<float>();
+    [M2dArray] public int[] compulsionEventSkillCodes = Array.Empty<int>();
+
+    // Ignored by client.
+    [XmlAttribute] public string saValue = string.Empty;
+    [XmlAttribute] public string saRate = string.Empty;
+    [XmlAttribute] public string value = string.Empty;
+    [XmlAttribute] public string rate = string.Empty;
+}
+
+public class SpecialAbilityNew {
+    [XmlElement] public List<SpecialAbilityEntry> v;
+}
+
+public class SpecialAbilityEntry {
+    [XmlAttribute] public string type = string.Empty;
+    [XmlAttribute] public float value;
 }
 
 public class Stat {
