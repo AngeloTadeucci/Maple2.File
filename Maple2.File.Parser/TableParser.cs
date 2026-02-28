@@ -103,6 +103,7 @@ public class TableParser {
     private readonly XmlSerializer statStringSerializer;
     private readonly XmlSerializer autoActionPricePackageSerializer;
     private readonly XmlSerializer pvpRankingDuelModeSerializer;
+    private readonly XmlSerializer questGroupSerializer;
 
     private readonly string locale;
     private readonly string language;
@@ -200,6 +201,7 @@ public class TableParser {
         statStringSerializer = new XmlSerializer(typeof(StatStringRoot));
         autoActionPricePackageSerializer = new XmlSerializer(typeof(AutoActionPricePackageRoot));
         pvpRankingDuelModeSerializer = new XmlSerializer(typeof(PvpRankingDuelModeRoot));
+        questGroupSerializer = new XmlSerializer(typeof(QuestGroupRoot));
 
         locale = FeatureLocaleFilter.Locale.ToLower();
         this.language = language;
@@ -1560,6 +1562,17 @@ public class TableParser {
 
         foreach (PvpRankingDuelMode entry in data.gradeInfo) {
             yield return (entry.grade, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, QuestGroup Data)> ParseQuestGroup() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/questgrouptable.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = questGroupSerializer.Deserialize(reader) as QuestGroupRoot;
+        Debug.Assert(data != null);
+
+        foreach (QuestGroup entry in data.group) {
+            yield return (entry.id, entry);
         }
     }
 }
