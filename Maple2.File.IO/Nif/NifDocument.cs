@@ -157,10 +157,11 @@ public class NifDocument {
         if (RelPath.Contains("trophy_crimsonbalrog")) {
             using var md5 = System.Security.Cryptography.MD5.Create();
             byte[] hash = md5.ComputeHash(fileData);
-            Console.Error.WriteLine($"[NIF DEBUG] {RelPath}: dataLen={fileData.Length} md5={Convert.ToHexString(hash)} " +
+            string dbg = $"[NIF DEBUG] {RelPath}: dataLen={fileData.Length} md5={Convert.ToHexString(hash)} " +
                 $"headerLen={index - 4} endianByte=0x{fileData[index]:X2} isLittleEndian={isLittleEndian} " +
-                $"swap={isLittleEndian != BitConverter.IsLittleEndian} BitConverter.IsLittleEndian={BitConverter.IsLittleEndian}");
-            Console.Error.WriteLine($"[NIF DEBUG] bytes around endian flag [{index-2}..{index+3}]: {Convert.ToHexString(fileData, index - 2, 5)}");
+                $"swap={isLittleEndian != BitConverter.IsLittleEndian} BitConverter.IsLittleEndian={BitConverter.IsLittleEndian}\n" +
+                $"[NIF DEBUG] bytes around endian flag [{index-2}..{index+3}]: {Convert.ToHexString(fileData, index - 2, 5)}\n";
+            System.IO.File.AppendAllText(Path.Combine(Path.GetTempPath(), "nif_debug.log"), dbg);
         }
 
         MemoryStream stream = new MemoryStream(fileData);
