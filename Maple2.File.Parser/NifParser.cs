@@ -17,7 +17,15 @@ public class NifParser {
                 string path = nifReader.PathPrefix + entry.Name;
                 uint llid = LlidHash.Hash(path);
 
-                NifDocument nifDocument = new NifDocument(path, nifReader.GetBytes(entry));
+                byte[] data;
+                try {
+                    data = nifReader.GetBytes(entry);
+                } catch (Exception ex) {
+                    Console.Error.WriteLine($"[NifParser] Failed to decrypt: {path} from {nifReader.PathPrefix} (FileIndex={entry.FileHeader?.FileIndex}): {ex.Message}");
+                    continue;
+                }
+
+                NifDocument nifDocument = new NifDocument(path, data);
 
                 yield return (llid, path, nifDocument);
             }

@@ -1,5 +1,4 @@
 ﻿using System.IO.Compression;
-using System.IO.MemoryMappedFiles;
 using System.Text;
 using Maple2.File.IO.Crypto.Common;
 using Maple2.File.IO.Crypto.Keys;
@@ -32,12 +31,24 @@ public static class CryptoManager {
         throw new Exception("ERROR decrypting file table: the size of the table is invalid.");
     }
 
-    public static byte[] DecryptData(IPackFileHeader pHeader, MemoryMappedFile data) {
+    public static byte[] DecryptData(IPackFileHeader pHeader, FileStream data, object readLock) {
         if (pHeader.CompressedFileSize > 0 && pHeader.EncodedFileSize > 0 && pHeader.FileSize > 0) {
-            using MemoryMappedViewStream buffer = data.CreateViewStream((long) pHeader.Offset, pHeader.EncodedFileSize);
             byte[] src = new byte[pHeader.EncodedFileSize];
+            int bytesRead;
+            lock (readLock) {
+                data.Seek((long) pHeader.Offset, SeekOrigin.Begin);
+                int totalRead = 0;
+                int remaining = (int) pHeader.EncodedFileSize;
+                while (remaining > 0) {
+                    int read = data.Read(src, totalRead, remaining);
+                    if (read == 0) break;
+                    totalRead += read;
+                    remaining -= read;
+                }
+                bytesRead = totalRead;
+            }
 
-            if (buffer.Read(src, 0, (int) pHeader.EncodedFileSize) == pHeader.EncodedFileSize) {
+            if (bytesRead == pHeader.EncodedFileSize) {
                 return Decrypt(pHeader.Version, pHeader.EncodedFileSize, (uint) pHeader.CompressedFileSize, pHeader.BufferFlag, src);
             }
         }
@@ -47,19 +58,35 @@ public static class CryptoManager {
 
     // Decryption Routine: Base64 -> AES -> Zlib
     private static byte[] Decrypt(PackVersion version, uint size, uint sizeCompressed, Encryption flag, byte[] src) {
-        if (flag.HasFlag(Encryption.Aes)) {
+        if (flag.HasFlag(Encryption.Xor)) {
+            // Decrypt the XOR encrypted block (check Xor before Aes because 0xFF is a superset of 0xEE in bits)
+            src = EncryptXor(version, src, size, sizeCompressed);
+        } else if (flag.HasFlag(Encryption.Aes)) {
             // Get the AES Key/IV for transformation
             CipherKeys.GetKeyAndIV(version, sizeCompressed, out byte[] key, out byte[] iv);
 
-            // Decode the base64 encoded string
-            src = Convert.FromBase64String(Encoding.UTF8.GetString(src));
+            // Decode the base64 encoded string (handle both standard and URL-safe Base64)
+            string b64 = Encoding.UTF8.GetString(src).Replace('-', '+').Replace('_', '/');
+            try {
+                src = Convert.FromBase64String(b64);
+            } catch (FormatException) {
+                const string valid = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/= \t\r\n";
+                for (int i = 0; i < b64.Length; i++) {
+                    if (valid.IndexOf(b64[i]) < 0) {
+                        Console.Error.WriteLine($"[Base64 FAIL] Invalid char at {i}/{b64.Length}: 0x{(int)b64[i]:X4} '{b64[i]}'");
+                        Console.Error.WriteLine($"[Base64 FAIL] Context: ...{b64[Math.Max(0,i-8)..Math.Min(b64.Length,i+8)]}...");
+                        break;
+                    }
+                }
+                if (b64.Length % 4 != 0)
+                    Console.Error.WriteLine($"[Base64 FAIL] Length {b64.Length} not multiple of 4 (remainder {b64.Length % 4})");
+                Console.Error.WriteLine($"[Base64 FAIL] flag=0x{(uint)flag:X8} size={size} sizeCompressed={sizeCompressed} srcLen={b64.Length}");
+                throw;
+            }
 
             // Decrypt the AES encrypted block
             var pCipher = new AESCipher(key, iv);
             pCipher.TransformBlock(src, 0, size, src, 0);
-        } else if (flag.HasFlag(Encryption.Xor)) {
-            // Decrypt the XOR encrypted block
-            src = EncryptXor(version, src, size, sizeCompressed);
         }
 
         return flag.HasFlag(Encryption.Zlib) ? UncompressBuffer(src) : src;
