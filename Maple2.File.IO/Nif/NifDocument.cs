@@ -154,6 +154,15 @@ public class NifDocument {
 
         bool isLittleEndian = fileData[index] != 0;
 
+        if (RelPath.Contains("trophy_crimsonbalrog")) {
+            using var md5 = System.Security.Cryptography.MD5.Create();
+            byte[] hash = md5.ComputeHash(fileData);
+            Console.Error.WriteLine($"[NIF DEBUG] {RelPath}: dataLen={fileData.Length} md5={Convert.ToHexString(hash)} " +
+                $"headerLen={index - 4} endianByte=0x{fileData[index]:X2} isLittleEndian={isLittleEndian} " +
+                $"swap={isLittleEndian != BitConverter.IsLittleEndian} BitConverter.IsLittleEndian={BitConverter.IsLittleEndian}");
+            Console.Error.WriteLine($"[NIF DEBUG] bytes around endian flag [{index-2}..{index+3}]: {Convert.ToHexString(fileData, index - 2, 5)}");
+        }
+
         MemoryStream stream = new MemoryStream(fileData);
         Reader = new EndianReader(stream, isLittleEndian != BitConverter.IsLittleEndian);
 
