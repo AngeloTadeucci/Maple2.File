@@ -38,6 +38,13 @@ public class NifDocument {
     }
 
     public NifBlock GetBlock(int index) {
+        if (index < 0 || index >= Blocks.Length) {
+            throw new IndexOutOfRangeException(
+                $"Block index {index} out of range [0..{Blocks.Length}). " +
+                $"Stream position: {Reader.BaseStream.Position}, " +
+                $"Reading block: [{ReadingBlock?.BlockIndex}] {ReadingBlock?.BlockType} \"{ReadingBlock?.Name}\"");
+        }
+
         if (Blocks[index] is not null) {
             return Blocks[index];
         }
@@ -81,7 +88,15 @@ public class NifDocument {
     public List<T> ReadBlockRefList<T>() {
         List<T> blocks = new List<T>();
 
+        long countPos = Reader.BaseStream.Position;
         int count = Reader.ReadAdjustedInt32();
+
+        if (count < 0 || count > Blocks.Length) {
+            throw new InvalidDataException(
+                $"Unreasonable block ref list count {count} at stream position {countPos}. " +
+                $"Total blocks: {Blocks.Length}. " +
+                $"Reading block: [{ReadingBlock?.BlockIndex}] {ReadingBlock?.BlockType} \"{ReadingBlock?.Name}\"");
+        }
 
 #if NETSTANDARD2_1
         blocks.EnsureCapacityCompat(count);
