@@ -783,8 +783,6 @@ public class TableParserTest {
 
     [TestMethod]
     public void TestClubBuff() {
-
-        var results = _parser.ParseClubBuff();
         foreach ((_, _) in _parser.ParseClubBuff()) {
             continue;
         }
