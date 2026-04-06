@@ -108,6 +108,7 @@ public class TableParser {
     private readonly XmlSerializer pvpRankingDuelModeSerializer;
     private readonly XmlSerializer questGroupSerializer;
     private readonly XmlSerializer darkStreamSerializer;
+    private readonly XmlSerializer clubBuffSerializer;
 
     private readonly string locale;
     private readonly string language;
@@ -210,6 +211,7 @@ public class TableParser {
         pvpRankingDuelModeSerializer = new XmlSerializer(typeof(PvpRankingDuelModeRoot));
         questGroupSerializer = new XmlSerializer(typeof(QuestGroupRoot));
         darkStreamSerializer = new XmlSerializer(typeof(DarkStreamRoot));
+        clubBuffSerializer = new XmlSerializer(typeof(ClubBuffRoot));
 
         locale = FeatureLocaleFilter.Locale.ToLower();
         this.language = language;
@@ -1621,6 +1623,17 @@ public class TableParser {
 
         foreach (DarkStreamReward entry in data.reward) {
             yield return (entry.round, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, ClubBuff Buff)> ParseClubBuff() {
+        string xml = Sanitizer.RemoveSpaces(xmlReader.GetString(xmlReader.GetEntry("table/clubbuff.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = clubBuffSerializer.Deserialize(reader) as ClubBuffRoot;
+        Debug.Assert(data != null);
+
+        foreach (ClubBuff entry in data.clubBuff) {
+            yield return (entry.id, entry);
         }
     }
 }

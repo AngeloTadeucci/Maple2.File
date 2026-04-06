@@ -780,4 +780,13 @@ public class TableParserTest {
         Assert.AreEqual(70000, results[30].meso);
         Assert.AreEqual(2300, results[30].habi);
     }
+
+    [TestMethod]
+    public void TestClubBuff() {
+
+        var results = _parser.ParseClubBuff();
+        foreach ((_, _) in _parser.ParseClubBuff()) {
+            continue;
+        }
+    }
 }
