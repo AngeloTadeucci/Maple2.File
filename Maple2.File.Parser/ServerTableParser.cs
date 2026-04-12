@@ -541,14 +541,14 @@ public class ServerTableParser {
         }
     }
 
-    public IEnumerable<(int Code, FishLure Lure)> ParseFishLure() {
+    public IEnumerable<(int Code, int Level, FishLure Lure)> ParseFishLure() {
         string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry("table/Server/fishLure.xml")));
         var reader = XmlReader.Create(new StringReader(xml));
         var data = fishLureSerializer.Deserialize(reader) as FishLureRoot;
         Debug.Assert(data != null);
 
         foreach (FishLure lure in data.lure) {
-            yield return (lure.additionalEffectCode, lure);
+            yield return (lure.additionalEffectCode, lure.additionalEffectLevel, lure);
         }
     }
 

@@ -6,7 +6,7 @@ namespace Maple2.File.Parser.Xml.Table.Server;
 // ./data/server/table/Server/fishLure.xml
 [XmlRoot("ms2")]
 public partial class FishLureRoot {
-    [M2dFeatureLocale(Selector = "additionalEffectCode")] private IList<FishLure> _lure;
+    [M2dFeatureLocale(Selector = "additionalEffectCode|additionalEffectLevel")] private IList<FishLure> _lure;
 }
 
 public partial class FishLure : IFeatureLocale {

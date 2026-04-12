@@ -315,7 +315,7 @@ public class ServerTableParserTest {
     public void TestFishLure() {
         var parser = new ServerTableParser(TestUtils.ServerReader);
 
-        foreach ((_, _) in parser.ParseFishLure()) {
+        foreach ((_, _ ,_) in parser.ParseFishLure()) {
             continue;
         }
     }
