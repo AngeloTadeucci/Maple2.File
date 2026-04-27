@@ -48,7 +48,7 @@ public partial class MagicData {
     //public float timeInterval => vel / distance;
 
     // Ignored by client.
-    [XmlAttribute] public bool align;
+    [XmlAttribute] public bool align = true;
     [XmlAttribute] public int alignCubeHeight;
-    [XmlAttribute] public bool ignoreAdjustCubePosition;
+    [XmlAttribute] public bool ignoreAdjustCubePosition = false;
 }
