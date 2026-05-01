@@ -61,8 +61,8 @@ public class AiParserTest {
             HashSet<string> definedPresets = new();
 
             bool hasReserved = data.Reserved.Count > 0;
-            bool hasBattle = data.Battle.Count > 0;
-            bool hasBattleEnd = data.BattleEnd.Count > 0;
+            bool hasBattle = data.Battle.Entries.Count > 0;
+            bool hasBattleEnd = data.BattleEnd.Entries.Count > 0;
             bool hasAiPresets = data.AiPresets.Count > 0;
             bool hasAnyNodes = hasReserved || hasBattle || hasBattleEnd || hasAiPresets;
             bool hasAnySubNodes = false;
@@ -81,13 +81,13 @@ public class AiParserTest {
                 hasAnySubNodes = true;
             }
 
-            foreach (Entry entry in data.Battle) {
+            foreach (Entry entry in data.Battle.Entries) {
                 TestEntry(entry, definedPresets);
 
                 hasAnySubNodes = true;
             }
 
-            foreach (Entry entry in data.BattleEnd) {
+            foreach (Entry entry in data.BattleEnd.Entries) {
                 TestEntry(entry, definedPresets);
 
                 hasAnySubNodes = true;

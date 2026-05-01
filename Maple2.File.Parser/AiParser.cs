@@ -40,27 +40,31 @@ public class AiParser {
             }
             XmlNode? battleNode = document.SelectSingleNode("npcAi/battle");
             if (battleNode != null) {
+                ai.Battle.startAni = battleNode.Attributes?["startAni"]?.Value ?? string.Empty;
+                ai.Battle.endAni = battleNode.Attributes?["endAni"]?.Value ?? string.Empty;
+                ai.Battle.isBattle = battleNode.Attributes?["isBattle"]?.Value == "true";
                 XmlNode? commentNode = battleNode.PreviousSibling;
                 while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
 
                     if (comment.Value.Trim() == "전투") continue; // Redundant comment
-                    ai.Battle.Insert(0, new Comment {
+                    ai.Battle.Entries.Insert(0, new Comment {
                         Value = comment.Value,
                     });
                 }
-                ai.Battle.AddRange(ParseChildren(battleNode));
+                ai.Battle.Entries.AddRange(ParseChildren(battleNode));
             }
             XmlNode? battleEndNode = document.SelectSingleNode("npcAi/battleEnd");
             if (battleEndNode != null) {
+                ai.BattleEnd.onlyDead = battleEndNode.Attributes?["onlyDead"]?.Value == "true";
                 XmlNode? commentNode = battleEndNode.PreviousSibling;
                 while (includeComments && commentNode is XmlComment { Value: not null } comment) {
                     commentNode = commentNode.PreviousSibling;
-                    ai.BattleEnd.Insert(0, new Comment {
+                    ai.BattleEnd.Entries.Insert(0, new Comment {
                         Value = comment.Value,
                     });
                 }
-                ai.BattleEnd.AddRange(ParseChildren(battleEndNode));
+                ai.BattleEnd.Entries.AddRange(ParseChildren(battleEndNode));
             }
             XmlNode? aiPresetsNode = document.SelectSingleNode("npcAi/aiPresets");
             if (aiPresetsNode != null) {
