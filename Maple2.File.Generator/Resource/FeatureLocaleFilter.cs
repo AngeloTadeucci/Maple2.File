@@ -65,7 +65,9 @@ public static class FeatureLocaleFilter {
             }
 
             int version = Features[entry.Feature];
-            if (version > maxVersion) {
+            if (version > maxVersion ||
+                // This is how the client resolves same version matches. Dumb as bricks.
+                (version == maxVersion && string.Compare(entry.Feature, result.Feature, StringComparison.Ordinal) > 0)) {
                 result = entry;
                 maxVersion = version;
             }
