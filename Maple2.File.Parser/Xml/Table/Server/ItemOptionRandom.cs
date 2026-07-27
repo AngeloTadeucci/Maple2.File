@@ -10,6 +10,7 @@ public class ItemOptionRandomRoot {
 
 public class ItemOptionRandom {
     [XmlAttribute] public int code;
+    [XmlAttribute] public int grade; // custom
     [XmlAttribute] public int statGroup;
     [XmlAttribute] public int levelGroupID;
     [XmlAttribute] public int pickCount;
