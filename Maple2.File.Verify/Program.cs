@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Maple2.File.IO;
 
 if (args.Length < 1) {

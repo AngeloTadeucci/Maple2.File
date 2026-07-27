@@ -22,5 +22,5 @@ public partial class CharacterCreateSelectList : IFeatureLocale {
     [M2dArray] public int[] order = Array.Empty<int>();
     [M2dArray] public int[] disableJobCode = Array.Empty<int>();
     [M2dArray] public int[] selectJobCode = Array.Empty<int>();
-    [M2dArray] public int[] randomselectJobCode  = Array.Empty<int>();
+    [M2dArray] public int[] randomselectJobCode = Array.Empty<int>();
 }

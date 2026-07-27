@@ -229,7 +229,7 @@ public class TableParser {
         characterCreateSelectSerializer = new XmlSerializer(typeof(CharacterCreateSelect));
         fameSerializer = new XmlSerializer(typeof(FameRoot));
         fameDefSerializer = new XmlSerializer(typeof(FameDef));
-        fameLimitSerializer  = new XmlSerializer(typeof(FameLimitRoot));
+        fameLimitSerializer = new XmlSerializer(typeof(FameLimitRoot));
         fameLogSerializer = new XmlSerializer(typeof(FameLogRoot));
         famePickMethodSerializer = new XmlSerializer(typeof(FamePickMethod));
         characterAbilitySerializer = new XmlSerializer(typeof(CharacterAbilityRoot));

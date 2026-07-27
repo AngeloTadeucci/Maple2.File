@@ -4,7 +4,7 @@ namespace Maple2.File.Parser.Xml.Table;
 
 // ./data/xml/table/clubbuff.xml
 [XmlRoot("ms2")]
-public  class ClubBuffRoot {
+public class ClubBuffRoot {
     [XmlElement] public List<ClubBuff> clubBuff;
 }
 

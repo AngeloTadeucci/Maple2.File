@@ -1,0 +1,4 @@
+# Normalise line endings to LF in the repository and in every checkout, so that
+# `dotnet format whitespace` produces identical output on Windows and on the Linux
+# CI runners. Keep end_of_line in .editorconfig set to lf to match.
+* text=auto eol=lf

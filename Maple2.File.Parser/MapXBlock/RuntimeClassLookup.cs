@@ -48,6 +48,14 @@ public sealed class RuntimeClassLookup : ClassLookup {
         ms2Actor.Properties.Add(spawnRadius.Name, spawnRadius);
         ms2Actor.Properties.Add(npcCount.Name, npcCount);
         ms2Actor.Properties.Add(reactableSequenceName.Name, reactableSequenceName);
+        // Some MS2InteractActor entities double as NPC spawn points (e.g.
+        // 11000119_MS2InteractActor_Moonrabbit on 80000022_bonus) and carry the SpawnPointNPC
+        // property set, which the flat definition does not declare.
+        FlatType ms2InteractActor = index.GetType("MS2InteractActor");
+        ms2InteractActor.Properties.TryAdd(npcList.Name, npcList);
+        ms2InteractActor.Properties.TryAdd(spawnPointID.Name, spawnPointID);
+        ms2InteractActor.Properties.TryAdd(spawnRadius.Name, spawnRadius);
+        ms2InteractActor.Properties.TryAdd(npcCount.Name, npcCount);
 
         // Generate classes for all model types. This is very quick and allows parallelism without conflicts.
         foreach (FlatType type in index.GetAllTypes()) {

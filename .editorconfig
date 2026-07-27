@@ -1,7 +1,10 @@
 
 [*]
 charset = utf-8-bom
-end_of_line = crlf
+# Must match .gitattributes (eol=lf). When these disagree, `dotnet format whitespace`
+# rewrites every file in the repo on whichever platform checks out the other ending -
+# the Format workflow runs on Linux and used to commit a 790-file CRLF churn onto every PR.
+end_of_line = lf
 trim_trailing_whitespace = true
 insert_final_newline = true
 indent_style = space
