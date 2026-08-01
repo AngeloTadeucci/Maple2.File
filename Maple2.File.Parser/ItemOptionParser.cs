@@ -19,6 +19,7 @@ public class ItemOptionParser {
         "gemstone",
         "mergematerial",
         "skin",
+        "kms2merge", // custom
     ];
     private readonly string[] randomSuffix = [
         "12",
