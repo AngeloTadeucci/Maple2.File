@@ -1,4 +1,6 @@
-﻿using Maple2.File.Parser;
+﻿using System.Numerics;
+using Maple2.File.Parser;
+using Maple2.File.Parser.Enum;
 using Maple2.File.Parser.Xml.Table;
 using Maple2.File.Parser.Xml.Table.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -481,6 +483,35 @@ public class ServerTableParserTest {
         foreach ((_, _) in parser.ParseMaidRecipe()) {
             continue;
         }
+    }
+
+    [TestMethod]
+    public void TestDefaultCharacterInfo() {
+        var parser = new ServerTableParser(TestUtils.ServerReader);
+
+        Dictionary<Gender, DefaultCharacterInfo> infos = parser.ParseDefaultCharacterInfo()
+            .ToDictionary(entry => entry.Gender, entry => entry.Info);
+
+        CollectionAssert.AreEquivalent(new[] { Gender.Male, Gender.Female }, infos.Keys.ToArray());
+
+        foreach (DefaultCharacterInfo info in infos.Values) {
+            Assert.IsTrue(info.skin.colorPaletteID > 0);
+            // The client needs a default for every gender-locked appearance slot.
+            CollectionAssert.AreEquivalent(new[] { "HR", "FA", "FD", "ER" },
+                info.items.item.Select(item => item.slotHint).ToArray());
+            Assert.IsTrue(info.items.item.All(item => item.id > 0));
+        }
+
+        // Slots with no palette override keep the sentinel rather than falling back to swatch 0.
+        Assert.IsTrue(infos.Values
+            .SelectMany(info => info.items.item)
+            .Any(item => item.colorSN == -1));
+
+        DefaultCharacterInfo.Item hair = infos[Gender.Female].items.item.First(item => item.slotHint == "HR");
+        Assert.AreEqual(2, hair.controls.control.Count);
+        Assert.AreNotEqual(0f, hair.controls.control[0].scale);
+        Assert.AreNotEqual(Vector3.Zero, hair.controls.control[0].position);
+        Assert.AreNotEqual(Vector3.Zero, hair.controls.control[0].rotation);
     }
 }
 

@@ -65,6 +65,7 @@ public class ServerTableParser {
     private readonly XmlSerializer npcStatFactorByLevelSerializer;
     private readonly XmlSerializer maidGradeInfoSerializer;
     private readonly XmlSerializer maidRecipeSerializer;
+    private readonly XmlSerializer defaultCharacterInfoSerializer;
 
     public ServerTableParser(M2dReader xmlReader) {
         this.xmlReader = xmlReader;
@@ -111,6 +112,7 @@ public class ServerTableParser {
         npcStatFactorByLevelSerializer = new XmlSerializer(typeof(NpcStatFactorByLevelRoot));
         maidGradeInfoSerializer = new XmlSerializer(typeof(MaidGradeInfoRoot));
         maidRecipeSerializer = new XmlSerializer(typeof(MaidRecipeRoot));
+        defaultCharacterInfoSerializer = new XmlSerializer(typeof(DefaultCharacterInfoRoot));
 
         // var seen = new HashSet<string>();
         // this.bankTypeSerializer.UnknownAttribute += (sender, args) => {
@@ -754,6 +756,16 @@ public class ServerTableParser {
 
         foreach (MaidRecipe entry in data.recipe) {
             yield return (entry.Id, entry);
+        }
+    }
+
+    public IEnumerable<(Gender Gender, DefaultCharacterInfo Info)> ParseDefaultCharacterInfo() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/Server/defaultCharacterInfo.xml"));
+        var data = defaultCharacterInfoSerializer.Deserialize(reader) as DefaultCharacterInfoRoot;
+        Debug.Assert(data != null);
+
+        foreach (DefaultCharacterInfo info in data.gender) {
+            yield return (info.value, info);
         }
     }
 }
