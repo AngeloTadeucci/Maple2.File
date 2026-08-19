@@ -14,7 +14,8 @@ public class MapXBlockDataRoot {
 }
 
 public class ClientProperty {
-    [XmlAttribute] public string bgDay;
+    [XmlAttribute] public string bgDay = string.Empty;
+    [XmlAttribute] public string bgNight = string.Empty;
 }
 
 public partial class Minimap {
@@ -25,12 +26,12 @@ public partial class Minimap {
     [XmlElement] public Edit edit;
 
     public class Image {
-        [XmlAttribute] public string name;
+        [XmlAttribute] public string name = string.Empty;
         [XmlAttribute] public float left;
         [XmlAttribute] public float right;
         [XmlAttribute] public float top;
         [XmlAttribute] public float bottom;
-        [XmlAttribute] public string icon;
+        [XmlAttribute] public string icon = string.Empty;
     }
 
     public class Frustum {
@@ -61,14 +62,14 @@ public partial class Minimap {
 }
 
 public partial class Fog {
-    [M2dColor] public System.Drawing.Color color;
+    [XmlAttribute] public string color = string.Empty;
     [XmlAttribute] public float near;
     [XmlAttribute] public float far;
 }
 
 public partial class HeightFog {
-    [M2dColor] public System.Drawing.Color color;
+    [XmlAttribute] public string color = string.Empty;
     [XmlAttribute] public float upper;
     [XmlAttribute] public float lower;
-    [XmlAttribute] public int percentage;
+    [XmlAttribute] public float percentage;
 }
