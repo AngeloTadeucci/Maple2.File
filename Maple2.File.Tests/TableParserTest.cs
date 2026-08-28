@@ -649,6 +649,32 @@ public class TableParserTest {
         }
     }
 
+    // fieldPortal is the client's sub-map to exploration-zone source. The counts and the
+    // Turtcoli Cave edge are what PrivateMaple2 ingests into FieldPortalZoneTable, so a
+    // parse that silently drops portalIndoor or indoor would change server behaviour.
+    [TestMethod]
+    public void TestFieldMetaData() {
+        Dictionary<int, FieldPortal> entries = _parser.ParseFieldMetaData()
+            .ToDictionary(result => result.Id, result => result.Portal);
+
+        Assert.AreEqual(1008, entries.Count);
+        Assert.AreEqual(299, entries.Values.Count(entry => !entry.indoor));
+
+        // Turtcoli Cave reaches Royal Road Plaza through a portalIndoor edge (PrivateMaple2 #388).
+        Assert.IsTrue(entries.TryGetValue(2000250, out FieldPortal? cave));
+        Assert.IsNotNull(cave);
+        Assert.IsTrue(cave.indoor);
+        Assert.IsTrue(cave.portal.Any(portal => portal.targetField == 2000114 && portal.portalIndoor));
+
+        // The PvP arena's portals all target field 0, so it joins no component.
+        Assert.IsTrue(entries.TryGetValue(65010004, out FieldPortal? arena));
+        Assert.IsNotNull(arena);
+        Assert.IsTrue(arena.portal.All(portal => portal.targetField == 0));
+
+        // Wedding Village has no entry at all and never remaps.
+        Assert.IsFalse(entries.ContainsKey(84000001));
+    }
+
     [TestMethod]
     public void TestWorldMap() {
         foreach ((_, _) in _parser.ParseWorldMap()) {
