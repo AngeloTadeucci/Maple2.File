@@ -96,6 +96,7 @@ public class TableParser {
     private readonly XmlSerializer blackMarketSerializer;
     private readonly XmlSerializer changeJobSerializer;
     private readonly XmlSerializer fieldMissionSerializer;
+    private readonly XmlSerializer fieldMetaDataSerializer;
     private readonly XmlSerializer worldMapSerializer;
     private readonly XmlSerializer mapleSurvivalSkinInfoSerializer;
     private readonly XmlSerializer weddingExpSerializer;
@@ -212,6 +213,7 @@ public class TableParser {
         blackMarketSerializer = new XmlSerializer(typeof(BlackMarketRoot));
         changeJobSerializer = new XmlSerializer(typeof(ChangeJobRoot));
         fieldMissionSerializer = new XmlSerializer(typeof(FieldMissionRoot));
+        fieldMetaDataSerializer = new XmlSerializer(typeof(FieldMetaDataRoot));
         worldMapSerializer = new XmlSerializer(typeof(WorldMapRoot));
         mapleSurvivalSkinInfoSerializer = new XmlSerializer(typeof(MapleSurvivalSkinInfoRoot));
         weddingExpSerializer = new XmlSerializer(typeof(WeddingExpRoot));
@@ -1402,6 +1404,17 @@ public class TableParser {
 
         foreach (FieldMission entry in data.round) {
             yield return (entry.mission, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, FieldPortal Portal)> ParseFieldMetaData() {
+        string xml = Sanitizer.RemoveEmpty(xmlReader.GetString(xmlReader.GetEntry($"table/{locale}/fieldmetadata.xml")));
+        var reader = XmlReader.Create(new StringReader(xml));
+        var data = fieldMetaDataSerializer.Deserialize(reader) as FieldMetaDataRoot;
+        Debug.Assert(data != null);
+
+        foreach (FieldPortal entry in data.fieldPortal) {
+            yield return (entry.field, entry);
         }
     }
 
