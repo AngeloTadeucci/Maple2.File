@@ -888,4 +888,18 @@ public class TableParserTest {
             continue;
         }
     }
+
+    [TestMethod]
+    public void TestReactor() {
+        foreach ((_, _) in _parser.ParseReactor()) {
+            continue;
+        }
+    }
+
+    [TestMethod]
+    public void TestReactorState() {
+        foreach ((_, _) in _parser.ParseReactorState()) {
+            continue;
+        }
+    }
 }
