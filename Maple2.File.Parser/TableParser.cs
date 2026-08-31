@@ -123,6 +123,8 @@ public class TableParser {
     private readonly XmlSerializer maidRecipeSerializer;
     private readonly XmlSerializer maidRecipeGroupSerializer;
     private readonly XmlSerializer maidSalarySerializer;
+    private readonly XmlSerializer reactorSerializer;
+    private readonly XmlSerializer reactorStateSerializer;
 
     private readonly string locale;
     private readonly string language;
@@ -240,6 +242,8 @@ public class TableParser {
         maidRecipeSerializer = new XmlSerializer(typeof(MaidRecipeRoot));
         maidRecipeGroupSerializer = new XmlSerializer(typeof(MaidRecipeGroupRoot));
         maidSalarySerializer = new XmlSerializer(typeof(MaidSalaryRoot));
+        reactorSerializer = new XmlSerializer(typeof(ReactorRoot));
+        reactorStateSerializer = new XmlSerializer(typeof(ReactorStateRoot));
 
         locale = FeatureLocaleFilter.Locale.ToLower();
         this.language = language;
@@ -1822,6 +1826,26 @@ public class TableParser {
 
         foreach (MaidSalary entry in data.key) {
             yield return (entry.id, entry);
+        }
+    }
+
+    public IEnumerable<(int Id, Reactor Reactor)> ParseReactor() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/reactor.xml"));
+        var data = reactorSerializer.Deserialize(reader) as ReactorRoot;
+        Debug.Assert(data != null);
+
+        foreach (Reactor reactor in data.reactor) {
+            yield return (reactor.id, reactor);
+        }
+    }
+
+    public IEnumerable<(int Id, ReactorState State)> ParseReactorState() {
+        XmlReader reader = xmlReader.GetXmlReader(xmlReader.GetEntry("table/reactorstate.xml"));
+        var data = reactorStateSerializer.Deserialize(reader) as ReactorStateRoot;
+        Debug.Assert(data != null);
+
+        foreach (ReactorState state in data.reactorState) {
+            yield return (state.id, state);
         }
     }
 }
